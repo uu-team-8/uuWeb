@@ -33,3 +33,18 @@ jobs:
               run: npm install
             - name: Run build
               run: npm run build --if-present
+            - name: SFTP Deploy
+              uses: wlixcc/SFTP-Deploy-Action@v1.2.1
+              with:
+                  username: root
+                  server: uu.vojtechpetrasek.com
+                  port: 22 # default is 22
+                  ssh_private_key: ${{ secrets.UUSERVER }}
+
+                  # will put all file under this path
+                  local_path: ./build/* # default is ./*
+                  # files will copy to under remote_path
+                  remote_path: /var/www
+
+                  # sftp args
+                  args: "-o ConnectTimeout=5"
