@@ -25,9 +25,9 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: "npm"
-            - name: Run CI
+            - name: Run install
               working-directory: ./frontend
-              run: npm ci
+              run: npm install
             - name: Run build
               working-directory: ./frontend
               run: npm run build --if-present
