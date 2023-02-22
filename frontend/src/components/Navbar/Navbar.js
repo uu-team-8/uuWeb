@@ -21,25 +21,25 @@ class NavBar extends React.Component {
                                     <a
                                         class="nav-link active"
                                         aria-current="page"
-                                        href="#"
+                                        href="/"
                                     >
                                         Home
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="/">
                                         Docs
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="/">
                                         Team
                                     </a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a
                                         class="nav-link dropdown-toggle"
-                                        href="#"
+                                        href="/"
                                         role="button"
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false"
@@ -48,17 +48,17 @@ class NavBar extends React.Component {
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item" href="/">
                                                 Gateways
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item" href="/">
                                                 Sensors
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item" href="/">
                                                 LoRa
                                             </a>
                                         </li>
