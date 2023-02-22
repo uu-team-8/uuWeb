@@ -8,7 +8,7 @@ class AddUser extends React.Component {
         return (
             <>
                 <NavBar />
-                <div class="container-fluid row">
+                <div className="container-fluid row">
                     <UserForm />
                 </div>
                 <Footer />
