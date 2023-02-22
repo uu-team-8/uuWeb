@@ -24,11 +24,10 @@ jobs:
         steps:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
             - uses: actions/checkout@v3
-            - name: Going to Frontend folder
-            - run: cd frontend
 
             # Runs a single command using the runners shell
             - name: Use Node.js 17.x
+              working-directory: ./frontend
               uses: actions/setup-node@v1
               with:
                   node-version: 17.x
