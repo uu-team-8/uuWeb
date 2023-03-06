@@ -6,7 +6,7 @@ class NavBar extends React.Component {
     render() {
         return (
             <>
-                <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                <nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
                     <div class="container">
                         <a class="navbar-brand" href="/">
                             {/*<img height="70" alt="Logo" loading="lazy" />*/}
@@ -48,7 +48,10 @@ class NavBar extends React.Component {
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a class="dropdown-item" href="/">
+                                            <a
+                                                class="dropdown-item"
+                                                href="/gateways"
+                                            >
                                                 Gateways
                                             </a>
                                         </li>
