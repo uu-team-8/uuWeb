@@ -1,6 +1,8 @@
 import type { FC } from "react";
 import { Link } from "wouter";
 
+import SpinningSchnitzel from "../components/spinning-schnitzel";
+
 const Home: FC = () => {
     return (
         <>
@@ -15,6 +17,7 @@ const Home: FC = () => {
                     registrace
                 </button>
             </Link>
+            <SpinningSchnitzel />
         </>
     )
 }
