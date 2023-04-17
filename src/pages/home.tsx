@@ -1,25 +1,24 @@
 import type { FC } from "react";
 import { Link } from "wouter";
-
-import SpinningSchnitzel from "../components/spinning-schnitzel";
+import styled from "@emotion/styled";
 
 const Home: FC = () => {
     return (
         <>
-            <p>Home</p>
-            <Link href="/prihlaseni">
-                <button type="button">
-                    prihlaseni
-                </button>
-            </Link>
-            <Link href="/registrace">
-                <button type="button">
-                    registrace
-                </button>
-            </Link>
-            <SpinningSchnitzel />
-        </>
+            <StyledHeader>
+                <p>David</p>
+            </StyledHeader>
+            <>
+                <h1>Dashboard</h1>
+            </>
+        </> 
     )
 }
+
+const StyledHeader = styled.header`
+    display: flex;
+    flex-direction: row;
+`
+
 
 export default Home;
