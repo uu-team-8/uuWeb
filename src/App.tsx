@@ -1,6 +1,8 @@
 import type { FC } from "react";
 import { Switch, Route } from "wouter";
-import { Global, css } from "@emotion/react";
+import { Global, ThemeProvider, css } from "@emotion/react";
+
+import { Theme } from "./style-variables";
 
 import Login from "./pages/login";
 import Register from "./pages/register";
@@ -8,7 +10,7 @@ import Home from "./pages/home";
 
 const App: FC = () => {
   return (
-    <>
+    <ThemeProvider theme={Theme}>
       <Global
         styles={css`
         * {
@@ -16,7 +18,7 @@ const App: FC = () => {
           padding: 0;
           box-sizing: border-box;
         }
-      `}
+        `}
       />
       <Switch>
         <Route path="/prihlaseni" component={Login} />
@@ -24,7 +26,7 @@ const App: FC = () => {
 
         <Route path="/" component={Home} />
       </Switch>
-    </>
+    </ThemeProvider>
   )
 }
 
