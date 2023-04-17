@@ -8,7 +8,7 @@ export const Theme = {
         green: "#1DB954",
         blue: "#2E77D0",
     },
-    grey: {
+    gray: {
         gray10: "#181818",
         gray15: "#282828",
         gray20: "#333333",

@@ -15,7 +15,7 @@ const LeftPanel: FC = () => {
 const Wrapper = styled("div") <{ expanded: boolean }>`
     width: ${p => p.expanded ? "228px" : "72px"};
     height: 100vh;
-    background-color: ${p => p.theme.UI.gray10};
+    background-color: ${p => p.theme.gray.gray10};
 `
 
 export default LeftPanel;
