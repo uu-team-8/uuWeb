@@ -1,6 +1,14 @@
 export const Theme = {
     UI: {
         black: "#000000",
+        white: "#FFFFFF",
+        red: "#E22134",
+        orange: "#FF9800",
+        yellow: "#FFED51",
+        green: "#1DB954",
+        blue: "#2E77D0",
+    },
+    grey: {
         gray10: "#181818",
         gray15: "#282828",
         gray20: "#333333",
@@ -12,12 +20,8 @@ export const Theme = {
         gray85: "#D9D9D9",
         gray90: "#EEEEEE",
         gray95: "#F8F8F8",
-        white: "#FFFFFF",
-        red: "#E22134",
-        orange: "#FF9800",
-        yellow: "#FFED51",
-        green: "#1DB954",
-        blue: "#2E77D0",
+        grey700: "#616161",
+        grey800: "#424242",
     },
     brand: {
         aqua: "#9BF0E1",
