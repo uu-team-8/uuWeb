@@ -1,14 +1,13 @@
 import type { FC } from "react";
 import { Link } from "wouter";
 
-import Input from "../components/input";
 
-const Login: FC = () => {
+const Home: FC = () => {
     return (
         <>
-            <Input />
+            <h1>Dashboard</h1>
         </>
     )
 }
 
-export default Login;
+export default Home;
