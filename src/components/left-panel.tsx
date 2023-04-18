@@ -18,4 +18,17 @@ const Wrapper = styled("div") <{ expanded: boolean }>`
     background-color: ${p => p.theme.gray.gray10};
 `
 
+const LeftPanelItem: FC = () => {
+    return (
+        <ItemWrapper>
+
+        </ItemWrapper>
+    )
+}
+
+const ItemWrapper = styled("div")`
+    width: 224px;
+    height: 48px;
+`
+
 export default LeftPanel;
