@@ -1,73 +1,77 @@
 import type { FC } from "react";
-import { Link } from "wouter";
 import styled from "@emotion/styled";
 
 const Home: FC = () => {
     return (
-        <Container>
-            <StyledHeader>
-                <UserName>David</UserName>
-            </StyledHeader>
-            <>
-                <DashboardTitle>Dashboard</DashboardTitle>
-            </>
+        <Wrapper>
+            <Title>Dashboard</Title>
             <CardContainer>
                 <Card>
                     <CardTitle>Teplota</CardTitle>
+                    <Divider />
                 </Card>
 
                 <Card>
                     <CardTitle>Vlhkost</CardTitle>
+                    <Divider />
                 </Card>
             </CardContainer>
-        </Container> 
+        </Wrapper>
     )
 }
 
-const Container = styled.div`
+const Wrapper = styled("div")`
     width: 100%;
     min-height: 100%;
-    background-color: ${p => p.theme.gray.gray10};
+    background-color: ${p => p.theme.gray.gray20};
 `
 
-const StyledHeader = styled.header`
-    display: flex;
-    flex-direction: row;
-    height: 58px;
-    width: 100%;                                 
-    padding: 20px 70px;   
-`
-
-const UserName = styled.p`
-    font-weight: 300;
-    font-size: 20px;
-    margin-left: auto;
+const Title = styled("h1")`
     color: ${p => p.theme.UI.white};
+    font-family: "Helvetica";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 130px;
+    line-height: 26px;
+    letter-spacing: -0.25px;
+    text-align: center;
+    margin-top: 120px;
 `
 
-const DashboardTitle = styled.h1`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-weight: 200;
-    font-size: 39px;
-    color: ${p => p.theme.UI.white};
-`
-const CardContainer = styled.div`
+const CardContainer = styled("div")`
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    margin-top: 160px;
 `
 
-const Card = styled.div`
-    width: 479px;
-    height: 378px;
-    padding: 15px;
-    border-radius: 5px;
-    margin-top: 200px;
-    background-color: ${p => p.theme.gray.grey800};
+const Card = styled("div")`
+    min-width: 479px;
+    min-height: 378px;
+    position: relative;
+    padding: 16px;
+    border-radius: 4px;
+    background-color: ${p => p.theme.gray.gray800};
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12);
 `
-const CardTitle = styled.h2`
+
+const CardTitle = styled("h2")`
     color: ${p => p.theme.UI.white};
+    font-family: "Helvetica";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.25px;
 `
+
+const Divider = styled("div")`
+    width: 100%;
+    height: 1px;
+    background-color: ${p => p.theme.gray.gray700};
+    position: absolute;
+    top: 64px;
+    left: 0px;
+`
+
 export default Home;

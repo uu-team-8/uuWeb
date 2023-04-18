@@ -20,8 +20,8 @@ export const Theme = {
         gray85: "#D9D9D9",
         gray90: "#EEEEEE",
         gray95: "#F8F8F8",
-        grey700: "#616161",
-        grey800: "#424242",
+        gray700: "#616161",
+        gray800: "#424242",
     },
     brand: {
         aqua: "#9BF0E1",

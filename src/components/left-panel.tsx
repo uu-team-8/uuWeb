@@ -13,7 +13,7 @@ const LeftPanel: FC = () => {
 }
 
 const Wrapper = styled("div") <{ expanded: boolean }>`
-    width: ${p => p.expanded ? "228px" : "72px"};
+    min-width: ${p => p.expanded ? "228px" : "72px"};
     height: 100vh;
     background-color: ${p => p.theme.gray.gray10};
 `
