@@ -21,6 +21,8 @@ const App: FC = () => {
           margin: 0;
           padding: 0;
           box-sizing: border-box;
+          font-family: "Helvetica";
+          font-style: normal;
         }
         html,body {
           width: 100%;

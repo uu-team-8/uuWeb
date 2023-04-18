@@ -23,14 +23,13 @@ const Wrapper = styled("div")`
 
 const Title = styled("h1")`
     color: ${p => p.theme.UI.white};
-    font-family: "Helvetica";
-    font-style: normal;
     font-weight: 700;
     font-size: 130px;
     line-height: 26px;
     letter-spacing: -0.25px;
     text-align: center;
     margin-top: 120px;
+    text-shadow: 0px 4px 7px rgba(0, 0, 0, 0.25);
 `
 
 const CardContainer = styled("div")`

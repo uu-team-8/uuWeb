@@ -26,8 +26,6 @@ const Wrapper = styled("div")`
 
 const Title = styled("h2")`
     color: ${p => p.theme.UI.white};
-    font-family: "Helvetica";
-    font-style: normal;
     font-weight: 700;
     font-size: 24px;
     line-height: 32px;
