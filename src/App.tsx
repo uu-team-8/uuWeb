@@ -5,7 +5,8 @@ import { Global, ThemeProvider, css } from "@emotion/react";
 
 import { Theme } from "./style-variables";
 
-import LeftPanel from "./components/left-panel";
+import LeftPanel, { LeftPanelItem } from "./components/left-panel";
+import logo from "./assets/logo.svg";
 
 import Login from "./pages/login";
 import Register from "./pages/register";

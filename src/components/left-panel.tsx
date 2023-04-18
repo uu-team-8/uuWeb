@@ -18,10 +18,16 @@ const Wrapper = styled("div") <{ expanded: boolean }>`
     background-color: ${p => p.theme.gray.gray10};
 `
 
-const LeftPanelItem: FC = () => {
+interface LeftPanelItemProps {
+    icon: string
+    label: string
+}
+
+export const LeftPanelItem: FC<LeftPanelItemProps> = ({ icon, label }) => {
     return (
         <ItemWrapper>
-
+            <img src={icon} alt="icon" />
+            <p>{label}</p>
         </ItemWrapper>
     )
 }
@@ -29,6 +35,11 @@ const LeftPanelItem: FC = () => {
 const ItemWrapper = styled("div")`
     width: 224px;
     height: 48px;
+    
+    > img {
+        width: 24px;
+        height: 24px;
+    }
 `
 
 export default LeftPanel;
