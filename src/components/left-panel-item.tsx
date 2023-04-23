@@ -6,15 +6,16 @@ interface LeftPanelItemProps {
     icon: JSX.Element
     label: string
     href: string
+    large?: boolean
 }
 
-const LeftPanelItem: FC<LeftPanelItemProps> = ({ icon, label, href }) => {
+const LeftPanelItem: FC<LeftPanelItemProps> = ({ icon, label, href, large }) => {
     const [location] = useLocation();
 
     return (
         <Link href={href}>
-            <Wrapper>
-                <Content selected={location == href}>
+            <Wrapper large={large}>
+                <Content selected={location == href} large={large}>
                     <SelectedIndicator />
                     {icon}
                     <p>{label}</p>
@@ -24,11 +25,18 @@ const LeftPanelItem: FC<LeftPanelItemProps> = ({ icon, label, href }) => {
     )
 }
 
-const Wrapper = styled("div")`
+const Wrapper = styled("div") <{ large?: boolean }>`
     width: 224px;
-    height: 48px;
+    height: ${p => p.large ? "64px" : "48px"};
     padding: 8px 0px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    svg {
+        width: ${p => p.large ? "36px" : "24px"};
+        height: ${p => p.large ? "36px" : "24px"};
+    }
 `
 
 const SelectedIndicator = styled("div")`
@@ -36,7 +44,7 @@ const SelectedIndicator = styled("div")`
     height: 32px;
 `
 
-const Content = styled("div") <{ selected: boolean }>`
+const Content = styled("div") <{ selected: boolean, large?: boolean }>`
     display: flex;
     align-items: center;
     color: ${p => p.selected ? p.theme.UI.white : p.theme.gray.gray75};
@@ -46,10 +54,8 @@ const Content = styled("div") <{ selected: boolean }>`
     }
 
     > svg {
-        width: 24px;
-        height: 24px;
         fill: ${p => p.selected ? p.theme.UI.white : p.theme.gray.gray75};
-        margin-left: 21px;
+        margin-left: ${p => p.large ? "15px" : "21px"};
     }
 
     > p {
