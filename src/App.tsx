@@ -1,16 +1,12 @@
 import type { FC } from "react";
-import { useState } from "react";
 import styled from "@emotion/styled";
 import { Switch, Route } from "wouter";
 import { Global, ThemeProvider, css } from "@emotion/react";
 
 import { Theme } from "./style-variables";
 
-import LeftPanel, { LeftPanelItem } from "./components/left-panel";
-import logo from "./assets/logo.svg";
-import dashboardIcon from "./assets/icons/dashboard.svg";
-import thermostatIcon from "./assets/icons/thermostat.svg";
-import waterDropIcon from "./assets/icons/water-drop.svg";
+import LeftPanel from "./components/left-panel";
+import LeftPanelItem from "./components/left-panel-item";
 
 import Login from "./pages/login";
 import Register from "./pages/register";
@@ -19,8 +15,6 @@ import Temperature from "./pages/temperature";
 import Humidity from "./pages/humidity";
 
 const App: FC = () => {
-  const [leftPanelExpanded, setLeftPanelExpanded] = useState(false);
-
   return (
     <AppWrapper>
       <ThemeProvider theme={Theme}>
@@ -39,7 +33,7 @@ const App: FC = () => {
         }
         `}
         />
-        <LeftPanel expanded={leftPanelExpanded}>
+        <LeftPanel>
           <LeftPanelItem
             icon={<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M520 456V216h320v240H520ZM120 616V216h320v400H120Zm400 320V536h320v400H520Zm-400 0V696h320v240H120Zm80-400h160V296H200v240Zm400 320h160V616H600v240Zm0-480h160v-80H600v80ZM200 856h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360 776Z" /></svg>}
             label="Dashboard"
