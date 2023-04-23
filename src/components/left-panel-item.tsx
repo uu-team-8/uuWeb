@@ -6,17 +6,17 @@ interface LeftPanelItemProps {
     icon: JSX.Element
     label: string
     href: string
+    expanded: boolean
     large?: boolean
 }
 
-const LeftPanelItem: FC<LeftPanelItemProps> = ({ icon, label, href, large }) => {
+const LeftPanelItem: FC<LeftPanelItemProps> = ({ icon, label, href, large, expanded }) => {
     const [location] = useLocation();
 
     return (
         <Link href={href}>
-            <Wrapper large={large}>
+            <Wrapper large={large} expanded={expanded}>
                 <Content selected={location == href} large={large}>
-                    <SelectedIndicator />
                     {icon}
                     <p>{label}</p>
                 </Content>
@@ -25,8 +25,8 @@ const LeftPanelItem: FC<LeftPanelItemProps> = ({ icon, label, href, large }) => 
     )
 }
 
-const Wrapper = styled("div") <{ large?: boolean }>`
-    width: 224px;
+const Wrapper = styled("div") <{ large?: boolean, expanded: boolean }>`
+    width: 228px;
     height: ${p => p.large ? "64px" : "48px"};
     padding: 8px 0px;
     cursor: pointer;
@@ -36,6 +36,14 @@ const Wrapper = styled("div") <{ large?: boolean }>`
     svg {
         width: ${p => p.large ? "36px" : "24px"};
         height: ${p => p.large ? "36px" : "24px"};
+    }
+
+    &:hover {
+        background-color: ${p => p.theme.gray.gray15};
+    }
+
+    &:active {
+        background-color: ${p => p.theme.gray.gray20};
     }
 `
 
