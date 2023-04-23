@@ -13,6 +13,7 @@ import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
 import Temperature from "./pages/temperature";
 import Humidity from "./pages/humidity";
+import Profile from "./pages/profile";
 
 const App: FC = () => {
   return (
@@ -30,6 +31,8 @@ const App: FC = () => {
         html,body {
           width: 100%;
           height: 100%;
+          color: #FFFFFF;
+          background-color: #333333;
         }
         `}
         />
@@ -54,6 +57,7 @@ const App: FC = () => {
           <Route path="/" component={Dashboard} />
           <Route path="/teplota" component={Temperature} />
           <Route path="/vlhkost" component={Humidity} />
+          <Route path="/profil" component={Profile} />
         </Switch>
       </ThemeProvider>
     </AppWrapper>
