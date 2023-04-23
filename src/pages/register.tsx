@@ -9,6 +9,7 @@ import Button from "../components/button";
 
 const Register: FC = () => {
     const [userName, setUserName] = useState("");
+    const [userSurName, setSurUserName] = useState("");
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
     const [userPasswordCheck, setUserPasswordCheck] = useState("");
@@ -19,7 +20,7 @@ const Register: FC = () => {
     async function sendRegInfo(e: FormEvent){
         e.preventDefault();
     
-        if (userName == "" || userPassword == "" || userPasswordCheck == "" || userEmail == "") {
+        if (userName == "" || userSurName == "" || userPassword == "" || userPasswordCheck == "" || userEmail == "") {
             setErrorMess("Vyplňte všechna pole")
             return
         } else if (userPassword != userPasswordCheck) {
@@ -28,12 +29,15 @@ const Register: FC = () => {
         } else if (!emailVal) {
             setErrorMess("Neplatný email")
             return
-        };
+        };  
     
     
         const response = await fetch("http://localhost:3000/register", {
           method: "POST",
-        body: JSON.stringify({name: userName, email: userEmail, password: userPassword })
+          headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({name: userName, surname: userSurName, email: userEmail, password: userPassword })
         });
         const Validation = await response.json();
         if (!Validation) {
@@ -63,6 +67,10 @@ const Register: FC = () => {
         setUserName(Name)
     };
 
+    function SurName(SurName: string) {
+        setSurUserName(SurName)
+    };
+
     return (
   
      <Container>   
@@ -70,6 +78,7 @@ const Register: FC = () => {
         <RegistrationFormTitle>Registrace</RegistrationFormTitle>
 
         <Input InputPlaceholder="Jméno" InputType="text" InputValue={Name} />
+        <Input InputPlaceholder="Příjmení" InputType="text" InputValue={SurName} />
         <Input InputPlaceholder="Email" InputType="email" InputValue={EmailVal} />
         <Input InputPlaceholder="Heslo" InputType="password" InputValue={Password} />
         <Input InputPlaceholder="Heslo znovu" InputType="password" InputValue={PasswordCheck} />
