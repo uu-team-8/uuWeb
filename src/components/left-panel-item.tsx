@@ -6,16 +6,15 @@ interface LeftPanelItemProps {
     icon: JSX.Element
     label: string
     href: string
-    expanded: boolean
     large?: boolean
 }
 
-const LeftPanelItem: FC<LeftPanelItemProps> = ({ icon, label, href, large, expanded }) => {
+const LeftPanelItem: FC<LeftPanelItemProps> = ({ icon, label, href, large }) => {
     const [location] = useLocation();
 
     return (
         <Link href={href}>
-            <Wrapper large={large} expanded={expanded}>
+            <Wrapper large={large}>
                 <Content selected={location == href} large={large}>
                     {icon}
                     <p>{label}</p>
@@ -25,7 +24,7 @@ const LeftPanelItem: FC<LeftPanelItemProps> = ({ icon, label, href, large, expan
     )
 }
 
-const Wrapper = styled("div") <{ large?: boolean, expanded: boolean }>`
+const Wrapper = styled("div") <{ large?: boolean }>`
     width: 228px;
     height: ${p => p.large ? "64px" : "48px"};
     padding: 8px 0px;

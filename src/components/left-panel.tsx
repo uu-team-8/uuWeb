@@ -1,9 +1,14 @@
 import type { FC } from "react";
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
+import { Link } from "wouter";
+
 import LeftPanelItem from "./left-panel-item";
 import Spacer from "./spacer";
 import LoginButton from "./login-button";
+
+import logo from "../assets/logo.svg";
+import logoText from "../assets/logo-text.svg";
 
 interface LeftPanelProps {
     children: JSX.Element | JSX.Element[]
@@ -35,11 +40,18 @@ const LeftPanel: FC<LeftPanelProps> = ({ children }) => {
 
     return (
         <LeftPanelWrapper expanded={expanded}>
+            <Link href="/">
+                <Header expanded={expanded}>
+                    <img src={expanded ? logoText : logo} alt="logo-text" />
+                </Header>
+            </Link>
+            <LeftPanelDivider />
             {children}
             <Spacer />
             <ExpandButton onClick={() => setExpanded(!expanded)} expanded={expanded}>
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="m480 756 160-160H320l160 160ZM200 936q-33 0-56.5-23.5T120 856V296q0-33 23.5-56.5T200 216h560q33 0 56.5 23.5T840 296v560q0 33-23.5 56.5T760 936H200Zm560-520V296H200v120h560Zm-560 80v360h560V496H200Zm0-80V296v120Z" /></svg>
             </ExpandButton>
+            <LeftPanelDivider />
             {userSess[0] == null ?
             <LoginButton expanded={expanded}/>
             :
@@ -62,9 +74,22 @@ const LeftPanelWrapper = styled("div") <{ expanded: boolean }>`
     display: flex;
     flex-direction: column;
     user-select: none;
+    transition: all 1s;
 
     p {
         display: ${p => !p.expanded ? "none" : "block"};
+    }
+`
+
+const Header = styled("div") <{ expanded: boolean }>`
+    width: 228px;
+    height: 81px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    > img {
+        margin-left: 24px;
     }
 `
 
@@ -90,6 +115,13 @@ const ExpandButton = styled("div") <{ expanded: boolean }>`
     &:active {
         background-color: ${p => p.theme.gray.gray20};
     }
+`
+
+const LeftPanelDivider = styled("div")`
+    width: 228px;
+    height: 1px;
+    margin: 8px 0px;
+    background-color: ${p => p.theme.gray.gray25};
 `
 
 export default LeftPanel;
