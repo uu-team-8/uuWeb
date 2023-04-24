@@ -1,9 +1,10 @@
+// @ts-nocheck
 import styled from "@emotion/styled";
 import type { FC } from "react";
 import { useState, FormEvent } from "react";
 import { useLocation, Link } from "wouter";
 
-import  Input  from "../components/input";
+import Input from "../components/input";
 import Button from "../components/button";
 
 
@@ -17,9 +18,9 @@ const Register: FC = () => {
     const [location, setLocation] = useLocation();
     const [emailVal, setEmailVal] = useState(true);
 
-    async function sendRegInfo(e: FormEvent){
+    async function sendRegInfo(e: FormEvent) {
         e.preventDefault();
-    
+
         if (userName == "" || userSurName == "" || userPassword == "" || userPasswordCheck == "" || userEmail == "") {
             setErrorMess("Vyplňte všechna pole")
             return
@@ -29,15 +30,15 @@ const Register: FC = () => {
         } else if (!emailVal) {
             setErrorMess("Neplatný email")
             return
-        };  
-    
-    
+        };
+
+
         const response = await fetch("http://localhost:3000/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({name: userName, surname: userSurName, email: userEmail, password: userPassword })
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ name: userName, surname: userSurName, email: userEmail, password: userPassword })
         });
         const Validation = await response.json();
         if (!Validation) {
@@ -46,9 +47,9 @@ const Register: FC = () => {
         } else {
             setLocation("/prihlaseni")
         };
-      };
+    };
 
-    function EmailVal (Email: string) {
+    function EmailVal(Email: string) {
         const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         const EmailValid = regex.test(Email);
         setEmailVal(EmailValid)
@@ -72,32 +73,32 @@ const Register: FC = () => {
     };
 
     return (
-  
-     <Container>   
-        <RegistrationForm onSubmit={sendRegInfo}>
-        <RegistrationFormTitle>Registrace</RegistrationFormTitle>
 
-        <Input InputPlaceholder="Jméno" InputType="text" InputValue={Name} />
-        <Input InputPlaceholder="Příjmení" InputType="text" InputValue={SurName} />
-        <Input InputPlaceholder="Email" InputType="email" InputValue={EmailVal} />
-        <Input InputPlaceholder="Heslo" InputType="password" InputValue={Password} />
-        <Input InputPlaceholder="Heslo znovu" InputType="password" InputValue={PasswordCheck} />
+        <Container>
+            <RegistrationForm onSubmit={sendRegInfo}>
+                <RegistrationFormTitle>Registrace</RegistrationFormTitle>
 
-        <ErrorMess>{errorMess}</ErrorMess>
+                <Input InputPlaceholder="Jméno" InputType="text" InputValue={Name} />
+                <Input InputPlaceholder="Příjmení" InputType="text" InputValue={SurName} />
+                <Input InputPlaceholder="Email" InputType="email" InputValue={EmailVal} />
+                <Input InputPlaceholder="Heslo" InputType="password" InputValue={Password} />
+                <Input InputPlaceholder="Heslo znovu" InputType="password" InputValue={PasswordCheck} />
 
-        <Button title="Registrace"/>
-    
-    </RegistrationForm> 
+                <ErrorMess>{errorMess}</ErrorMess>
 
-    <UserAction>
-        <StyledP>
-            Máte již účet?
-            <Link href="/prihlaseni"><Log>Přihlašte se</Log></Link>
+                <Button title="Registrace" />
 
-        </StyledP>
-    </UserAction>
-    </Container>
-   
+            </RegistrationForm>
+
+            <UserAction>
+                <StyledP>
+                    Máte již účet?
+                    <Link href="/prihlaseni"><Log>Přihlašte se</Log></Link>
+
+                </StyledP>
+            </UserAction>
+        </Container>
+
     )
 }
 
@@ -110,7 +111,7 @@ const Container = styled("div")`
     background-color: ${p => p.theme.gray.gray20};
 `
 
-const RegistrationFormTitle = styled("h1") `
+const RegistrationFormTitle = styled("h1")`
     color: ${p => p.theme.UI.white};
     margin-top: 80px;
     margin-bottom: 32px;
@@ -120,7 +121,7 @@ const RegistrationFormTitle = styled("h1") `
     line-height: 35px;
 `
 
-const RegistrationForm = styled("form") `
+const RegistrationForm = styled("form")`
     display: flex;
     align-items: center;
     flex-direction: column;

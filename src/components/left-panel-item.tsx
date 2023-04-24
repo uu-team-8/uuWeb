@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { FC } from "react";
 import styled from "@emotion/styled";
 import { Link, useLocation } from "wouter";

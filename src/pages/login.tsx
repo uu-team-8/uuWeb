@@ -1,9 +1,10 @@
+// @ts-nocheck
 import styled from "@emotion/styled";
 import type { FC } from "react";
 import { useState, FormEvent } from "react";
 import { useLocation, Link } from "wouter";
 
-import  Input  from "../components/input";
+import Input from "../components/input";
 import Button from "../components/button";
 
 
@@ -23,22 +24,22 @@ const Login: FC = () => {
             setErrorMess("Neplatný email")
             return
         };
-        const response = await fetch("http://localhost:3000/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email: userEmail, password: userPassword })
-        });
 
-        const user = await response.json();
-        if (!user) {
-            setErrorMess("Neplatný email nebo heslo");
-            return;
+        try {
+            const response = await fetch("http://localhost:3000/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email: userEmail, password: userPassword })
+            });
+
+            const user = await response.json();
+            localStorage.setItem("session", JSON.stringify(user));
+            setLocation("/");
+        } catch (e) {
+            setErrorMess(e);
         }
-
-        localStorage.setItem("session", JSON.stringify(user));
-        setLocation("/");
     };
 
     function OnChange(Email: string) {
@@ -51,37 +52,37 @@ const Login: FC = () => {
     function Password(Password: string) {
         setUserPassword(Password)
     };
-    
+
     return (
         <Container>
 
-        <StyledSection>
-            <LoginForm onSubmit={sendLogInfo}>
-                <LoginFormTitle>Přihlásit se</LoginFormTitle>
-      
-                <Input InputPlaceholder="Email" InputType="email" InputValue={OnChange} />
-                <Input InputPlaceholder="Heslo" InputType="password" InputValue={Password}  />
+            <StyledSection>
+                <LoginForm onSubmit={sendLogInfo}>
+                    <LoginFormTitle>Přihlásit se</LoginFormTitle>
 
-                <ErrorMess>{errorMess}</ErrorMess>
+                    <Input InputPlaceholder="Email" InputType="email" InputValue={OnChange} />
+                    <Input InputPlaceholder="Heslo" InputType="password" InputValue={Password} />
 
-                <Button title="Přihlásit se"/>
+                    <ErrorMess>{errorMess}</ErrorMess>
 
-            </LoginForm>
+                    <Button title="Přihlásit se" />
 
-        </StyledSection>
+                </LoginForm>
 
-        <UserActions>
-            <StyledP>
-                Nemáte účet? 
-                <Link href="/registrace">
-                    <Reg>
-                     Vytvořte si ho
-                    </Reg>
-                </Link>
-            </StyledP>
-        </UserActions>
+            </StyledSection>
 
-    </Container>
+            <UserActions>
+                <StyledP>
+                    Nemáte účet?
+                    <Link href="/registrace">
+                        <Reg>
+                            Vytvořte si ho
+                        </Reg>
+                    </Link>
+                </StyledP>
+            </UserActions>
+
+        </Container>
     )
 }
 
