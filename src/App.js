@@ -4,17 +4,22 @@ import Home from "./sites/Home";
 import NotFound from "./sites/NotFound";
 import AddUser from "./sites/AddUser";
 import Gateways from "./sites/Gateways";
+import LoginPage from "./sites/Login";
+import RegisterPage from "./sites/Register";
+
 function App() {
-    return (
-        <Router>
-            <Routes>
-                <Route exact path="/" element={<Home />} />
-                <Route path="/add_user" element={<AddUser />}></Route>
-                <Route path="/gateways" element={<Gateways />}></Route>
-                <Route path="*" element={<NotFound />} />
-            </Routes>
-        </Router>
-    );
+  return (
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/add_user" element={<AddUser />} />
+        <Route path="/gateways" element={<Gateways />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
