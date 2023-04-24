@@ -1,14 +1,41 @@
 // @ts-nocheck
 import type { FC } from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 
+import { Session } from "../components/left-panel";
+
 const Temperature: FC = () => {
+
+    const [userSess, setUserSess] = useState<Session[]>([]);
+
+    function getUser() {
+        const sessionString = localStorage.getItem("session");
+        if (!sessionString) {
+            return null;
+        }
+
+        return setUserSess([JSON.parse(sessionString)]);
+    }
+
+    useEffect(() => {
+        getUser();
+    }, []);
+
     return (
         <Wrapper>
             <Title>Teplota</Title>
+        {!userSess[0] ? 
+            
+            <TextContainer>
+                <p>Pro zobrazení dat se musíte přihlásit !</p> 
+            </TextContainer>
+        
+        :
             <GraphContainer>
                 <iframe src="https://grafana.uu.vojtechpetrasek.com/d-solo/xRpNuj1Vk/uu-team-8?orgId=1&from=1677020400000&to=1677078000000&panelId=2" width="70%" height="400"></iframe>
             </GraphContainer>
+        }
         </Wrapper>
     )
 }
@@ -40,6 +67,12 @@ const GraphContainer = styled("div")`
     > iframe {
         border: 0px;
     }
+`
+const TextContainer = styled("div")`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 160px;
 `
 
 export default Temperature;

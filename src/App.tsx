@@ -60,7 +60,7 @@ const App: FC = () => {
           <Route path="/" component={Dashboard} />
           <Route path="/teplota" component={Temperature} />
           <Route path="/vlhkost" component={Humidity} />
-          <Route path="/profil" component={Profile} />
+          <Route path="/profil/:id" component={Profile} />
         </Switch>
       </ThemeProvider>
     </AppWrapper>
