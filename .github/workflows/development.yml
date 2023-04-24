@@ -4,47 +4,47 @@
 name: Develop Build and Test
 
 on:
-    push:
-        branches: ["develop"]
-    pull_request:
-        branches: ["develop"]
+  push:
+    branches: ["develop"]
+  pull_request:
+    branches: ["develop"]
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-        strategy:
-            matrix:
-                node-version: [14.x, 16.x, 18.x]
-                # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        defaults:
-            run:
-                working-directory: ./frontend
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    # defaults:
+    #    run:
+    #        working-directory: ./frontend
 
-        steps:
-            - uses: actions/checkout@v3
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
-                  cache: "npm"
-                  cache-dependency-path: "./frontend/package-lock.json"
-            - name: Run install
-              run: npm install
-            - name: Run build
-              run: npm run build --if-present
-            - name: SFTP Deploy
-              uses: wlixcc/SFTP-Deploy-Action@v1.2.1
-              with:
-                  username: root
-                  server: uu.vojtechpetrasek.com
-                  port: 22 # default is 22
-                  ssh_private_key: ${{ secrets.UUSERVER }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: "./package-lock.json"
+      - name: Run install
+        run: npm install
+      - name: Run build
+        run: npm run build --if-present
+      - name: SFTP Deploy
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.1
+        with:
+          username: root
+          server: uu.vojtechpetrasek.com
+          port: 22 # default is 22
+          ssh_private_key: ${{ secrets.UUSERVER }}
 
-                  # will put all file under this path
-                  local_path: ./frontend/build/* # default is ./*
-                  # files will copy to under remote_path
-                  remote_path: /var/www/devWeb
+          # will put all file under this path
+          local_path: ./build/* # default is ./*
+          # files will copy to under remote_path
+          remote_path: /var/www/devWeb
 
-                  # sftp args
-                  args: "-o ConnectTimeout=5"
+          # sftp args
+          args: "-o ConnectTimeout=5"
