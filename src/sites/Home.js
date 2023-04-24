@@ -11,6 +11,7 @@ class Home extends Component {
         <div className="container-fluid row">
           <h1>Body</h1>
           <iframe
+            title="FVE Home"
             src="https://grafana.uu.vojtechpetrasek.com/d-solo/FAj4JIxVk/fve-home?orgId=1&from=1682327510818&to=1682331110818&theme=dark&panelId=22"
             width="450"
             height="200"
