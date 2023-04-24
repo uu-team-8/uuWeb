@@ -2,7 +2,7 @@ import type { FC } from "react";
 
 const Humidity: FC = () => {
     return (
-        <p>Vlhkost</p>
+        <p>Zatim nemame :(</p>
     )
 }
 
