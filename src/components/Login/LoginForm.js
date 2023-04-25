@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./login.css";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -57,7 +56,7 @@ class LoginForm extends Component {
               <div>
                 <p class="mb-0">
                   Don't have an account?{" "}
-                  <a href="#!" class="text-white-50 fw-bold">
+                  <a href="/register" class="text-white-50 fw-bold">
                     Sign Up
                   </a>
                 </p>
