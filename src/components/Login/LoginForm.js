@@ -10,8 +10,8 @@ class LoginForm extends Component {
     return (
       <div>
         <div
-          class="d-flex align-items-center justify-content-center gradient-custom"
-          style={{ height: "90vh" }}>
+          class="d-flex align-items-center justify-content-center"
+          style={{ height: "80vh" }}>
           <div class="card bg-dark text-white" style={{ borderRadius: "1rem" }}>
             <div class="card-body p-5 text-center">
               <div class="mb-md-5 mt-md-4 pb-5">
