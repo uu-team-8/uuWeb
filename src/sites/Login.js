@@ -9,7 +9,9 @@ import "./page.css";
 class LoginPage extends Component {
   render() {
     return (
-      <div class="gradient-custom" style={{ height: "100vh", weight: "100vw" }}>
+      <div
+        className="gradient-custom"
+        style={{ height: "100vh", weight: "100vw" }}>
         <NavBar />
         <LoginForm />
         <Footer />

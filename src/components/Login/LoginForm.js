@@ -3,60 +3,155 @@ import React, { Component } from "react";
 class LoginForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      email: { value: "", valid: false, touched: false },
+      password: { value: "", valid: false, touched: false },
+    };
   }
+
+  login = (e) => {
+    e.preventDefault();
+    if (this.state.email === "" || this.state.password === "") {
+      alert("Please enter your email and password");
+    } else {
+      this.postLogin();
+    }
+  };
+
+  postLogin = () => {
+    fetch("https://api.uu.vojtechpetrasek.com/v3/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: this.state.email.value,
+        password: this.state.password.value,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
+
+  handleEmailChange = (e) => {
+    e.preventDefault();
+    if (
+      e.target.value === "" ||
+      e.target.value === null ||
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(e.target.value)
+    ) {
+      console.log("invalid email");
+      this.setState({
+        email: { value: e.target.value, valid: false, touched: true },
+      });
+    } else {
+      console.log("valid email");
+      this.setState({
+        email: { value: e.target.value, valid: true, touched: true },
+      });
+    }
+  };
+
+  handlePasswordChange = (e) => {
+    e.preventDefault();
+    if (e.target.value === "" || e.target.value === null) {
+      console.log("invalid password");
+      this.setState({
+        password: { value: e.target.value, valid: false, touched: true },
+      });
+    } else {
+      console.log("valid password");
+      this.setState({
+        password: { value: e.target.value, valid: true, touched: true },
+      });
+    }
+  };
+
   render() {
     return (
       <div>
         <div
-          class="d-flex align-items-center justify-content-center"
+          className="d-flex align-items-center justify-content-center"
           style={{ height: "80vh" }}>
-          <div class="card bg-dark text-white" style={{ borderRadius: "1rem" }}>
-            <div class="card-body p-5 text-center">
-              <div class="mb-md-5 mt-md-4 pb-5">
-                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                <p class="text-white-50 mb-5">
+          <div
+            className="card bg-dark text-white"
+            style={{ borderRadius: "1rem" }}>
+            <div className="card-body p-5 text-center">
+              <div className="mb-md-5 mt-md-4 pb-5">
+                <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
+                <p className="text-white-50 mb-5">
                   Please enter your login and password!
                 </p>
 
-                <div class="form-outline form-white mb-4">
-                  <label class="form-label" for="typeEmailX">
+                <div className="form-outline form-white mb-3">
+                  <label className="form-label" htmlFor="typeEmailX">
                     Email
                   </label>
                   <input
                     type="email"
                     id="typeEmailX"
-                    class="form-control form-control-lg"
+                    className={
+                      "form-control form-control-lg" +
+                      (this.state.email.touched
+                        ? this.state.email.valid
+                          ? " is-valid"
+                          : " is-invalid"
+                        : "")
+                    }
                     placeholder="Enter a valid email address"
+                    onChange={this.handleEmailChange}
+                    value={this.state.email.value}
                   />
+                  <div className="invalid-feedback">
+                    You must provide valid email.
+                  </div>
+                  <div className="valid-feedback">Looks good.</div>
                 </div>
 
-                <div class="form-outline form-white mb-4">
-                  <label class="form-label" htmlfor="typePassword">
+                <div className="form-outline form-white mb-3">
+                  <label className="form-label" htmlFor="typePassword">
                     Password
                   </label>
                   <input
                     type="password"
                     id="typePassword"
-                    class="form-control form-control-lg"
+                    className={
+                      "form-control form-control-lg" +
+                      (this.state.password.touched
+                        ? this.state.password.valid
+                          ? " is-valid"
+                          : " is-invalid"
+                        : "")
+                    }
                     placeholder="Enter your password"
+                    onChange={this.handlePasswordChange}
+                    value={this.state.password.value}
                   />
+                  <div className="invalid-feedback">
+                    You must provide valid password.
+                  </div>
+                  <div className="valid-feedback">Looks good.</div>
                 </div>
 
-                <p class="small mb-5 pb-lg-2">
-                  <a class="text-white-50" href="#!">
+                <p className="small mb-3 pb-lg-2">
+                  <a className="text-white-50" href="#!">
                     Forgot password?
                   </a>
                 </p>
 
-                <button class="btn btn-outline-light btn-lg px-5" type="submit">
+                <button
+                  className="btn btn-outline-light btn-lg px-5"
+                  type="submit"
+                  onClick={this.login}>
                   Login
                 </button>
               </div>
               <div>
-                <p class="mb-0">
+                <p className="mb-0">
                   Don't have an account?{" "}
-                  <a href="/register" class="text-white-50 fw-bold">
+                  <a href="/register" className="text-white-50 fw-bold">
                     Sign Up
                   </a>
                 </p>

@@ -15,52 +15,52 @@ class NavBar extends React.Component {
   render() {
     return (
       <>
-        <nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
-          <div class="container">
-            <a class="navbar-brand" href="/">
+        <nav className="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
+          <div className="container">
+            <a className="navbar-brand" href="/">
               {/*<img height="70" alt="Logo" loading="lazy" />*/}
               IoT uuCloud
             </a>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/">
+            <div className="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul className="navbar-nav">
+                <li className="nav-item">
+                  <a className="nav-link active" aria-current="page" href="/">
                     Home
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/">
+                <li className="nav-item">
+                  <a className="nav-link" href="/">
                     Docs
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/">
+                <li className="nav-item">
+                  <a className="nav-link" href="/">
                     Team
                   </a>
                 </li>
                 {this.token && (
-                  <li class="nav-item dropdown">
+                  <li className="nav-item dropdown">
                     <a
-                      class="nav-link dropdown-toggle"
+                      className="nav-link dropdown-toggle"
                       href="/"
                       role="button"
                       data-bs-toggle="dropdown"
                       aria-expanded="false">
                       Devices
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul className="dropdown-menu">
                       <li>
-                        <a class="dropdown-item" href="/gateways">
+                        <a className="dropdown-item" href="/gateways">
                           Gateways
                         </a>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="/">
+                        <a className="dropdown-item" href="/">
                           Sensors
                         </a>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="/">
+                        <a className="dropdown-item" href="/">
                           LoRa
                         </a>
                       </li>
@@ -70,11 +70,11 @@ class NavBar extends React.Component {
               </ul>
             </div>
             {this.token ? (
-              <ul class="navbar-nav">
-                <li class="nav-item dropdown">
+              <ul className="navbar-nav">
+                <li className="nav-item dropdown">
                   <img
                     src={user_photo}
-                    class="nav-link dropdown-toggle"
+                    className="nav-link dropdown-toggle"
                     href="/"
                     id="navbarDarkDropdownMenuLink"
                     role="button"
@@ -84,15 +84,15 @@ class NavBar extends React.Component {
                     width="70"
                     height="70"></img>
                   <ul
-                    class="dropdown-menu dropdown-menu-dark"
+                    className="dropdown-menu dropdown-menu-dark"
                     aria-labelledby="navbarDarkDropdownMenuLink">
                     <li>
-                      <a class="dropdown-item" href="/">
+                      <a className="dropdown-item" href="/">
                         Account
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="/">
+                      <a className="dropdown-item" href="/">
                         Log out
                       </a>
                     </li>
@@ -100,7 +100,7 @@ class NavBar extends React.Component {
                 </li>
               </ul>
             ) : (
-              <a class="btn btn-outline-light" href="/login" role="button">
+              <a className="btn btn-outline-light" href="/login" role="button">
                 Login
               </a>
             )}
