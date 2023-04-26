@@ -6,14 +6,19 @@ class LoginForm extends Component {
     this.state = {
       email: { value: "", valid: false, touched: false },
       password: { value: "", valid: false, touched: false },
+      submitting: false,
     };
   }
 
   login = (e) => {
     e.preventDefault();
-    if (this.state.email === "" || this.state.password === "") {
-      alert("Please enter your email and password");
+    if (this.state.email.value === "" || this.state.password.value === "") {
+      this.setState({
+        email: { ...this.state.email, touched: true },
+        password: { ...this.state.password, touched: true },
+      });
     } else {
+      this.setState({ submitting: true });
       this.postLogin();
     }
   };
@@ -31,7 +36,33 @@ class LoginForm extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (data.success === true) {
+          localStorage.setItem("token", data.token);
+          this.setState({ submitting: false });
+          setInterval(() => {
+            window.location.href = "/";
+          }, 500);
+        } else if (data.message === "User not exist") {
+          this.setState({ submitting: false });
+          this.setState({
+            email: {
+              ...this.state.email,
+              valid: false,
+              touched: true,
+              errMsg: "User not found",
+            },
+          });
+        } else if (data.message === "Wrong password") {
+          this.setState({ submitting: false });
+          this.setState({
+            password: {
+              ...this.state.password,
+              valid: false,
+              touched: true,
+              errMsg: "Wrong password",
+            },
+          });
+        }
       });
   };
 
@@ -42,12 +73,10 @@ class LoginForm extends Component {
       e.target.value === null ||
       !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(e.target.value)
     ) {
-      console.log("invalid email");
       this.setState({
         email: { value: e.target.value, valid: false, touched: true },
       });
     } else {
-      console.log("valid email");
       this.setState({
         email: { value: e.target.value, valid: true, touched: true },
       });
@@ -57,12 +86,10 @@ class LoginForm extends Component {
   handlePasswordChange = (e) => {
     e.preventDefault();
     if (e.target.value === "" || e.target.value === null) {
-      console.log("invalid password");
       this.setState({
         password: { value: e.target.value, valid: false, touched: true },
       });
     } else {
-      console.log("valid password");
       this.setState({
         password: { value: e.target.value, valid: true, touched: true },
       });
@@ -82,7 +109,7 @@ class LoginForm extends Component {
               <div className="mb-md-5 mt-md-4 pb-5">
                 <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
                 <p className="text-white-50 mb-5">
-                  Please enter your login and password!
+                  Please enter your email and password!
                 </p>
 
                 <div className="form-outline form-white mb-3">
@@ -105,7 +132,9 @@ class LoginForm extends Component {
                     value={this.state.email.value}
                   />
                   <div className="invalid-feedback">
-                    You must provide valid email.
+                    {this.state.email.errMsg
+                      ? this.state.email.errMsg
+                      : "You must provide valid email."}
                   </div>
                   <div className="valid-feedback">Looks good.</div>
                 </div>
@@ -129,9 +158,13 @@ class LoginForm extends Component {
                     onChange={this.handlePasswordChange}
                     value={this.state.password.value}
                   />
+
                   <div className="invalid-feedback">
-                    You must provide valid password.
+                    {this.state.password.errMsg
+                      ? this.state.password.errMsg
+                      : "You must provide valid password."}
                   </div>
+
                   <div className="valid-feedback">Looks good.</div>
                 </div>
 
@@ -142,7 +175,10 @@ class LoginForm extends Component {
                 </p>
 
                 <button
-                  className="btn btn-outline-light btn-lg px-5"
+                  className={
+                    "btn btn-outline-light btn-lg px-5 " +
+                    (this.state.submitting ? "disabled" : "")
+                  }
                   type="submit"
                   onClick={this.login}>
                   Login

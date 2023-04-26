@@ -92,9 +92,9 @@ class NavBar extends React.Component {
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="/">
+                      <button className="dropdown-item" onClick={this.logout}>
                         Log out
-                      </a>
+                      </button>
                     </li>
                   </ul>
                 </li>
