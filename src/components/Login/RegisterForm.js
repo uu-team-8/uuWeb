@@ -215,14 +215,11 @@ class RegisterForm extends Component {
           <div
             className="card bg-dark text-white"
             style={{ borderRadius: "1rem" }}>
-            <div className="card-body p-5 text-center">
-              <div className="mb-md-5 mt-md-4 pb-5">
+            <div className="card-body text-center">
+              <div className="mb-md-1 mt-md-4 px-2 mx-4">
                 <h2 className="fw-bold mb-2 text-uppercase">Register</h2>
-                <p className="text-white-50 mb-5">
-                  Please enter your login and password!
-                </p>
 
-                <div className="form-outline form-white mb-4">
+                <div className="form-outline form-white mb-2">
                   <label className="form-label" htmlFor="name">
                     Name
                   </label>
@@ -230,7 +227,7 @@ class RegisterForm extends Component {
                     type="text"
                     id="name"
                     className={
-                      "form-control form-control-lg" +
+                      "form-control form-control-lg h-50" +
                       (this.state.name.touched
                         ? this.state.name.valid
                           ? " is-valid"
@@ -248,7 +245,7 @@ class RegisterForm extends Component {
                   <div className="valid-feedback">Looks good.</div>
                 </div>
 
-                <div className="form-outline form-white mb-4">
+                <div className="form-outline form-white mb-2">
                   <label className="form-label" htmlFor="lastname">
                     Surname
                   </label>
@@ -274,7 +271,7 @@ class RegisterForm extends Component {
                   <div className="valid-feedback">Looks good.</div>
                 </div>
 
-                <div className="form-outline form-white mb-4">
+                <div className="form-outline form-white mb-2">
                   <label className="form-label" htmlFor="nickname">
                     Nickname
                   </label>
@@ -300,7 +297,7 @@ class RegisterForm extends Component {
                   <div className="valid-feedback">Looks good.</div>
                 </div>
 
-                <div className="form-outline form-white mb-4">
+                <div className="form-outline form-white mb-2">
                   <label className="form-label" htmlFor="email">
                     Email
                   </label>
@@ -326,7 +323,7 @@ class RegisterForm extends Component {
                   <div className="valid-feedback">Looks good.</div>
                 </div>
 
-                <div className="form-outline form-white mb-4">
+                <div className="form-outline form-white mb-2">
                   <label className="form-label" htmlFor="password">
                     Password
                   </label>
@@ -352,7 +349,7 @@ class RegisterForm extends Component {
 
                   <div className="valid-feedback">Looks good.</div>
                 </div>
-                <div className="form-outline form-white mb-4">
+                <div className="form-outline form-white mb-2">
                   <label className="form-label" htmlFor="password2">
                     Repeat password
                   </label>
@@ -380,14 +377,12 @@ class RegisterForm extends Component {
                 </div>
 
                 <button
-                  className="btn btn-outline-light btn-lg px-5"
+                  className="btn btn-outline-light btn-lg px-5 mb-2"
                   type="submit"
                   onClick={this.register}>
                   Register
                 </button>
-              </div>
-              <div>
-                <p className="mb-0">
+                <p className="form-outline">
                   Already registerd?{" "}
                   <a href="/login" className="text-white-50 fw-bold">
                     Login
