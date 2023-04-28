@@ -176,8 +176,8 @@ class LoginForm extends Component {
 
                 <button
                   className={
-                    "btn btn-outline-light btn-lg px-5 " +
-                    (this.state.submitting ? "disabled" : "")
+                    "btn btn-outline-light btn-lg px-5" +
+                    (this.state.submitting ? " disabled" : "")
                   }
                   type="submit"
                   onClick={this.login}>

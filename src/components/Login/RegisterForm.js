@@ -3,8 +3,184 @@ import React, { Component } from "react";
 class RegisterForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      name: { value: "", valid: false, touched: false },
+      lastname: { value: "", valid: false, touched: false },
+      nickname: { value: "", valid: false, touched: false },
+      email: { value: "", valid: false, touched: false },
+      password: { value: "", valid: false, touched: false },
+      password2: { value: "", valid: false, touched: false },
+      submitting: false,
+    };
   }
+  postRegister = () => {
+    const { name, lastname, nickname, email, password } = this.state;
+    const user = {
+      name: name.value,
+      lastname: lastname.value,
+      nickname: nickname.value,
+      email: email.value,
+      password: password.value,
+    };
+    fetch("https://api.uu.vojtechpetrasek.com/v3/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: user,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
+
+  register = (e) => {
+    e.preventDefault();
+
+    if (
+      this.state.name.valid &&
+      this.state.lastname.valid &&
+      this.state.nickname.valid &&
+      this.state.email.valid &&
+      this.state.password.valid &&
+      this.state.password2.valid
+    ) {
+      this.setState({ submitting: true });
+      this.postRegister();
+      this.setState({ submitting: false });
+    } else {
+      alert("Please fill out all the fields");
+    }
+  };
+
+  handleChange = (e) => {
+    const { id, value } = e.target;
+
+    if (id === "name") {
+      this.setState({
+        [id]: {
+          ...this.state[id],
+          value: value,
+          valid: value.length > 0,
+          touched: true,
+          errMsg: "Name is required",
+        },
+      });
+    } else if (id === "lastname") {
+      this.setState({
+        [id]: {
+          ...this.state[id],
+          value: value,
+          valid: value.length > 0,
+          touched: true,
+          errMsg: "Last name is required",
+        },
+      });
+    } else if (id === "nickname") {
+      this.setState({
+        [id]: {
+          ...this.state[id],
+          value: value,
+          valid: value.length > 0,
+          touched: true,
+          errMsg: "Nickname is required",
+        },
+      });
+    } else if (id === "email") {
+      if (value.length === 0) {
+        this.setState({
+          [id]: {
+            ...this.state[id],
+            value: value,
+            valid: false,
+            touched: true,
+            errMsg: "Email is required",
+          },
+        });
+      } else if (!/\S+@\S+\.\S+/.test(value)) {
+        this.setState({
+          [id]: {
+            ...this.state[id],
+            value: value,
+            valid: false,
+            touched: true,
+            errMsg: "Email is not valid",
+          },
+        });
+      } else {
+        this.setState({
+          [id]: { ...this.state[id], value: value, valid: true, touched: true },
+        });
+      }
+    } else if (id === "password") {
+      if (value.length === 0) {
+        this.setState({
+          [id]: {
+            ...this.state[id],
+            value: value,
+            valid: false,
+            touched: true,
+            errMsg: "Password is required",
+          },
+        });
+      } else if (value.length < 8) {
+        console.log("password too short");
+        this.setState({
+          [id]: {
+            ...this.state[id],
+            value: value,
+            valid: false,
+            touched: true,
+            errMsg: "Password must be at least 8 characters long",
+          },
+        });
+      } else if (!/\d/.test(value)) {
+        this.setState({
+          [id]: {
+            ...this.state[id],
+            value: value,
+            valid: false,
+            touched: true,
+            errMsg: "Password must contain at least one digit",
+          },
+        });
+      } else {
+        this.setState({
+          [id]: { ...this.state[id], value: value, valid: true, touched: true },
+        });
+      }
+    } else if (id === "password2") {
+      if (value.length === 0) {
+        this.setState({
+          [id]: {
+            ...this.state[id],
+            value: value,
+            valid: false,
+            touched: true,
+            errMsg: "Password is required",
+          },
+        });
+      } else if (value === this.state.password.value) {
+        console.log("passwords match");
+        this.setState({
+          [id]: { ...this.state[id], value: value, valid: true, touched: true },
+        });
+      } else {
+        this.setState({
+          [id]: {
+            ...this.state[id],
+            value: value,
+            valid: false,
+            touched: true,
+            errMsg: "Passwords do not match",
+          },
+        });
+      }
+    }
+    console.log(this.state);
+  };
+
   render() {
     return (
       <div>
@@ -22,79 +198,166 @@ class RegisterForm extends Component {
                 </p>
 
                 <div className="form-outline form-white mb-4">
-                  <label className="form-label" htmlFor="typeName">
+                  <label className="form-label" htmlFor="name">
                     Name
                   </label>
                   <input
                     type="text"
-                    id="typename"
-                    className="form-control form-control-lg"
+                    id="name"
+                    className={
+                      "form-control form-control-lg" +
+                      (this.state.name.touched
+                        ? this.state.name.valid
+                          ? " is-valid"
+                          : " is-invalid"
+                        : "")
+                    }
                     placeholder="Enter your name"
+                    onChange={this.handleChange}
                   />
+                  <div className="invalid-feedback">
+                    {this.state.name.errMsg
+                      ? this.state.name.errMsg
+                      : "You must provide valid name."}
+                  </div>
+                  <div className="valid-feedback">Looks good.</div>
                 </div>
 
                 <div className="form-outline form-white mb-4">
-                  <label className="form-label" htmlFor="typeSurname">
+                  <label className="form-label" htmlFor="lastname">
                     Surname
                   </label>
                   <input
                     type="text"
-                    id="typeSurname"
-                    className="form-control form-control-lg"
+                    id="lastname"
+                    className={
+                      "form-control form-control-lg" +
+                      (this.state.lastname.touched
+                        ? this.state.lastname.valid
+                          ? " is-valid"
+                          : " is-invalid"
+                        : "")
+                    }
                     placeholder="Enter your surname"
+                    onChange={this.handleChange}
                   />
+                  <div className="invalid-feedback">
+                    {this.state.lastname.errMsg
+                      ? this.state.lastname.errMsg
+                      : "You must provide valid last name."}
+                  </div>
+                  <div className="valid-feedback">Looks good.</div>
                 </div>
 
                 <div className="form-outline form-white mb-4">
-                  <label className="form-label" htmlFor="typeNickname">
+                  <label className="form-label" htmlFor="nickname">
                     Nickname
                   </label>
                   <input
                     type="text"
-                    id="typeNickname"
-                    className="form-control form-control-lg"
+                    id="nickname"
+                    className={
+                      "form-control form-control-lg" +
+                      (this.state.nickname.touched
+                        ? this.state.nickname.valid
+                          ? " is-valid"
+                          : " is-invalid"
+                        : "")
+                    }
                     placeholder="Enter your nickname"
+                    onChange={this.handleChange}
                   />
+                  <div className="invalid-feedback">
+                    {this.state.nickname.errMsg
+                      ? this.state.nickname.errMsg
+                      : "You must provide valid name."}
+                  </div>
+                  <div className="valid-feedback">Looks good.</div>
                 </div>
 
                 <div className="form-outline form-white mb-4">
-                  <label className="form-label" htmlFor="typeEmailX">
+                  <label className="form-label" htmlFor="email">
                     Email
                   </label>
                   <input
                     type="email"
-                    id="typeEmailX"
-                    className="form-control form-control-lg"
+                    id="email"
+                    className={
+                      "form-control form-control-lg" +
+                      (this.state.email.touched
+                        ? this.state.email.valid
+                          ? " is-valid"
+                          : " is-invalid"
+                        : "")
+                    }
                     placeholder="Enter a valid email address"
+                    onChange={this.handleChange}
                   />
+                  <div className="invalid-feedback">
+                    {this.state.email.errMsg
+                      ? this.state.email.errMsg
+                      : "You must provide valid email."}
+                  </div>
+                  <div className="valid-feedback">Looks good.</div>
                 </div>
 
                 <div className="form-outline form-white mb-4">
-                  <label className="form-label" htmlfor="typePassword">
+                  <label className="form-label" htmlFor="password">
                     Password
                   </label>
                   <input
                     type="password"
-                    id="typePassword"
-                    className="form-control form-control-lg"
+                    id="password"
+                    className={
+                      "form-control form-control-lg" +
+                      (this.state.password.touched
+                        ? this.state.password.valid
+                          ? " is-valid"
+                          : " is-invalid"
+                        : "")
+                    }
                     placeholder="Enter your password"
+                    onChange={this.handleChange}
                   />
+                  <div className="invalid-feedback">
+                    {this.state.password.errMsg
+                      ? this.state.password.errMsg
+                      : "You must provide valid password."}
+                  </div>
+
+                  <div className="valid-feedback">Looks good.</div>
                 </div>
                 <div className="form-outline form-white mb-4">
-                  <label className="form-label" htmlfor="typePassword2">
+                  <label className="form-label" htmlFor="password2">
                     Repeat password
                   </label>
                   <input
                     type="password"
-                    id="typePassword2"
-                    className="form-control form-control-lg"
+                    id="password2"
+                    className={
+                      "form-control form-control-lg" +
+                      (this.state.password2.touched
+                        ? this.state.password2.valid
+                          ? " is-valid"
+                          : " is-invalid"
+                        : "")
+                    }
                     placeholder="Enter your password"
+                    onChange={this.handleChange}
                   />
+                  <div className="invalid-feedback">
+                    {this.state.password2.errMsg
+                      ? this.state.password2.errMsg
+                      : "You must provide valid password."}
+                  </div>
+
+                  <div className="valid-feedback">Passwords match.</div>
                 </div>
 
                 <button
                   className="btn btn-outline-light btn-lg px-5"
-                  type="submit">
+                  type="submit"
+                  onClick={this.register}>
                   Register
                 </button>
               </div>
