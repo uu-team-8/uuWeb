@@ -27,11 +27,39 @@ class RegisterForm extends Component {
       headers: {
         "Content-Type": "application/json",
       },
-      body: user,
+      body: JSON.stringify(user),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if ("status" in data) {
+          this.setState({ registered: true });
+          setInterval(() => {
+            window.location.href = "/login";
+          }, 500);
+        } else {
+          if (data.nickname) {
+            this.setState((state) => ({
+              ...state,
+              nickname: {
+                ...state.nickname,
+                valid: false,
+                touched: true,
+                errMsg: "Nickname is already taken",
+              },
+            }));
+          }
+          if (data.email) {
+            this.setState((state) => ({
+              ...state,
+              email: {
+                ...state.email,
+                valid: false,
+                touched: true,
+                errMsg: "Email is already taken",
+              },
+            }));
+          }
+        }
       });
   };
 
@@ -125,7 +153,6 @@ class RegisterForm extends Component {
           },
         });
       } else if (value.length < 8) {
-        console.log("password too short");
         this.setState({
           [id]: {
             ...this.state[id],
@@ -162,7 +189,6 @@ class RegisterForm extends Component {
           },
         });
       } else if (value === this.state.password.value) {
-        console.log("passwords match");
         this.setState({
           [id]: { ...this.state[id], value: value, valid: true, touched: true },
         });
@@ -178,7 +204,6 @@ class RegisterForm extends Component {
         });
       }
     }
-    console.log(this.state);
   };
 
   render() {
