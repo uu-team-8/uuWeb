@@ -1,9 +1,38 @@
 import React from "react";
 
 import user_photo from "../../images/sonic.png";
+import { AuthContext } from "../../context/AuthProvider";
 
 class NavBar extends React.Component {
+  static contextType = AuthContext;
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
   token = localStorage.getItem("token");
+
+  getUser = () => {
+    fetch("https://api.uu.vojtechpetrasek.com/v3/user", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        this.setState({ user: data });
+        /*this.setState({
+          user: {
+            ...this.state.user,
+            data,
+          },
+        });*/
+        console.log(this.state);
+      });
+  };
+
   logout = (event) => {
     event.preventDefault();
     localStorage.removeItem("token");
@@ -12,6 +41,14 @@ class NavBar extends React.Component {
     window.location.reload();
     window.location.href = "/login";
   };
+  componentDidMount() {
+    if (this.token) {
+      this.getUser();
+    } else if (this.context.token) {
+      this.token = this.context.token;
+      this.getUser();
+    }
+  }
   render() {
     return (
       <>
@@ -69,8 +106,11 @@ class NavBar extends React.Component {
                 )}
               </ul>
             </div>
-            {this.token ? (
+            {this.state.user ? (
               <ul className="navbar-nav">
+                <li className="nav-item">
+                  <p className="nav-link">Welcome {this.state.user.nickname}</p>
+                </li>
                 <li className="nav-item dropdown">
                   <img
                     src={user_photo}
@@ -87,7 +127,7 @@ class NavBar extends React.Component {
                     className="dropdown-menu dropdown-menu-dark"
                     aria-labelledby="navbarDarkDropdownMenuLink">
                     <li>
-                      <a className="dropdown-item" href="/">
+                      <a className="dropdown-item" href="/account">
                         Account
                       </a>
                     </li>

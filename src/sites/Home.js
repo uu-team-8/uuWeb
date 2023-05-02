@@ -3,7 +3,33 @@ import React, { Component } from "react";
 import NavBar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 
+import { AuthContext } from "../context/AuthProvider";
+
 class Home extends Component {
+  token = localStorage.getItem("token");
+
+  getUser = () => {
+    fetch("https://api.uu.vojtechpetrasek.com/v3/user", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
+
+  componentDidMount() {
+    if (!this.token) {
+      window.location.href = "/login";
+    } else {
+      console.log("token exists");
+      this.getUser();
+    }
+  }
   render() {
     return (
       <>

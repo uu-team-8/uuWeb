@@ -1,12 +1,15 @@
 import React, { Component } from "react";
+import { AuthContext } from "../../context/AuthProvider";
 
 class LoginForm extends Component {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
     this.state = {
       email: { value: "", valid: false, touched: false },
       password: { value: "", valid: false, touched: false },
       submitting: false,
+      remember: false,
     };
   }
 
@@ -39,6 +42,9 @@ class LoginForm extends Component {
         if (data.success === true) {
           localStorage.setItem("token", data.token);
           this.setState({ submitting: false });
+          this.context.setIsAuth(true);
+          this.context.setToken(data.token);
+          console.log(data);
           setInterval(() => {
             window.location.href = "/";
           }, 500);
