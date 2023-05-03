@@ -3,8 +3,6 @@ import React, { Component } from "react";
 import NavBar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 
-import { AuthContext } from "../context/AuthProvider";
-
 class Home extends Component {
   token = localStorage.getItem("token");
 

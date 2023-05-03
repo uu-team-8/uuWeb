@@ -23,12 +23,7 @@ class NavBar extends React.Component {
       .then((data) => {
         console.log(data);
         this.setState({ user: data });
-        /*this.setState({
-          user: {
-            ...this.state.user,
-            data,
-          },
-        });*/
+        this.context.setUser(data);
         console.log(this.state);
       });
   };
@@ -106,39 +101,41 @@ class NavBar extends React.Component {
                 )}
               </ul>
             </div>
-            {this.state.user ? (
-              <ul className="navbar-nav">
-                <li className="nav-item">
-                  <p className="nav-link">Welcome {this.state.user.nickname}</p>
-                </li>
-                <li className="nav-item dropdown">
-                  <img
-                    src={user_photo}
-                    className="nav-link dropdown-toggle"
-                    href="/"
-                    id="navbarDarkDropdownMenuLink"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    alt=""
-                    width="70"
-                    height="70"></img>
-                  <ul
-                    className="dropdown-menu dropdown-menu-dark"
-                    aria-labelledby="navbarDarkDropdownMenuLink">
-                    <li>
-                      <a className="dropdown-item" href="/account">
-                        Account
-                      </a>
-                    </li>
-                    <li>
-                      <button className="dropdown-item" onClick={this.logout}>
-                        Log out
-                      </button>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
+            {Object.keys(this.context.user).length !== 0 ? (
+              <>
+                <p className="navbar-brand">
+                  Welcome {this.context.user.nickname}
+                </p>
+                <ul className="navbar-nav">
+                  <li className="nav-item dropdown">
+                    <img
+                      src={user_photo}
+                      className="nav-link dropdown-toggle"
+                      href="/"
+                      id="navbarDarkDropdownMenuLink"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      alt=""
+                      width="70"
+                      height="70"></img>
+                    <ul
+                      className="dropdown-menu dropdown-menu-dark"
+                      aria-labelledby="navbarDarkDropdownMenuLink">
+                      <li>
+                        <a className="dropdown-item" href="/account">
+                          Account
+                        </a>
+                      </li>
+                      <li>
+                        <button className="dropdown-item" onClick={this.logout}>
+                          Log out
+                        </button>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </>
             ) : (
               <a className="btn btn-outline-light" href="/login" role="button">
                 Login

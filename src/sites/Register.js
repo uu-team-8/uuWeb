@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import NavBar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
-import RegisterForm from "../components/Login/RegisterForm";
+import RegisterForm from "../components/Forms/RegisterForm";
 
 import "./page.css";
 
