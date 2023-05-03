@@ -91,6 +91,11 @@ class NavBar extends React.Component {
                           LoRa
                         </a>
                       </li>
+                      <li>
+                        <a className="dropdown-item" href="/device">
+                          Test device
+                        </a>
+                      </li>
                     </ul>
                   </li>
                 )}

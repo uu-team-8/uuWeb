@@ -8,6 +8,7 @@ import LoginPage from "./sites/Login";
 import RegisterPage from "./sites/Register";
 import Account from "./sites/Account";
 import Documentation from "./sites/Docs";
+import Device from "./sites/Device";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/account" element={<Account />} />
         <Route path="/docs" element={<Documentation />} />
+        <Route path="/device" element={<Device />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
