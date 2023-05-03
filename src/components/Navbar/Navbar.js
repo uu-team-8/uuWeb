@@ -65,11 +65,6 @@ class NavBar extends React.Component {
                     Docs
                   </a>
                 </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/">
-                    Team
-                  </a>
-                </li>
                 {this.token && (
                   <li className="nav-item dropdown">
                     <a

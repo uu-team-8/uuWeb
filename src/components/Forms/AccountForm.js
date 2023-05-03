@@ -21,52 +21,81 @@ class AccountForm extends Component {
               <div className="mb-md-1 mt-md-4 px-2 mx-4">
                 <h2 className="fw-bold mb-2 text-uppercase">Account</h2>
 
-                <div className="form-outline form-white mb-2">
-                  <label className="form-label" htmlFor="name">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    className={"form-control form-control-lg h-50"}
-                    placeholder="Enter your name"
-                  />
-                </div>
-
-                <div className="form-outline form-white mb-2">
-                  <label className="form-label" htmlFor="lastname">
-                    Surname
-                  </label>
-                  <input
-                    type="text"
-                    id="lastname"
-                    className={"form-control form-control-lg"}
-                    placeholder="Enter your surname"
-                  />
+                <div className="row from-control">
+                  <div className="col-md-6 form-outline form-white mb-2">
+                    <label className="form-label" htmlFor="name">
+                      Name
+                    </label>
+                    <div class="input-group mb-3">
+                      <input
+                        type="text"
+                        id="name"
+                        className={"form-control form-control-lg h-50"}
+                        placeholder="Enter your name"
+                      />
+                      <button
+                        className="btn btn-primary input-group-text px-2"
+                        id="name">
+                        change
+                      </button>
+                    </div>
+                  </div>
+                  <div className="col-md-6 form-outline form-white mb-2">
+                    <label className="form-label" htmlFor="lastname">
+                      Surname
+                    </label>
+                    <div class="input-group mb-3">
+                      <input
+                        type="text"
+                        id="lastname"
+                        className={"form-control form-control-lg"}
+                        placeholder="Enter your surname"
+                      />
+                      <button
+                        className="btn btn-primary input-group-text px-2"
+                        id="lastname">
+                        change
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="form-outline form-white mb-2">
                   <label className="form-label" htmlFor="nickname">
                     Nickname
                   </label>
-                  <input
-                    type="text"
-                    id="nickname"
-                    className={"form-control form-control-lg"}
-                    placeholder="Enter your nickname"
-                  />
+                  <div class="input-group mb-3">
+                    <input
+                      type="text"
+                      id="nickname"
+                      className={"form-control form-control-lg"}
+                      placeholder="Enter your nickname"
+                    />
+                    <button
+                      className="btn btn-primary input-group-text px-2"
+                      id="nickname">
+                      change
+                    </button>
+                  </div>
                 </div>
 
                 <div className="form-outline form-white mb-2">
                   <label className="form-label" htmlFor="email">
                     Email
                   </label>
-                  <input
-                    type="email"
-                    id="email"
-                    className={"form-control form-control-lg"}
-                    placeholder="Enter a valid email address"
-                  />
+                  <div class="input-group mb-3">
+                    <input
+                      type="email"
+                      id="email"
+                      className={"form-control form-control-lg"}
+                      placeholder="Enter a valid email address"
+                    />
+                    <button
+                      className="btn btn-primary input-group-text px-2"
+                      id="email">
+                      change
+                    </button>
+                  </div>
                 </div>
 
                 <div className="form-outline form-white mb-2">
@@ -93,16 +122,10 @@ class AccountForm extends Component {
                 </div>
 
                 <button
-                  className="btn btn-outline-light btn-lg px-5 mb-2"
+                  className="btn btn-primary btn-lg px-5 mb-2"
                   type="submit">
-                  Register
+                  Change password
                 </button>
-                <p className="form-outline">
-                  Already registerd?{" "}
-                  <a href="/login" className="text-white-50 fw-bold">
-                    Login
-                  </a>
-                </p>
               </div>
             </div>
           </div>

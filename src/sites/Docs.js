@@ -15,6 +15,7 @@ class Documentation extends Component {
       <div style={{ height: "100vh", weight: "100vw" }}>
         <NavBar />
         <iframe
+          title="Swagger UI"
           src="https://api.uu.vojtechpetrasek.com/v3/docs"
           height="100%"
           width="100%"
