@@ -19,7 +19,7 @@ class Home extends Component {
         console.log(data);
       });
   };
-
+  /*
   componentDidMount() {
     if (!this.token) {
       window.location.href = "/login";
@@ -27,7 +27,7 @@ class Home extends Component {
       console.log("token exists");
       this.getUser();
     }
-  }
+  }*/
   render() {
     return (
       <>

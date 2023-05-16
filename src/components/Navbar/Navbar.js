@@ -22,9 +22,13 @@ class NavBar extends React.Component {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        this.setState({ user: data });
-        this.context.setUser(data);
-        console.log(this.state);
+        if (data.success === false) {
+          localStorage.removeItem("token");
+        } else {
+          this.setState({ user: data });
+          this.context.setUser(data);
+          console.log(this.state);
+        }
       });
   };
 
@@ -41,6 +45,8 @@ class NavBar extends React.Component {
       this.getUser();
     } else if (this.context.token) {
       this.token = this.context.token;
+      console.log(this.token);
+      console.log("token");
       this.getUser();
     }
   }
