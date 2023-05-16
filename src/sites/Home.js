@@ -39,7 +39,7 @@ class Home extends Component {
             src="https://grafana.uu.vojtechpetrasek.com/d-solo/FAj4JIxVk/fve-home?orgId=1&theme=light&panelId=22"
             width="100%"
             height="400"
-            frameborder="0"></iframe>
+            frameBorder="0"></iframe>
         </div>
         <Footer />
       </>

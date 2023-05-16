@@ -4,17 +4,17 @@ import NavBar from "../components/Navbar/Navbar";
 import UserForm from "../components/UserForm/UserForm";
 
 class AddUser extends React.Component {
-    render() {
-        return (
-            <>
-                <NavBar />
-                <div className="container-fluid row">
-                    <UserForm />
-                </div>
-                <Footer />
-            </>
-        );
-    }
+  render() {
+    return (
+      <>
+        <NavBar />
+        <div className="container-fluid row">
+          <UserForm />
+        </div>
+        <Footer />
+      </>
+    );
+  }
 }
 
 export default AddUser;
