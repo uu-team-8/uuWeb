@@ -22,7 +22,7 @@ class RegisterForm extends Component {
       email: email.value,
       password: password.value,
     };
-    fetch("https://api.uu.vojtechpetrasek.com/v3/register", {
+    fetch("https://api.uu.vojtechpetrasek.com/v4/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

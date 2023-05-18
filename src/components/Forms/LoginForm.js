@@ -27,7 +27,7 @@ class LoginForm extends Component {
   };
 
   postLogin = () => {
-    fetch("https://api.uu.vojtechpetrasek.com/v3/login", {
+    fetch("https://api.uu.vojtechpetrasek.com/v4/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

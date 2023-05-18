@@ -38,10 +38,12 @@ class Gateway extends React.Component {
         <thead>
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Název</th>
-            <th scope="col">Majitel</th>
-            <th scope="col">Lokace</th>
-            <th scope="col">Viditelnost</th>
+            <th scope="col">Name</th>
+            <th scope="col">Owner</th>
+            <th scope="col">Location</th>
+            <th scope="col">Visibility</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +56,30 @@ class Gateway extends React.Component {
                   <th scope="row">{this.state.gateways[index].owner}</th>
                   <th scope="row">{this.state.gateways[index].location}</th>
                   <th scope="row">{this.state.gateways[index].visibility}</th>
+                  <th scope="row">Not active</th>
+                  <th scope="row">
+                    <button
+                      type="button"
+                      class="btn btn-success m-1"
+                      data-bs-toggle="modal"
+                      data-bs-target="#AddGateway">
+                      Show
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-warning m-1"
+                      data-bs-toggle="modal"
+                      data-bs-target="#EditGateway">
+                      Edit
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-danger m-1"
+                      data-bs-toggle="modal"
+                      data-bs-target="#DeleteGateway">
+                      Delete
+                    </button>
+                  </th>
                 </tr>
               </>
             );
@@ -65,13 +91,13 @@ class Gateway extends React.Component {
   render() {
     return (
       <>
-        <h1 className="text-white text-center pt-5">Gateways</h1>
+        <h1 className="text-white text-center pt-5">My gateways</h1>
         <button
           type="button"
-          class="btn btn-success "
+          class="btn btn-success mt-3 mb-3"
           data-bs-toggle="modal"
           data-bs-target="#AddGateway">
-          AddGateway
+          Add Gateway
         </button>
 
         <AddGateway />
