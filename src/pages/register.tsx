@@ -17,6 +17,7 @@ const Register: FC = () => {
     const [errorMess, setErrorMess] = useState("");
     const [location, setLocation] = useLocation();
     const [emailVal, setEmailVal] = useState(true);
+    const [passwordStrenght, setPasswordStrenght] = useState(true);
 
     async function sendRegInfo(e: FormEvent) {
         e.preventDefault();
@@ -30,9 +31,12 @@ const Register: FC = () => {
         } else if (!emailVal) {
             setErrorMess("Neplatný email")
             return
+        } else if (!passwordStrenght) {
+            setErrorMess("Příliš slabé heslo")
+            return
         };
 
-
+        try {    
         const response = await fetch("http://localhost:3000/register", {
             method: "POST",
             headers: {
@@ -47,6 +51,10 @@ const Register: FC = () => {
         } else {
             setLocation("/prihlaseni")
         };
+
+        } catch (e) {
+        setErrorMess(e);
+    }
     };
 
     function EmailVal(Email: string) {
@@ -57,6 +65,9 @@ const Register: FC = () => {
     };
 
     function Password(Password: string) {
+        const regex = /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+        const PasswordStrenght = regex.test(Password);
+        setPasswordStrenght(PasswordStrenght)
         setUserPassword(Password)
     };
 
@@ -113,10 +124,10 @@ const Container = styled("div")`
 
 const RegistrationFormTitle = styled("h1")`
     color: ${p => p.theme.UI.white};
-    margin-top: 80px;
+    margin-top: 150px;
     margin-bottom: 32px;
     font-weight: 300;
-    font-size: 30px;
+    font-size: 40px;
     text-align: center;
     line-height: 35px;
 `

@@ -33,9 +33,14 @@ const Login: FC = () => {
                 },
                 body: JSON.stringify({ email: userEmail, password: userPassword })
             });
-
             const user = await response.json();
             localStorage.setItem("session", JSON.stringify(user));
+        
+            if (!user) {
+                setErrorMess("Neplatný email nebo heslo");
+                return;
+            }
+
             setLocation("/");
         } catch (e) {
             setErrorMess(e);
@@ -93,28 +98,6 @@ const Container = styled("div")`
     min-height: 100%;
     min-width: 100%;
     background-color: ${p => p.theme.gray.gray20};
-`
-
-const StyledButton = styled("button")`
-    margin-top: 40px;
-    text-align: center;
-    color: white;
-    font-weight: 300;
-    font-size: 20px;
-    border-radius: 15px;
-    border-color: transparent;
-    background-color: black;
-    height: 54px;
-    width: 402px;
-
-  &:hover {
-    opacity: 0.8;
-    cursor: pointer;
-  }
-
-  &:active {
-    opacity: 0.6;
-  }
 `
 
 const StyledSection = styled("section")`
