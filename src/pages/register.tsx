@@ -39,16 +39,14 @@ const Register: FC = () => {
             return
         };
 
-        try {    
-        const response = await fetch("http://localhost:3000/register", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ name: userName, surname: userSurName, email: userEmail, password: userPassword })
-        });
-
         try {
+            const response = await fetch("http://localhost:3000/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ name: userName, surname: userSurName, email: userEmail, password: userPassword })
+            });
             const res: response = await response.json();
             if (!res.success) {
                 setErrorMess(res.message);
