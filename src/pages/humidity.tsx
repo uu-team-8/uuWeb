@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { FC } from "react";
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
@@ -6,7 +7,7 @@ import { Session } from "../components/left-panel";
 
 const Humidity: FC = () => {
 
-    
+
     const [userSess, setUserSess] = useState<Session[]>([]);
 
     function getUser() {
@@ -24,13 +25,13 @@ const Humidity: FC = () => {
 
     return (
         <Wrapper>
-                <Title>Vlhkost</Title>
-            {!userSess[0] ? 
+            <Title>Vlhkost</Title>
+            {!userSess[0] ?
                 <TextContainer>
-                    <p>Pro zobrazení dat se musíte přihlásit !</p> 
+                    <p>Pro zobrazení dat se musíte přihlásit !</p>
                 </TextContainer>
-            
-            :
+
+                :
                 <p>Zatim nemame :(</p>
 
             }
