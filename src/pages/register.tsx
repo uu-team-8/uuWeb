@@ -6,6 +6,11 @@ import { useLocation, Link } from "wouter";
 import Input from "../components/input";
 import Button from "../components/button";
 
+interface response {
+    success: boolean,
+    message: string
+}
+
 const Register: FC = () => {
     const [userName, setUserName] = useState("");
     const [userSurName, setSurUserName] = useState("");
@@ -42,13 +47,17 @@ const Register: FC = () => {
             body: JSON.stringify({ name: userName, surname: userSurName, email: userEmail, password: userPassword })
         });
 
-        const Validation = await response.json();
-        if (!Validation) {
-            setErrorMess("Email je již používán");
-            return
-        } else {
+        try {
+            const res: response = await response.json();
+            if (!res.success) {
+                setErrorMess(res.message);
+                return;
+            }
+
             setLocation("/prihlaseni");
-        };
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     function EmailVal(Email: string) {
