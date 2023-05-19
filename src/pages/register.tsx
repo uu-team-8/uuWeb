@@ -1,12 +1,10 @@
-// @ts-nocheck
-import styled from "@emotion/styled";
 import type { FC } from "react";
+import styled from "@emotion/styled";
 import { useState, FormEvent } from "react";
 import { useLocation, Link } from "wouter";
 
 import Input from "../components/input";
 import Button from "../components/button";
-
 
 const Register: FC = () => {
     const [userName, setUserName] = useState("");
@@ -22,16 +20,18 @@ const Register: FC = () => {
         e.preventDefault();
 
         if (userName == "" || userSurName == "" || userPassword == "" || userPasswordCheck == "" || userEmail == "") {
-            setErrorMess("Vyplňte všechna pole")
-            return
-        } else if (userPassword != userPasswordCheck) {
-            setErrorMess("Hesla se neshodují")
-            return
-        } else if (!emailVal) {
-            setErrorMess("Neplatný email")
-            return
-        };
+            setErrorMess("Vyplňte všechna pole");
+            return;
+        }
+        if (userPassword != userPasswordCheck) {
+            setErrorMess("Hesla se neshodují");
+            return;
+        }
 
+        if (!emailVal) {
+            setErrorMess("Neplatný email");
+            return;
+        };
 
         const response = await fetch("http://localhost:3000/register", {
             method: "POST",
@@ -42,10 +42,10 @@ const Register: FC = () => {
         });
         const Validation = await response.json();
         if (!Validation) {
-            setErrorMess("Email je již používán")
+            setErrorMess("Email je již používán");
             return
         } else {
-            setLocation("/prihlaseni")
+            setLocation("/prihlaseni");
         };
     };
 
@@ -73,7 +73,6 @@ const Register: FC = () => {
     };
 
     return (
-
         <Container>
             <RegistrationForm onSubmit={sendRegInfo}>
                 <RegistrationFormTitle>Registrace</RegistrationFormTitle>
@@ -94,11 +93,9 @@ const Register: FC = () => {
                 <StyledP>
                     Máte již účet?
                     <Link href="/prihlaseni"><Log>Přihlašte se</Log></Link>
-
                 </StyledP>
             </UserAction>
         </Container>
-
     )
 }
 

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import type { FC } from "react";
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
@@ -25,13 +24,13 @@ const Home: FC = () => {
     return (
         <Wrapper>
             <Title>Dashboard</Title>
-            {!userSess[0] ? 
-            
+            {!userSess[0] ?
+
                 <TextContainer>
-                    <p>Pro zobrazení dat se musíte přihlásit !</p> 
+                    <p>Pro zobrazení dat se musíte přihlásit !</p>
                 </TextContainer>
-            
-            :
+
+                :
                 <CardContainer>
                     <iframe src="https://grafana.uu.vojtechpetrasek.com/d-solo/xRpNuj1Vk/uu-team-8?orgId=1&from=1677020400000&to=1677078000000&panelId=2" width="40%" height="300" frameborder="0"></iframe>
                     <iframe src="https://grafana.uu.vojtechpetrasek.com/d-solo/xRpNuj1Vk/uu-team-8?orgId=1&from=1677020400000&to=1677078000000&panelId=4" width="40%" height="300" frameborder="0"></iframe>
