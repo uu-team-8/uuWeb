@@ -23,6 +23,7 @@ const Register: FC = () => {
             setErrorMess("Vyplňte všechna pole");
             return;
         }
+
         if (userPassword != userPasswordCheck) {
             setErrorMess("Hesla se neshodují");
             return;
@@ -31,7 +32,7 @@ const Register: FC = () => {
         if (!emailVal) {
             setErrorMess("Neplatný email");
             return;
-        };
+        }
 
         const response = await fetch("http://localhost:3000/register", {
             method: "POST",
@@ -40,6 +41,7 @@ const Register: FC = () => {
             },
             body: JSON.stringify({ name: userName, surname: userSurName, email: userEmail, password: userPassword })
         });
+
         const Validation = await response.json();
         if (!Validation) {
             setErrorMess("Email je již používán");
@@ -52,24 +54,24 @@ const Register: FC = () => {
     function EmailVal(Email: string) {
         const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         const EmailValid = regex.test(Email);
-        setEmailVal(EmailValid)
-        setUserEmail(Email)
+        setEmailVal(EmailValid);
+        setUserEmail(Email);
     };
 
     function Password(Password: string) {
-        setUserPassword(Password)
+        setUserPassword(Password);
     };
 
     function PasswordCheck(PasswordCheck: string) {
-        setUserPasswordCheck(PasswordCheck)
+        setUserPasswordCheck(PasswordCheck);
     };
 
     function Name(Name: string) {
-        setUserName(Name)
+        setUserName(Name);
     };
 
     function SurName(SurName: string) {
-        setSurUserName(SurName)
+        setSurUserName(SurName);
     };
 
     return (
