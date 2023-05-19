@@ -11,7 +11,7 @@ interface InputProps {
     InputValue: (arg: string) => void
 }
 
-const Input: FC<InputProps> = ({InputPlaceholder, InputType, InputValue }) => {
+const Input: FC<InputProps> = ({ InputPlaceholder, InputType, InputValue }) => {
     const [passwordShown, setPasswordShown] = useState(false);
     const [inputValue, setInputValue] = useState("");
 
@@ -27,13 +27,13 @@ const Input: FC<InputProps> = ({InputPlaceholder, InputType, InputValue }) => {
             <PassRev src={passwordShown ? offeye : eye } alt="oko" onClick={() => TogglePassword()} />
         </PassContainer>
 
-        :
-        
-        <PassContainer>
-            <StyledInput type={InputType} placeholder={InputPlaceholder} value={inputValue} onChange={e => {setInputValue(e.target.value), InputValue(e.target.value)}} />
-        </PassContainer>    
-    }  
-    </>   
+                :
+
+                <PassContainer>
+                    <StyledInput type={InputType} placeholder={InputPlaceholder} value={inputValue} onChange={e => { setInputValue(e.target.value), InputValue(e.target.value) }} />
+                </PassContainer>
+            }
+        </>
     )
 }
 

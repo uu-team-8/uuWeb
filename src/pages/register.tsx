@@ -1,12 +1,15 @@
-// @ts-nocheck
-import styled from "@emotion/styled";
 import type { FC } from "react";
+import styled from "@emotion/styled";
 import { useState, FormEvent } from "react";
 import { useLocation, Link } from "wouter";
 
 import Input from "../components/input";
 import Button from "../components/button";
 
+interface response {
+    success: boolean,
+    message: string
+}
 
 const Register: FC = () => {
     const [userName, setUserName] = useState("");
@@ -44,24 +47,25 @@ const Register: FC = () => {
             },
             body: JSON.stringify({ name: userName, surname: userSurName, email: userEmail, password: userPassword })
         });
-        const Validation = await response.json();
-        if (!Validation) {
-            setErrorMess("Email je již používán")
-            return
-        } else {
-            setLocation("/prihlaseni")
-        };
 
+        try {
+            const res: response = await response.json();
+            if (!res.success) {
+                setErrorMess(res.message);
+                return;
+            }
+
+            setLocation("/prihlaseni");
         } catch (e) {
-        setErrorMess(e);
-    }
+            console.log(e);
+        }
     };
 
     function EmailVal(Email: string) {
         const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         const EmailValid = regex.test(Email);
-        setEmailVal(EmailValid)
-        setUserEmail(Email)
+        setEmailVal(EmailValid);
+        setUserEmail(Email);
     };
 
     function Password(Password: string) {
@@ -72,19 +76,18 @@ const Register: FC = () => {
     };
 
     function PasswordCheck(PasswordCheck: string) {
-        setUserPasswordCheck(PasswordCheck)
+        setUserPasswordCheck(PasswordCheck);
     };
 
     function Name(Name: string) {
-        setUserName(Name)
+        setUserName(Name);
     };
 
     function SurName(SurName: string) {
-        setSurUserName(SurName)
+        setSurUserName(SurName);
     };
 
     return (
-
         <Container>
             <RegistrationForm onSubmit={sendRegInfo}>
                 <RegistrationFormTitle>Registrace</RegistrationFormTitle>
@@ -105,11 +108,9 @@ const Register: FC = () => {
                 <StyledP>
                     Máte již účet?
                     <Link href="/prihlaseni"><Log>Přihlašte se</Log></Link>
-
                 </StyledP>
             </UserAction>
         </Container>
-
     )
 }
 
