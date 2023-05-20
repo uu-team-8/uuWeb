@@ -1,11 +1,18 @@
-import styled from "@emotion/styled";
 import type { FC } from "react";
+import styled from "@emotion/styled";
 import { useState, FormEvent } from "react";
 import { useLocation, Link } from "wouter";
 
 import Input from "../components/input";
 import Button from "../components/button";
 
+interface data {
+    success: boolean
+    message: string
+    token: string
+    name: string
+    surname: string
+}
 
 const Login: FC = () => {
     const [userEmail, setUserEmail] = useState("");
@@ -16,12 +23,13 @@ const Login: FC = () => {
 
     async function sendLogInfo(e: FormEvent) {
         e.preventDefault();
+
         if (userPassword == "" || userEmail == "") {
-            setErrorMess("Vyplňte všechna pole")
-            return
+            setErrorMess("Vyplňte všechna pole");
+            return;
         } else if (!emailVal) {
-            setErrorMess("Neplatný email")
-            return
+            setErrorMess("Neplatný email");
+            return;
         };
 
         try {
@@ -32,17 +40,17 @@ const Login: FC = () => {
                 },
                 body: JSON.stringify({ email: userEmail, password: userPassword })
             });
-            const user = await response.json();
-            localStorage.setItem("session", JSON.stringify(user));
-        
-            if (!user) {
-                setErrorMess("Neplatný email nebo heslo");
-                return;
+
+            const data: data = await response.json();
+            if (!data.success) {
+                setErrorMess(data.message);
             }
+
+            localStorage.setItem("session", JSON.stringify(data.token));
 
             setLocation("/");
         } catch (e) {
-            setErrorMess(e);
+            setErrorMess("Nastala neočekávaná chyba, prosím zkuste se přihlásit znovu");
         }
     };
 

@@ -26,17 +26,17 @@ const Register: FC = () => {
         e.preventDefault();
 
         if (userName == "" || userSurName == "" || userPassword == "" || userPasswordCheck == "" || userEmail == "") {
-            setErrorMess("Vyplňte všechna pole")
-            return
+            setErrorMess("Vyplňte všechna pole");
+            return;
         } else if (userPassword != userPasswordCheck) {
-            setErrorMess("Hesla se neshodují")
-            return
+            setErrorMess("Hesla se neshodují");
+            return;
         } else if (!emailVal) {
-            setErrorMess("Neplatný email")
-            return
+            setErrorMess("Neplatný email");
+            return;
         } else if (!passwordStrenght) {
-            setErrorMess("Příliš slabé heslo")
-            return
+            setErrorMess("Příliš slabé heslo");
+            return;
         };
 
         try {
@@ -47,6 +47,7 @@ const Register: FC = () => {
                 },
                 body: JSON.stringify({ name: userName, surname: userSurName, email: userEmail, password: userPassword })
             });
+
             const res: response = await response.json();
             if (!res.success) {
                 setErrorMess(res.message);
@@ -69,8 +70,8 @@ const Register: FC = () => {
     function Password(Password: string) {
         const regex = /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
         const PasswordStrenght = regex.test(Password);
-        setPasswordStrenght(PasswordStrenght)
-        setUserPassword(Password)
+        setPasswordStrenght(PasswordStrenght);
+        setUserPassword(Password);
     };
 
     function PasswordCheck(PasswordCheck: string) {
