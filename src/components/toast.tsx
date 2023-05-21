@@ -4,19 +4,48 @@ import styled from "@emotion/styled";
 import error from "../assets/icons/error.svg";
 import success from "../assets/icons/success.svg";
 
+import { useToastContext } from "./toast-context";
+
 export enum ToastState {
     ERROR,
     SUCCESS
   }
 
 export interface ToastProps {
+    id: string;
     text: string;
     buttonText: string;
     state: ToastState;
     onClose: () => void;
 }
 
-const Toast: FC<ToastProps> = ({  text, buttonText, state, onClose }) => {
+export interface ToastInvokerProps {
+    text: string;
+    buttonText: string;
+    state: ToastState;
+    lifetime: number;
+}
+
+export function useToast() {
+    const {toasts, setToasts} = useToastContext();
+
+    return ({ text, buttonText= "Ok", state, lifetime = 3.5 }: ToastInvokerProps) => {
+
+        let uniqueId = Date.now().toString(36) + Math.random().toString(36).substring(2);
+
+        function remove() {
+            setToasts(toasts.filter((toast) => !(toast.id === uniqueId)
+            )
+          );
+        };
+
+        if (lifetime > 0) { setTimeout(() => remove(), lifetime * 1000) };
+
+        setToasts([...toasts, {id: uniqueId, text: text, buttonText: buttonText, state: state, onClose: () => remove()}]);
+    };
+};
+
+const Toast: FC<ToastProps> = ({ text, buttonText, state, onClose }) => {
 
     return (
         <Wrapper>

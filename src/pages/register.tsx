@@ -5,6 +5,7 @@ import { useLocation, Link } from "wouter";
 
 import Input from "../components/input";
 import Button from "../components/button";
+import { useToast, ToastState } from "../components/toast";
 
 interface Response {
     success: boolean,
@@ -21,6 +22,7 @@ const Register: FC = () => {
     const [location, setLocation] = useLocation();
     const [emailVal, setEmailVal] = useState(true);
     const [passwordStrenght, setPasswordStrenght] = useState(true);
+    const toast = useToast();
 
     async function sendRegInfo(e: FormEvent) {
         e.preventDefault();
@@ -54,6 +56,7 @@ const Register: FC = () => {
                 return;
             }
 
+            toast({ text: "Účet byl vytvořen.", buttonText: "OK", state: ToastState.SUCCESS, lifetime: 5 });
             setLocation("/prihlaseni");
         } catch (e) {
             console.log(e);

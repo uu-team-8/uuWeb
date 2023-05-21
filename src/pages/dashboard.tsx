@@ -11,6 +11,8 @@ import { ToastState } from "../components/toast";
 const Home: FC = () => {
     const [userSess, setUserSess] = useState<Session[]>([]);
 
+
+
     function getUser() {
         const sessionString = localStorage.getItem("session");
         if (!sessionString) {
