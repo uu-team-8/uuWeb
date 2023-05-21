@@ -4,6 +4,9 @@ import styled from "@emotion/styled";
 
 import { Session } from "../components/left-panel";
 
+import Toast from "../components/toast";
+
+import { ToastState } from "../components/toast";
 
 const Home: FC = () => {
     const [userSess, setUserSess] = useState<Session[]>([]);
@@ -23,6 +26,7 @@ const Home: FC = () => {
 
     return (
         <Wrapper>
+            <Toast text={"Ahoj"} buttonText={"OK"} state={ToastState.ERROR} onClose={ } />
             <Title>Dashboard</Title>
             {!userSess[0] ?
 

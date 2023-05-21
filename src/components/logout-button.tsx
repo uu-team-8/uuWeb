@@ -11,7 +11,7 @@ interface ButtonProps {
     expanded: boolean
 }
 
-const LoginButton: FC<ButtonProps> = ({ expanded }) => {
+const LogoutButton: FC<ButtonProps> = ({ expanded }) => {
   const [location, setLocation] = useLocation();
   const [userSess, setUserSess] = useState<Session[]>([]);
 
@@ -90,4 +90,4 @@ const StyledButton = styled("button")`
   }
 `
 
-export default LoginButton;
+export default LogoutButton;
