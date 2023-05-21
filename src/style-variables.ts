@@ -1,3 +1,21 @@
+import { css } from "@emotion/react";
+
+export const GlobalStyles = css`
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Helvetica";
+        font-style: normal;
+    }
+
+    html,body {
+        width: 100%;
+        height: 100%;
+        color: #FFFFFF;
+        background-color: #333333;
+    }
+`
 export const Theme = {
     UI: {
         black: "#000000",
