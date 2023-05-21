@@ -4,18 +4,17 @@ import styled from "@emotion/styled";
 import Toast from "./toast";
 import { useToastContext } from "../context/toast";
 
-
 const ToastRenderer: FC = () => {
     const { toasts, setToasts } = useToastContext();
 
     return (
         <Wrapper>
-        {toasts.map((toast, index) => (
-            <Toast {...toast}/>
-        ))}
+            {toasts.map((toast, index) => (
+                <Toast {...toast} />
+            ))}
         </Wrapper>
-      );
-    }
+    );
+}
 
 
 const Wrapper = styled.div`
