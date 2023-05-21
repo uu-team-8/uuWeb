@@ -24,16 +24,16 @@ const Input: FC<InputProps> = ({ InputPlaceholder, InputType, InputValue }) => {
     {  InputType == "password"    ?       
         <PassContainer>
             <StyledInput type={passwordShown ? "text" : InputType} placeholder={InputPlaceholder} value={inputValue} onChange={e => {setInputValue(e.target.value), InputValue(e.target.value)} } />
-            <PassRev src={passwordShown ? offeye : eye } alt="oko" onClick={() => TogglePassword()} />
+            <PassRev src={passwordShown ? eye : offeye } alt="oko" onClick={() => TogglePassword()} />
         </PassContainer>
 
-                :
+            :
 
-                <PassContainer>
-                    <StyledInput type={InputType} placeholder={InputPlaceholder} value={inputValue} onChange={e => { setInputValue(e.target.value), InputValue(e.target.value) }} />
-                </PassContainer>
-            }
-        </>
+        <PassContainer>
+            <StyledInput type={InputType} placeholder={InputPlaceholder} value={inputValue} onChange={e => { setInputValue(e.target.value), InputValue(e.target.value) }} />
+        </PassContainer>
+    }
+    </>
     )
 }
 

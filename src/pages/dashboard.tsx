@@ -4,6 +4,9 @@ import styled from "@emotion/styled";
 
 import { Session } from "../components/left-panel";
 
+import Toast from "../components/toast";
+
+import { ToastState } from "../components/toast";
 
 const Home: FC = () => {
     const [userSess, setUserSess] = useState<Session[]>([]);
@@ -23,6 +26,7 @@ const Home: FC = () => {
 
     return (
         <Wrapper>
+            <Toast text={"Ahoj"} buttonText={"OK"} state={ToastState.ERROR} onClose={}/>
             <Title>Dashboard</Title>
             {!userSess[0] ?
 
@@ -32,8 +36,8 @@ const Home: FC = () => {
 
                 :
                 <CardContainer>
-                    <iframe src="https://grafana.uu.vojtechpetrasek.com/d-solo/xRpNuj1Vk/uu-team-8?orgId=1&from=1677020400000&to=1677078000000&panelId=2" width="40%" height="300" frameborder="0"></iframe>
-                    <iframe src="https://grafana.uu.vojtechpetrasek.com/d-solo/xRpNuj1Vk/uu-team-8?orgId=1&from=1677020400000&to=1677078000000&panelId=4" width="40%" height="300" frameborder="0"></iframe>
+                    <iframe src="https://grafana.uu.vojtechpetrasek.com/d-solo/xRpNuj1Vk/uu-team-8?orgId=1&from=1677020400000&to=1677078000000&panelId=2" width="40%" height="300" /* frameborder="0" */></iframe>
+                    <iframe src="https://grafana.uu.vojtechpetrasek.com/d-solo/xRpNuj1Vk/uu-team-8?orgId=1&from=1677020400000&to=1677078000000&panelId=4" width="40%" height="300" /* frameborder="0" */></iframe>
                 </CardContainer>
             }
         </Wrapper>

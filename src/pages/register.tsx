@@ -35,8 +35,8 @@ const Register: FC = () => {
             setErrorMess("Neplatný email");
             return;
         } else if (!passwordStrenght) {
-            setErrorMess("Příliš slabé heslo");
-            return;
+            setErrorMess("Heslo musí obsahovat nejméně 8 znaků, jedno velké písmeno, jedno malé písmeno, jedno číslo a jeden speciální znak!")
+            return
         };
 
         try {
@@ -139,8 +139,9 @@ const RegistrationForm = styled("form")`
 `
 
 const ErrorMess = styled("p")`
-    margin-top: 10px;
-    color: red;
+    margin-top: 20px;
+    max-width: 402px;
+    color: #EF0107;
 `
 
 const UserAction = styled("div")`
