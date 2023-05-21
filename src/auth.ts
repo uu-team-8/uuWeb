@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { SendData, GENERAL_ERROR_MESSAGE } from "./network";
+import { useUserContext } from "./context/user";
 
 export function emergencyLogout() {
     localStorage.removeItem("auth");
@@ -20,7 +21,7 @@ export function loadUserFromLocalStorage(): LoggedUser | null {
     }
 }
 
-interface LoggedUser {
+export interface LoggedUser {
     id: number
     name: string
     token: string
@@ -28,7 +29,6 @@ interface LoggedUser {
 
 export function useAuthBase(): [
     LoggedUser | null,
-    (newUser: LoggedUser) => void,
     () => void
 ] {
     const [loggedUser, setLoggedUser] = useState<LoggedUser | null>(
@@ -52,5 +52,11 @@ export function useAuthBase(): [
         }
     }
 
-    return [loggedUser, login, logout];
+    return [loggedUser, logout];
+}
+
+export function useAuth(): [LoggedUser, () => void] {
+    const auth = useUserContext();
+
+    return [auth.user!, auth.logout];
 }

@@ -2,19 +2,19 @@ import type { FC } from "react";
 import { useContext } from "react";
 import styled from "@emotion/styled";
 import Toast from "./toast";
-import { useToastContext } from "./toast-context";
+import { useToastContext } from "../context/toast";
 
 
 const ToastRenderer: FC = () => {
-    const {toasts, setToasts} = useToastContext();
+    const { toasts, setToasts } = useToastContext();
 
     return (
         <div>
-        {toasts.map((toast, index) => (
-            <Toast {...toast}/>
-        ))}
+            {toasts.map((toast, index) => (
+                <Toast {...toast} />
+            ))}
         </div>
-      );
-    }
+    );
+}
 
 export default ToastRenderer;

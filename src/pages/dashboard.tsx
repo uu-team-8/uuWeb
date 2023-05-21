@@ -26,7 +26,6 @@ const Home: FC = () => {
 
     return (
         <Wrapper>
-            <Toast text={"Ahoj"} buttonText={"OK"} state={ToastState.ERROR} onClose={ } />
             <Title>Dashboard</Title>
             {!userSess[0] ?
 

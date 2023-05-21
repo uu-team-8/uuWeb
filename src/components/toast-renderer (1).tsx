@@ -2,7 +2,7 @@ import { Component, For, useContext } from "solid-js";
 import { styled } from "solid-styled-components";
 import { BreakPoints } from "@apparently/confio-shared/style-variables";
 import Toast from "./toast";
-import { ToastContext } from "./toast-context";
+import { ToastContext } from "../context/toast";
 
 interface ToastRendererProps {
     offset?: string
