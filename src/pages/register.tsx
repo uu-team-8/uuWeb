@@ -63,30 +63,27 @@ const Register: FC = () => {
         }
     };
 
-    function EmailVal(Email: string) {
+    function EmailVal(email: string) {
         const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-        const EmailValid = regex.test(Email);
+        const EmailValid = regex.test(email);
         setEmailVal(EmailValid);
-        setUserEmail(Email);
+        setUserEmail(email);
     };
 
-    function Password(Password: string) {
-        const regex = /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-        const PasswordStrenght = regex.test(Password);
-        setPasswordStrenght(PasswordStrenght);
-        setUserPassword(Password);
+    function Password(password: string) {
+        setUserPassword(password);
     };
 
-    function PasswordCheck(PasswordCheck: string) {
-        setUserPasswordCheck(PasswordCheck);
+    function PasswordCheck(passwordCheck: string) {
+        setUserPasswordCheck(passwordCheck);
     };
 
-    function Name(Name: string) {
-        setUserName(Name);
+    function Name(name: string) {
+        setUserName(name);
     };
 
-    function SurName(SurName: string) {
-        setSurUserName(SurName);
+    function SurName(surName: string) {
+        setSurUserName(surName);
     };
 
     return (

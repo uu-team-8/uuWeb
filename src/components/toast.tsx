@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import error from "../assets/icons/error.svg";
 import success from "../assets/icons/success.svg";
 
-import { useToastContext } from "./toast-context";
+import { useToastContext } from "../context/toast";
 
 export enum ToastState {
     ERROR,
