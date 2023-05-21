@@ -19,8 +19,6 @@ const Register: FC = () => {
     const [userPasswordCheck, setUserPasswordCheck] = useState("");
     const [errorMess, setErrorMess] = useState("");
     const [location, setLocation] = useLocation();
-    const [emailVal, setEmailVal] = useState(true);
-    const [passwordStrenght, setPasswordStrenght] = useState(true);
 
     async function sendRegInfo(e: FormEvent) {
         e.preventDefault();
@@ -28,13 +26,22 @@ const Register: FC = () => {
         if (userName == "" || userSurName == "" || userPassword == "" || userPasswordCheck == "" || userEmail == "") {
             setErrorMess("Vyplňte všechna pole");
             return;
-        } else if (userPassword != userPasswordCheck) {
+        }
+        if (userPassword != userPasswordCheck) {
             setErrorMess("Hesla se neshodují");
             return;
-        } else if (!emailVal) {
+        }
+
+        const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        const emailValid = emailRegex.test(userEmail);
+        if (!emailValid) {
             setErrorMess("Neplatný email");
             return;
-        } else if (!passwordStrenght) {
+        }
+
+        const passwordRegex = /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+        const passwordStrenght = passwordRegex.test(userPassword);
+        if (!passwordStrenght) {
             setErrorMess("Heslo musí obsahovat nejméně 8 znaků, jedno velké písmeno, jedno malé písmeno, jedno číslo a jeden speciální znak!")
             return
         };
@@ -61,16 +68,10 @@ const Register: FC = () => {
     };
 
     function EmailVal(Email: string) {
-        const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-        const EmailValid = regex.test(Email);
-        setEmailVal(EmailValid);
         setUserEmail(Email);
     };
 
     function Password(Password: string) {
-        const regex = /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-        const PasswordStrenght = regex.test(Password);
-        setPasswordStrenght(PasswordStrenght);
         setUserPassword(Password);
     };
 
