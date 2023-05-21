@@ -74,20 +74,20 @@ const Register: FC = () => {
         setUserEmail(Email);
     };
 
-    function Password(Password: string) {
-        setUserPassword(Password);
+    function Password(password: string) {
+        setUserPassword(password);
     };
 
-    function PasswordCheck(PasswordCheck: string) {
-        setUserPasswordCheck(PasswordCheck);
+    function PasswordCheck(passwordCheck: string) {
+        setUserPasswordCheck(passwordCheck);
     };
 
-    function Name(Name: string) {
-        setUserName(Name);
+    function Name(name: string) {
+        setUserName(name);
     };
 
-    function SurName(SurName: string) {
-        setSurUserName(SurName);
+    function SurName(surName: string) {
+        setSurUserName(surName);
     };
 
     return (

@@ -9,15 +9,6 @@ const ToastRenderer: FC = () => {
     const { toasts, setToasts } = useToastContext();
 
     return (
-<<<<<<< Updated upstream
-        <div>
-            {toasts.map((toast, index) => (
-                <Toast {...toast} />
-            ))}
-        </div>
-    );
-}
-=======
         <Wrapper>
         {toasts.map((toast, index) => (
             <Toast {...toast}/>
@@ -25,7 +16,6 @@ const ToastRenderer: FC = () => {
         </Wrapper>
       );
     }
->>>>>>> Stashed changes
 
 
 const Wrapper = styled.div`
