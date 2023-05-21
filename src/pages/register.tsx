@@ -43,6 +43,8 @@ const Register: FC = () => {
 
         const passwordRegex = /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
         const passwordStrenght = passwordRegex.test(userPassword);
+        console.log(userPassword, passwordStrenght);
+        
         if (!passwordStrenght) {
             setErrorMess("Heslo musí obsahovat nejméně 8 znaků, jedno velké písmeno, jedno malé písmeno, jedno číslo a jeden speciální znak!")
             return
@@ -70,8 +72,8 @@ const Register: FC = () => {
         }
     };
 
-    function EmailVal(Email: string) {
-        setUserEmail(Email);
+    function EmailVal(email: string) {
+        setUserEmail(email);
     };
 
     function Password(password: string) {
