@@ -7,7 +7,7 @@ import { useLocation, Link } from "wouter";
 
 import Input from "../components/input";
 import Button from "../components/button";
-import Toast, { useToast, ToastState } from "../components/toast";
+import { useToast, ToastState } from "../components/toast";
 
 import { SendData, GENERAL_ERROR_MESSAGE } from "../network";
 
@@ -25,25 +25,25 @@ const Register: FC = () => {
         e.preventDefault();
 
         if (userName == "" || userSurName == "" || userPassword == "" || userPasswordCheck == "" || userEmail == "") {
-            setErrorMess("Vyplňte všechna pole");
+            toast({ text: "Vyplňte všechna pole", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
             return;
         }
         if (userPassword != userPasswordCheck) {
-            setErrorMess("Hesla se neshodují");
+            toast({ text: "Hesla se neshodují", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
             return;
         }
 
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         const emailValid = emailRegex.test(userEmail);
         if (!emailValid) {
-            setErrorMess("Neplatný email");
+            toast({ text: "Neplatný email", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
             return;
         }
 
         const passwordRegex = /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
         const passwordStrenght = passwordRegex.test(userPassword);
         if (!passwordStrenght) {
-            setErrorMess("Heslo musí obsahovat nejméně 8 znaků, jedno velké písmeno, jedno malé písmeno, jedno číslo a jeden speciální znak!")
+            toast({ text: "Heslo musí obsahovat nejméně 8 znaků, jedno velké písmeno, jedno malé písmeno, jedno číslo a jeden speciální znak!", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
             return
         }
         ;
@@ -53,7 +53,7 @@ const Register: FC = () => {
 
             const res: Response = await response.json();
             if (!res.success) {
-                setErrorMess(res.message ?? GENERAL_ERROR_MESSAGE);
+                toast({ text: res.message ?? GENERAL_ERROR_MESSAGE, buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
                 return;
             }
 

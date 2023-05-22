@@ -7,6 +7,7 @@ import { useLocation, Link } from "wouter";
 
 import Input from "../components/input";
 import Button from "../components/button";
+import { ToastState, useToast } from "../components/toast";
 
 import { SendData } from "../network";
 
@@ -24,15 +25,16 @@ const Login: FC<LoginProps> = ({ login }) => {
     const [location, setLocation] = useLocation();
     const [errorMess, setErrorMess] = useState("");
     const [emailVal, setEmailVal] = useState(true);
+    const toast = useToast()
 
     async function sendLogInfo(e: FormEvent) {
         e.preventDefault();
 
         if (userPassword == "" || userEmail == "") {
-            setErrorMess("Vyplňte všechna pole");
+            toast({ text: "Vyplňte všechna pole", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
             return;
         } else if (!emailVal) {
-            setErrorMess("Neplatný email");
+            toast({ text: "Neplatný email", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
             return;
         };
 
@@ -47,8 +49,9 @@ const Login: FC<LoginProps> = ({ login }) => {
 
             login(data.user);
             setLocation("/");
+            toast({ text: "Byl jste úspěšně přihlášen", buttonText: "OK", state: ToastState.SUCCESS, lifetime: 5 });
         } catch (e) {
-            setErrorMess("Nastala neočekávaná chyba, prosím zkuste se přihlásit znovu");
+            toast({ text: "Nastala neočekávaná chyba", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
         }
     };
 
