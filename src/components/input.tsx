@@ -38,17 +38,27 @@ const Input: FC<InputProps> = ({ InputPlaceholder, InputType, InputValue }) => {
 }
 
 const StyledInput = styled("input")`
-    margin-top: 14px;
-    border-radius: 10px;
     border-color: transparent;
+    outline: none;
+    
     background-color: #F5F5F5;
+    
     font-size: 18px;
     line-height: 22px;
+
     height: 54px;
     width: 402px;
+    border-radius: 10px;
+    margin-top: 14px;
     padding-left: 16px;
     padding-right: 16px;
-    outline: none;
+
+    @media (max-width: 420px) {
+        width: 300px;
+    }
+    @media (max-width: 280px) {
+        width: 250px;
+    }
 `
 
 const PassContainer = styled("div")`
@@ -57,6 +67,7 @@ const PassContainer = styled("div")`
 
 const PassRev = styled("img")`
     position: absolute; 
+    
     top: 45%; 
     left: 93%;
     transform: translateX(-50%);

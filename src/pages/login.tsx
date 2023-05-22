@@ -25,17 +25,20 @@ const Login: FC<LoginProps> = ({ login }) => {
     const [location, setLocation] = useLocation();
     const [errorMess, setErrorMess] = useState("");
     const [emailVal, setEmailVal] = useState(true);
+    const [isLoading, setIsLoading] = useState(false)
     const toast = useToast()
 
     async function sendLogInfo(e: FormEvent) {
         const res = await fetch("https://api.uu.vojtechpetrasek.com/v4/gateway",)
         e.preventDefault();
-
+        setIsLoading(true)
         if (userPassword == "" || userEmail == "") {
             toast({ text: "Vyplňte všechna pole", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
+            setIsLoading(false)
             return;
         } else if (!emailVal) {
             toast({ text: "Neplatný email", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
+            setIsLoading(false)
             return;
         };
 
@@ -45,7 +48,7 @@ const Login: FC<LoginProps> = ({ login }) => {
             const data: LoginResponse = await response.json();
             console.log(data);
             if (!data.success && data.message) {
-                setErrorMess(data.message);
+                toast({ text: data.message, buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
             }
 
             login(data.user);
@@ -53,6 +56,8 @@ const Login: FC<LoginProps> = ({ login }) => {
             toast({ text: "Byl jste úspěšně přihlášen", buttonText: "OK", state: ToastState.SUCCESS, lifetime: 5 });
         } catch (e) {
             toast({ text: "Nastala neočekávaná chyba", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
+        } finally {
+            setIsLoading(false)
         }
     };
 
@@ -79,7 +84,7 @@ const Login: FC<LoginProps> = ({ login }) => {
 
                     <ErrorMess>{errorMess}</ErrorMess>
 
-                    <Button title="Přihlásit se" />
+                    <Button isLoading={isLoading} title="Přihlásit se" />
 
                 </LoginForm>
 
@@ -140,6 +145,12 @@ const LoginFormTitle = styled("h1")`
 const StyledP = styled("p")`
     color: ${p => p.theme.UI.white};
     padding-top: 15px;
+    @media (max-width: 420px) {
+        width: 300px;
+    }
+    @media (max-width: 280px) {
+        width: 250px;
+    }
 `
 
 const UserActions = styled("div")`
