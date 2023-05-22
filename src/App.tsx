@@ -9,6 +9,7 @@ import { useAuthBase } from "./auth";
 
 import { Theme, GlobalStyles } from "./style-variables";
 
+import ToastRenderer from "./components/toast-renderer";
 import LeftPanel from "./components/left-panel";
 import LeftPanelItem from "./components/left-panel-item";
 import { ToastProvider } from "./context/toast";
@@ -34,6 +35,7 @@ const App: FC = () => {
         <UserProvider user={loggedUser} logout={logout}>
           <ToastProvider>
             <AppWrapper>
+            <ToastRenderer/>
               {location != "/prihlaseni" && location != "/registrace" &&
                 <LeftPanel>
                   <LeftPanelItem
