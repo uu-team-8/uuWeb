@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import styled from "@emotion/styled";
 
-import { useAuth } from "../auth";x
+import { useAuth } from "../auth";
 
 const Home: FC = () => {
     const [loggedUser] = useAuth();
