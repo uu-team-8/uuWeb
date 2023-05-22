@@ -60,6 +60,8 @@ const LeftPanelWrapper = styled("div") <{ expanded: boolean }>`
     flex-direction: column;
     user-select: none;
     transition: all 1s;
+    position: sticky;
+    top: 0;
 
     p {
         display: ${p => !p.expanded ? "none" : "block"};
