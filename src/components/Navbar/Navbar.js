@@ -111,6 +111,7 @@ class NavBar extends React.Component {
                 <ul className="navbar-nav">
                   <li className="nav-item dropdown">
                     <a
+                      href="/account"
                       className="nav-link dropdown-toggle"
                       role="button"
                       data-bs-toggle="dropdown"
