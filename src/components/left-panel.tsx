@@ -53,7 +53,12 @@ const LeftPanel: FC<LeftPanelProps> = ({ children }) => {
 const LeftPanelWrapper = styled("div") <{ expanded: boolean }>`
     min-width: ${p => p.expanded ? "228px" : "72px"};
     max-width: ${p => p.expanded ? "228px" : "72px"};
-    height: 100vh;
+    @media (max-width: 420px) {
+        min-width: ${p => p.expanded ? "100%" : "72px"};
+        max-width: ${p => p.expanded ? "100%" : "72px"};
+        
+    }
+    min-height: 100vh;
     background-color: ${p => p.theme.gray.gray10};
     overflow: hidden;
     display: flex;
@@ -105,7 +110,7 @@ const ExpandButton = styled("div") <{ expanded: boolean }>`
 `
 
 const LeftPanelDivider = styled("div")`
-    width: 228px;
+    width: 100%;
     height: 1px;
     margin: 8px 0px;
     background-color: ${p => p.theme.gray.gray25};
