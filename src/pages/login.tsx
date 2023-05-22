@@ -7,6 +7,7 @@ import { useLocation, Link } from "wouter";
 
 import Input from "../components/input";
 import Button from "../components/button";
+import { ToastState, useToast } from "../components/toast";
 
 import { SendData } from "../network";
 
@@ -24,18 +25,16 @@ const Login: FC<LoginProps> = ({ login }) => {
     const [location, setLocation] = useLocation();
     const [errorMess, setErrorMess] = useState("");
     const [emailVal, setEmailVal] = useState(true);
-    const [isLoading, setIsLoading] = useState(false);
+    const toast = useToast()
 
     async function sendLogInfo(e: FormEvent) {
         e.preventDefault();
-        setIsLoading(true);
+
         if (userPassword == "" || userEmail == "") {
-            setErrorMess("Vyplňte všechna pole");
-            setIsLoading(false);
+            toast({ text: "Vyplňte všechna pole", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
             return;
         } else if (!emailVal) {
-            setErrorMess("Neplatný email");
-            setIsLoading(false);
+            toast({ text: "Neplatný email", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
             return;
         };
 
@@ -50,10 +49,9 @@ const Login: FC<LoginProps> = ({ login }) => {
 
             login(data.user);
             setLocation("/");
+            toast({ text: "Byl jste úspěšně přihlášen", buttonText: "OK", state: ToastState.SUCCESS, lifetime: 5 });
         } catch (e) {
-            setErrorMess("Nastala neočekávaná chyba, prosím zkuste se přihlásit znovu");
-        } finally {
-            setIsLoading(false);
+            toast({ text: "Nastala neočekávaná chyba", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
         }
     };
 
@@ -70,7 +68,7 @@ const Login: FC<LoginProps> = ({ login }) => {
 
     return (
         <Container>
-            {isLoading && <p>Loading...</p>}
+
             <StyledSection>
                 <LoginForm onSubmit={sendLogInfo}>
                     <LoginFormTitle>Přihlásit se</LoginFormTitle>

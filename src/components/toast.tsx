@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { useEffect, type FC, useState } from "react";
 import styled from "@emotion/styled";
 
 import error from "../assets/icons/error.svg";
@@ -27,21 +27,27 @@ export interface ToastInvokerProps {
 }
 
 export function useToast() {
-    const {toasts, setToasts} = useToastContext();
+    const {toast, setToast} = useToastContext();
+    const [lifeTimeID, setLifeTimeID] = useState(0)
 
-    return ({ text, buttonText= "Ok", state, lifetime = 3.5 }: ToastInvokerProps) => {
+    console.log(toast);
 
+    return ({ text, buttonText= "Ok", state, lifetime = 5 }: ToastInvokerProps) => {
         let uniqueId = Date.now().toString(36) + Math.random().toString(36).substring(2);
 
         function remove() {
-            setToasts(toasts.filter((toast) => !(toast.id === uniqueId)
-            )
-          );
+            setToast(null)
+        };    
+        
+        if (lifetime > 0) {
+            clearTimeout(lifeTimeID)
+            const timeOutID = setTimeout(() => remove(), lifetime * 1000) 
+            setLifeTimeID(timeOutID)
         };
 
-        if (lifetime > 0) { setTimeout(() => remove(), lifetime * 1000) };
-
-        setToasts([...toasts, {id: uniqueId, text: text, buttonText: buttonText, state: state, onClose: () => remove()}]);
+        console.log(lifetime);
+        
+        setToast({id: uniqueId, text: text, buttonText: buttonText, state: state, onClose: () => remove()});
     };
 };
 

@@ -2,11 +2,11 @@ import type { FC, Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import createGenericContext from "./create-generic-context";
 
-import { ToastProps } from "../components/toast";
+import { ToastProps, ToastState } from "../components/toast";
 
 interface ToastContextProps {
-    toasts: ToastProps[];
-    setToasts: Dispatch<SetStateAction<ToastProps[]>>
+    toast: ToastProps | null;
+    setToast: Dispatch<SetStateAction<ToastProps | null>>
 }
 
 interface ToastProviderProps {
@@ -16,10 +16,10 @@ interface ToastProviderProps {
 const [useToastContext, ToastContext] = createGenericContext<ToastContextProps>();
 
 const ToastProvider: FC<ToastProviderProps> = (props) => {
-    const [toasts, setToasts] = useState<ToastProps[]>([])
+        const [toast, setToast] = useState<ToastProps | null>(null)
 
     return (
-        <ToastContext value={{ toasts: toasts, setToasts: setToasts }}>
+        <ToastContext value={{ toast: toast, setToast: setToast }}>
             {props.children}
         </ToastContext>
     );
