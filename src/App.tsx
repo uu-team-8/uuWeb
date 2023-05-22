@@ -75,6 +75,9 @@ const AppWrapper = styled("div")`
   display: flex;
   width: 100%;
   height: 100%;
+  @media (max-width: 420px){
+    overflow: hidden;
+  }
 `
 
 export default App

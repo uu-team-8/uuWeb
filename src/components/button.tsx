@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import styled from "@emotion/styled";
+import spinnerImage from "../assets/images/spinner.png"
 
 interface ButtonProps {
     title: string
@@ -64,12 +65,16 @@ const Spinner = styled.div`
 
   &::before {
     content: "";
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     
     border: 2px solid white;
     border-top-color: transparent;
+    background-image: url(${spinnerImage});
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     animation: spin 1s infinite linear;
   }
 
