@@ -1,7 +1,8 @@
-import type { FC } from "react";
+import  { useState, type FC } from "react";
 import styled from "@emotion/styled";
 
 import { useAuth } from "../auth";
+import { Modal } from "./modal";
 
 import Icon from "../assets/icons/logout.svg";
 
@@ -11,13 +12,26 @@ interface ButtonProps {
 
 const LogoutButton: FC<ButtonProps> = ({ expanded }) => {
   const [loggedUser, logout] = useAuth();
-  console.log(logout);
+  const[isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal= () => setIsModalOpen(!isModalOpen)
 
   return (
-    expanded ?
-      <StyledButton onClick={logout}>Odhlásit se</StyledButton>
+    <>
+    {expanded ?
+      <>
+        <StyledButton onClick={toggleModal}>Odhlásit se</StyledButton>
+        <Modal title={ "Odhlášení"} text={"Opravdu se chcete odhlásit?"} buttonText={"Odhlásit"}  isOpen={isModalOpen} OnClose={toggleModal} OnClick={logout}/>
+      </>
+
       :
-      <LogoutIcon src={Icon} onClick={logout} />
+      
+      <>
+        <LogoutIcon src={Icon} onClick={toggleModal} />
+        <Modal title={ "Odhlášení"} text={"Opravdu se chcete odhlásit?"} buttonText={"Odhlásit"}  isOpen={isModalOpen} OnClose={toggleModal} OnClick={logout}/>
+      </>
+    } 
+   </>
   )
 }
 
