@@ -29,6 +29,7 @@ const Login: FC<LoginProps> = ({ login }) => {
     const toast = useToast()
 
     async function sendLogInfo(e: FormEvent) {
+        const res = await fetch("https://api.uu.vojtechpetrasek.com/v4/gateway",)
         e.preventDefault();
         setIsLoading(true)
         if (userPassword == "" || userEmail == "") {
@@ -47,7 +48,7 @@ const Login: FC<LoginProps> = ({ login }) => {
             const data: LoginResponse = await response.json();
             console.log(data);
             if (!data.success && data.message) {
-                setErrorMess(data.message);
+                toast({ text: data.message, buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
             }
 
             login(data.user);
@@ -144,6 +145,12 @@ const LoginFormTitle = styled("h1")`
 const StyledP = styled("p")`
     color: ${p => p.theme.UI.white};
     padding-top: 15px;
+    @media (max-width: 420px) {
+        width: 300px;
+    }
+    @media (max-width: 280px) {
+        width: 250px;
+    }
 `
 
 const UserActions = styled("div")`

@@ -17,7 +17,7 @@ const Temperature: FC = () => {
 
                 :
                 <GraphContainer>
-                    <iframe src="https://grafana.uu.vojtechpetrasek.com/d-solo/xRpNuj1Vk/uu-team-8?orgId=1&from=1677020400000&to=1677078000000&panelId=2" width="70%" height="400"></iframe>
+                    <iframe src="https://grafana.uu.vojtechpetrasek.com/d-solo/xRpNuj1Vk/uu-team-8?orgId=1&from=1684744655503&to=1684766255503&panelId=18" width="450" height="200" frameborder="0"></iframe>
                 </GraphContainer>
             }
         </Wrapper>
@@ -38,6 +38,13 @@ const Title = styled("h1")`
     text-align: center;
     margin-top: 120px;
     text-shadow: 0px 4px 7px rgba(0, 0, 0, 0.25);
+
+    @media (max-width: 420px) {
+        font-size: 55px;
+    }
+    @media (max-width: 280px) {
+        font-size: 40px;
+    }
 `
 
 const GraphContainer = styled("div")`
