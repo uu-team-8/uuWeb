@@ -29,6 +29,7 @@ const Login: FC<LoginProps> = ({ login }) => {
     const toast = useToast()
 
     async function sendLogInfo(e: FormEvent) {
+        const res = await fetch("https://api.uu.vojtechpetrasek.com/v4/gateway",)
         e.preventDefault();
         setIsLoading(true)
         if (userPassword == "" || userEmail == "") {
