@@ -17,7 +17,7 @@ const Temperature: FC = () => {
 
                 :
                 <GraphContainer>
-                    <iframe src="https://grafana.uu.vojtechpetrasek.com/d-solo/xRpNuj1Vk/uu-team-8?orgId=1&from=1677020400000&to=1677078000000&panelId=2" width="70%" height="400"></iframe>
+                    <iframe src="https://grafana.uu.vojtechpetrasek.com/d-solo/xRpNuj1Vk/uu-team-8?orgId=1&from=1684744655503&to=1684766255503&panelId=18" width="450" height="200" frameborder="0"></iframe>
                 </GraphContainer>
             }
         </Wrapper>
