@@ -1,58 +1,24 @@
 import type { FC } from "react";
 import styled from "@emotion/styled";
-import { useLocation } from "wouter";
-import { useState, useEffect } from "react";
+
+import { useAuth } from "../auth";
 
 import Icon from "../assets/icons/logout.svg";
 
-import { Session } from "../components/left-panel";
-
 interface ButtonProps {
-    expanded: boolean
+  expanded: boolean
 }
 
 const LogoutButton: FC<ButtonProps> = ({ expanded }) => {
-  const [location, setLocation] = useLocation();
-  const [userSess, setUserSess] = useState<Session[]>([]);
+  const [loggedUser, logout] = useAuth();
+  console.log(logout);
 
-  function getUser() {
-    const sessionString = localStorage.getItem("session");
-    if (!sessionString) {
-        return null;
-    }
-
-    return setUserSess([JSON.parse(sessionString)]);
-}
-
-useEffect(() => {
-    getUser();
-}, []);
-
-  async function Logout (token: string) {
-    localStorage.clear();
-
-    try {    
-      const response = await fetch("http://localhost:3000/logout", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ token: token })
-      });
-
-      setLocation("/prihlaseni")
-
-      } catch (e) {
-      console.log(e);
-  }
-  };
-
-    return (
-      expanded ? 
-      <StyledButton onClick={() => Logout(userSess[0].token)}>Odhlásit se</StyledButton>  
+  return (
+    expanded ?
+      <StyledButton onClick={logout}>Odhlásit se</StyledButton>
       :
-      <LogoutIcon  src={Icon} onClick={() => Logout(userSess[0].token)}/>
-    )
+      <LogoutIcon src={Icon} onClick={logout} />
+  )
 }
 
 const LogoutIcon = styled("img")`

@@ -1,30 +1,15 @@
 import type { FC } from "react";
-import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 
-import { Session } from "../components/left-panel";
+import { useAuth } from "../auth";
 
 const Temperature: FC = () => {
-
-    const [userSess, setUserSess] = useState<Session[]>([]);
-
-    function getUser() {
-        const sessionString = localStorage.getItem("session");
-        if (!sessionString) {
-            return null;
-        }
-
-        return setUserSess([JSON.parse(sessionString)]);
-    }
-
-    useEffect(() => {
-        getUser();
-    }, []);
+    const [loggedUser] = useAuth();
 
     return (
         <Wrapper>
             <Title>Teplota</Title>
-            {!userSess[0] ?
+            {!loggedUser ?
 
                 <TextContainer>
                     <p>Pro zobrazení dat se musíte přihlásit !</p>

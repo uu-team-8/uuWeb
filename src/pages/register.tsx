@@ -1,16 +1,15 @@
-import type {FC} from "react";
+import type { FC } from "react";
+import type { Response } from "../types";
+
 import styled from "@emotion/styled";
-import {useState, FormEvent} from "react";
-import {useLocation, Link} from "wouter";
+import { useState, FormEvent } from "react";
+import { useLocation, Link } from "wouter";
 
 import Input from "../components/input";
 import Button from "../components/button";
-import {useToast, ToastState} from "../components/toast";
+import { useToast, ToastState } from "../components/toast";
 
-interface Response {
-    success: boolean,
-    message: string
-}
+import { SendData, GENERAL_ERROR_MESSAGE } from "../network";
 
 const Register: FC = () => {
     const [userName, setUserName] = useState("");
@@ -52,21 +51,15 @@ const Register: FC = () => {
         ;
 
         try {
-            const response = await fetch("http://localhost:3000/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({name: userName, surname: userSurName, email: userEmail, password: userPassword})
-            });
+            const response = await SendData("/register", { name: userName + userSurName, email: userEmail, password: userPassword });
 
             const res: Response = await response.json();
             if (!res.success) {
-                setErrorMess(res.message);
+                setErrorMess(res.message ?? GENERAL_ERROR_MESSAGE);
                 return;
             }
 
-            toast({text: "Účet byl vytvořen.", buttonText: "OK", state: ToastState.SUCCESS, lifetime: 5});
+            toast({ text: "Účet byl vytvořen.", buttonText: "OK", state: ToastState.SUCCESS, lifetime: 5 });
             setLocation("/prihlaseni");
         } catch (e) {
             console.log(e);
@@ -98,15 +91,15 @@ const Register: FC = () => {
             <RegistrationForm onSubmit={sendRegInfo}>
                 <RegistrationFormTitle>Registrace</RegistrationFormTitle>
 
-                <Input InputPlaceholder="Jméno" InputType="text" InputValue={Name}/>
-                <Input InputPlaceholder="Příjmení" InputType="text" InputValue={SurName}/>
-                <Input InputPlaceholder="Email" InputType="email" InputValue={EmailVal}/>
-                <Input InputPlaceholder="Heslo" InputType="password" InputValue={Password}/>
-                <Input InputPlaceholder="Heslo znovu" InputType="password" InputValue={PasswordCheck}/>
+                <Input InputPlaceholder="Jméno" InputType="text" InputValue={Name} />
+                <Input InputPlaceholder="Příjmení" InputType="text" InputValue={SurName} />
+                <Input InputPlaceholder="Email" InputType="email" InputValue={EmailVal} />
+                <Input InputPlaceholder="Heslo" InputType="password" InputValue={Password} />
+                <Input InputPlaceholder="Heslo znovu" InputType="password" InputValue={PasswordCheck} />
 
                 <ErrorMess>{errorMess}</ErrorMess>
 
-                <Button title="Registrace"/>
+                <Button title="Registrace" />
 
             </RegistrationForm>
 
