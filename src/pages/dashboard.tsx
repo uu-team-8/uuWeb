@@ -4,12 +4,13 @@ import styled from "@emotion/styled";
 
 import { Session } from "../components/left-panel";
 
-import Toast from "../components/toast";
 
-import { ToastState } from "../components/toast";
+import { useToast, ToastState} from "../components/toast";
+
 
 const Home: FC = () => {
     const [userSess, setUserSess] = useState<Session[]>([]);
+    const toast = useToast();
 
 
 
@@ -23,7 +24,8 @@ const Home: FC = () => {
     }
 
     useEffect(() => {
-        getUser();
+        getUser(); 
+        toast({ text: "Účet byl vytvořen.", buttonText: "OK", state: ToastState.SUCCESS, lifetime: 5 })
     }, []);
 
     return (
