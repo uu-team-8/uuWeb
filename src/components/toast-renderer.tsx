@@ -1,23 +1,24 @@
 import type { FC } from "react";
-import { useEffect } from "react";
-import { useContext } from "react";
 import styled from "@emotion/styled";
 import Toast from "./toast";
 import { useToastContext } from "../context/toast";
 
 const ToastRenderer: FC = () => {
-    const { toasts, setToasts } = useToastContext();
+    const { toast, setToast } = useToastContext();
 
-    useEffect(() => {
-        console.log(toasts);
-    }, [toasts.length]);
-    
     return (
+        <>
+        {toast ?
         <Wrapper>
-            {toasts.map((toast, index) => (
-                <Toast {...toast} />
-            ))}
+            <Toast {...toast} />
         </Wrapper>
+
+            :
+
+        null
+
+        }
+        </>
     );
 }
 
