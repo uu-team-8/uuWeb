@@ -2,12 +2,12 @@ import type { FC } from "react";
 import type { Response } from "../types";
 
 import styled from "@emotion/styled";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { useLocation, Link } from "wouter";
 
 import Input from "../components/input";
 import Button from "../components/button";
-import { useToast, ToastState } from "../components/toast";
+import Toast, { useToast, ToastState } from "../components/toast";
 
 import { SendData, GENERAL_ERROR_MESSAGE } from "../network";
 
@@ -42,8 +42,6 @@ const Register: FC = () => {
 
         const passwordRegex = /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
         const passwordStrenght = passwordRegex.test(userPassword);
-        console.log(userPassword, passwordStrenght);
-
         if (!passwordStrenght) {
             setErrorMess("Heslo musí obsahovat nejméně 8 znaků, jedno velké písmeno, jedno malé písmeno, jedno číslo a jeden speciální znak!")
             return
@@ -100,9 +98,7 @@ const Register: FC = () => {
                 <ErrorMess>{errorMess}</ErrorMess>
 
                 <Button title="Registrace" />
-
             </RegistrationForm>
-
             <UserAction>
                 <StyledP>
                     Máte již účet?

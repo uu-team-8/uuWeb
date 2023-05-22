@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { useEffect } from "react";
 import { useContext } from "react";
 import styled from "@emotion/styled";
 import Toast from "./toast";
@@ -7,6 +8,10 @@ import { useToastContext } from "../context/toast";
 const ToastRenderer: FC = () => {
     const { toasts, setToasts } = useToastContext();
 
+    useEffect(() => {
+        console.log(toasts);
+    }, [toasts.length]);
+    
     return (
         <Wrapper>
             {toasts.map((toast, index) => (
@@ -22,8 +27,9 @@ const Wrapper = styled.div`
     transform: translateX(-50%);
     z-index: 10;
     top: 0;
+    left: 50%;
     
-    width: 400px;
+    min-width: 400px;
     margin-top: 24px;
     display: flex;
     flex-direction: column;
