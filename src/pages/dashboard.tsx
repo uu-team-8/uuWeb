@@ -1,37 +1,15 @@
 import type { FC } from "react";
-import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 
-import { Session } from "../components/left-panel";
-
-
-import { useToast, ToastState} from "../components/toast";
-
+import { useAuth } from "../auth";x
 
 const Home: FC = () => {
-    const [userSess, setUserSess] = useState<Session[]>([]);
-    const toast = useToast();
-
-
-
-    function getUser() {
-        const sessionString = localStorage.getItem("session");
-        if (!sessionString) {
-            return null;
-        }
-
-        return setUserSess([JSON.parse(sessionString)]);
-    }
-
-    useEffect(() => {
-        getUser(); 
-        toast({ text: "Účet byl vytvořen.", buttonText: "OK", state: ToastState.SUCCESS, lifetime: 5 })
-    }, []);
+    const [loggedUser] = useAuth();
 
     return (
         <Wrapper>
             <Title>Dashboard</Title>
-            {!userSess[0] ?
+            {!loggedUser ?
 
                 <TextContainer>
                     <p>Pro zobrazení dat se musíte přihlásit !</p>

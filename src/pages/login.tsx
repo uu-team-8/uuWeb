@@ -1,4 +1,6 @@
 import type { FC } from "react";
+import type { Response, LoggedUser } from "../types";
+
 import styled from "@emotion/styled";
 import { useState, FormEvent } from "react";
 import { useLocation, Link } from "wouter";
@@ -6,15 +8,17 @@ import { useLocation, Link } from "wouter";
 import Input from "../components/input";
 import Button from "../components/button";
 
-interface data {
-    success: boolean
-    message: string
-    token: string
-    name: string
-    surname: string
+import { SendData } from "../network";
+
+interface LoginResponse extends Response {
+    user: LoggedUser
 }
 
-const Login: FC = () => {
+interface LoginProps {
+    login: (newUser: LoggedUser) => void
+}
+
+const Login: FC<LoginProps> = ({ login }) => {
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
     const [location, setLocation] = useLocation();
@@ -33,35 +37,29 @@ const Login: FC = () => {
         };
 
         try {
-            const response = await fetch("http://localhost:3000/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ email: userEmail, password: userPassword })
-            });
+            const response = await SendData("/login", { email: userEmail, password: userPassword });
 
-            const data: data = await response.json();
-            if (!data.success) {
+            const data: LoginResponse = await response.json();
+            console.log(data);
+            if (!data.success && data.message) {
                 setErrorMess(data.message);
             }
 
-            localStorage.setItem("session", JSON.stringify(data.token));
-
+            login(data.user);
             setLocation("/");
         } catch (e) {
             setErrorMess("Nastala neočekávaná chyba, prosím zkuste se přihlásit znovu");
         }
     };
 
-    function OnChange(Email: string) {
+    function onEmailChange(Email: string) {
         const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         const EmailValid = regex.test(Email);
         setEmailVal(EmailValid)
         setUserEmail(Email)
     };
 
-    function Password(Password: string) {
+    function onPasswordChange(Password: string) {
         setUserPassword(Password)
     };
 
@@ -72,8 +70,8 @@ const Login: FC = () => {
                 <LoginForm onSubmit={sendLogInfo}>
                     <LoginFormTitle>Přihlásit se</LoginFormTitle>
 
-                    <Input InputPlaceholder="Email" InputType="email" InputValue={OnChange} />
-                    <Input InputPlaceholder="Heslo" InputType="password" InputValue={Password} />
+                    <Input InputPlaceholder="Email" InputType="email" InputValue={onEmailChange} />
+                    <Input InputPlaceholder="Heslo" InputType="password" InputValue={onPasswordChange} />
 
                     <ErrorMess>{errorMess}</ErrorMess>
 
@@ -89,6 +87,14 @@ const Login: FC = () => {
                     <Link href="/registrace">
                         <Reg>
                             Vytvořte si ho
+                        </Reg>
+                    </Link>
+                </StyledP>
+                <StyledP>
+                    Bohužel nic neuvidíte, ale chcete se vrátit
+                    <Link href="/">
+                        <Reg>
+                            úvodní stránku
                         </Reg>
                     </Link>
                 </StyledP>
@@ -129,6 +135,7 @@ const LoginFormTitle = styled("h1")`
 `
 const StyledP = styled("p")`
     color: ${p => p.theme.UI.white};
+    padding-top: 15px;
 `
 
 const UserActions = styled("div")`
