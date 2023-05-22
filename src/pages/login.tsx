@@ -25,16 +25,19 @@ const Login: FC<LoginProps> = ({ login }) => {
     const [location, setLocation] = useLocation();
     const [errorMess, setErrorMess] = useState("");
     const [emailVal, setEmailVal] = useState(true);
+    const [isLoading, setIsLoading] = useState(false)
     const toast = useToast()
 
     async function sendLogInfo(e: FormEvent) {
         e.preventDefault();
-
+        setIsLoading(true)
         if (userPassword == "" || userEmail == "") {
             toast({ text: "Vyplňte všechna pole", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
+            setIsLoading(false)
             return;
         } else if (!emailVal) {
             toast({ text: "Neplatný email", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
+            setIsLoading(false)
             return;
         };
 
@@ -52,6 +55,8 @@ const Login: FC<LoginProps> = ({ login }) => {
             toast({ text: "Byl jste úspěšně přihlášen", buttonText: "OK", state: ToastState.SUCCESS, lifetime: 5 });
         } catch (e) {
             toast({ text: "Nastala neočekávaná chyba", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
+        } finally {
+            setIsLoading(false)
         }
     };
 
@@ -78,7 +83,7 @@ const Login: FC<LoginProps> = ({ login }) => {
 
                     <ErrorMess>{errorMess}</ErrorMess>
 
-                    <Button title="Přihlásit se" />
+                    <Button isLoading={isLoading} title="Přihlásit se" />
 
                 </LoginForm>
 

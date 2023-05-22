@@ -20,16 +20,19 @@ const Register: FC = () => {
     const [errorMess, setErrorMess] = useState("");
     const [location, setLocation] = useLocation();
     const toast = useToast();
+    const [isLoading, setIsLoading] = useState(false)
 
     async function sendRegInfo(e: FormEvent) {
         e.preventDefault();
-
+        setIsLoading(true)
         if (userName == "" || userSurName == "" || userPassword == "" || userPasswordCheck == "" || userEmail == "") {
             toast({ text: "Vyplňte všechna pole", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
+            setIsLoading(false)
             return;
         }
         if (userPassword != userPasswordCheck) {
             toast({ text: "Hesla se neshodují", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
+            setIsLoading(false)
             return;
         }
 
@@ -37,6 +40,7 @@ const Register: FC = () => {
         const emailValid = emailRegex.test(userEmail);
         if (!emailValid) {
             toast({ text: "Neplatný email", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
+            setIsLoading(false)
             return;
         }
 
@@ -44,6 +48,7 @@ const Register: FC = () => {
         const passwordStrenght = passwordRegex.test(userPassword);
         if (!passwordStrenght) {
             toast({ text: "Heslo musí obsahovat nejméně 8 znaků, jedno velké písmeno, jedno malé písmeno, jedno číslo a jeden speciální znak!", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
+            setIsLoading(false)
             return
         }
         ;
@@ -54,6 +59,7 @@ const Register: FC = () => {
             const res: Response = await response.json();
             if (!res.success) {
                 toast({ text: res.message ?? GENERAL_ERROR_MESSAGE, buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
+                setIsLoading(false)
                 return;
             }
 
@@ -61,6 +67,8 @@ const Register: FC = () => {
             setLocation("/prihlaseni");
         } catch (e) {
             console.log(e);
+        } finally {
+            setIsLoading(false)
         }
     };
 
@@ -97,7 +105,7 @@ const Register: FC = () => {
 
                 <ErrorMess>{errorMess}</ErrorMess>
 
-                <Button title="Registrace" />
+                <Button isLoading={isLoading} title="Registrace" />
             </RegistrationForm>
             <UserAction>
                 <StyledP>
