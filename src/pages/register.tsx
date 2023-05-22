@@ -47,7 +47,8 @@ const Register: FC = () => {
         if (!passwordStrenght) {
             setErrorMess("Heslo musí obsahovat nejméně 8 znaků, jedno velké písmeno, jedno malé písmeno, jedno číslo a jeden speciální znak!")
             return
-        };
+        }
+        ;
 
         try {
             const response = await SendData("/register", { name: userName + userSurName, email: userEmail, password: userPassword });
@@ -107,58 +108,74 @@ const Register: FC = () => {
                     Máte již účet?
                     <Link href="/prihlaseni"><Log>Přihlašte se</Log></Link>
                 </StyledP>
+                <StyledP>
+                    Bohužel nic neuvidíte, ale chcete se vrátit
+                    <Link href="/">
+                        <Reg>
+                            úvodní stránku
+                        </Reg>
+                    </Link>
+                </StyledP>
             </UserAction>
         </Container>
     )
 }
 
 const Container = styled("div")`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100%;
-    min-width: 100%;
-    background-color: ${p => p.theme.gray.gray20};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  min-width: 100%;
+  background-color: ${p => p.theme.gray.gray20};
 `
 
 const RegistrationFormTitle = styled("h1")`
-    color: ${p => p.theme.UI.white};
-    margin-top: 150px;
-    margin-bottom: 32px;
-    font-weight: 300;
-    font-size: 40px;
-    text-align: center;
-    line-height: 35px;
+  color: ${p => p.theme.UI.white};
+  margin-top: 150px;
+  margin-bottom: 32px;
+  font-weight: 300;
+  font-size: 40px;
+  text-align: center;
+  line-height: 35px;
 `
 
 const RegistrationForm = styled("form")`
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 `
 
 const ErrorMess = styled("p")`
-    margin-top: 20px;
-    max-width: 402px;
-    color: #EF0107;
+  margin-top: 20px;
+  max-width: 402px;
+  color: #EF0107;
 `
 
 const UserAction = styled("div")`
-    display: flex;
-    align-items: center;
-    margin-top: 26px;
-    margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 26px;
+  margin-bottom: 100px;
+`
+
+const Reg = styled("a")`
+  color: #1376C0;
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: 3px;
 `
 
 const StyledP = styled("p")`
-    color: ${p => p.theme.UI.white};
+  color: ${p => p.theme.UI.white};
 `
 
 const Log = styled("a")`
-    color: #1376C0;
-    text-decoration: none;
-    cursor: pointer;
-    margin-left: 3px;
+  color: #1376C0;
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: 3px;
 `
 
 export default Register;

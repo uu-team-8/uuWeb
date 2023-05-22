@@ -90,6 +90,14 @@ const Login: FC<LoginProps> = ({ login }) => {
                         </Reg>
                     </Link>
                 </StyledP>
+                <StyledP>
+                    Bohužel nic neuvidíte, ale chcete se vrátit
+                    <Link href="/">
+                        <Reg>
+                            úvodní stránku
+                        </Reg>
+                    </Link>
+                </StyledP>
             </UserActions>
 
         </Container>
@@ -127,6 +135,7 @@ const LoginFormTitle = styled("h1")`
 `
 const StyledP = styled("p")`
     color: ${p => p.theme.UI.white};
+    padding-top: 15px;
 `
 
 const UserActions = styled("div")`
