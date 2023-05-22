@@ -47,7 +47,7 @@ const Login: FC<LoginProps> = ({ login }) => {
             const data: LoginResponse = await response.json();
             console.log(data);
             if (!data.success && data.message) {
-                setErrorMess(data.message);
+                toast({ text: data.message, buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
             }
 
             login(data.user);

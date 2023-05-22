@@ -47,8 +47,12 @@ const Register: FC = () => {
         const passwordRegex = /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
         const passwordStrenght = passwordRegex.test(userPassword);
         if (!passwordStrenght) {
+<<<<<<< Updated upstream
             toast({ text: "Heslo musí obsahovat nejméně 8 znaků, jedno velké písmeno, jedno malé písmeno, jedno číslo a jeden speciální znak!", buttonText: "OK", state: ToastState.ERROR, lifetime: 5 });
             setIsLoading(false)
+=======
+            toast({ text: "Heslo musí obsahovat nejméně 8 znaků, jedno velké písmeno, jedno malé písmeno, jedno číslo a jeden speciální znak!", buttonText: "OK", state: ToastState.ERROR, lifetime: 15 });
+>>>>>>> Stashed changes
             return
         }
         ;
