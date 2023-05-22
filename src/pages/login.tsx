@@ -20,15 +20,18 @@ const Login: FC = () => {
     const [location, setLocation] = useLocation();
     const [errorMess, setErrorMess] = useState("");
     const [emailVal, setEmailVal] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     async function sendLogInfo(e: FormEvent) {
         e.preventDefault();
-
+        setIsLoading(true);
         if (userPassword == "" || userEmail == "") {
             setErrorMess("Vyplňte všechna pole");
+            setIsLoading(false);
             return;
         } else if (!emailVal) {
             setErrorMess("Neplatný email");
+            setIsLoading(false);
             return;
         };
 
@@ -51,6 +54,8 @@ const Login: FC = () => {
             setLocation("/");
         } catch (e) {
             setErrorMess("Nastala neočekávaná chyba, prosím zkuste se přihlásit znovu");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -67,7 +72,7 @@ const Login: FC = () => {
 
     return (
         <Container>
-
+            {isLoading && <p>Loading...</p>}
             <StyledSection>
                 <LoginForm onSubmit={sendLogInfo}>
                     <LoginFormTitle>Přihlásit se</LoginFormTitle>
