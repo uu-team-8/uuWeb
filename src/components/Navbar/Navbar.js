@@ -1,6 +1,5 @@
 import React from "react";
 
-import user_photo from "../../images/sonic.png";
 import { AuthContext } from "../../context/AuthProvider";
 
 class NavBar extends React.Component {
@@ -109,22 +108,15 @@ class NavBar extends React.Component {
             </div>
             {Object.keys(this.context.user).length !== 0 ? (
               <>
-                <p className="navbar-brand">
-                  Welcome {this.context.user.nickname}
-                </p>
                 <ul className="navbar-nav">
                   <li className="nav-item dropdown">
-                    <img
-                      src={user_photo}
+                    <a
                       className="nav-link dropdown-toggle"
-                      href="/"
-                      id="navbarDarkDropdownMenuLink"
                       role="button"
                       data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                      alt=""
-                      width="70"
-                      height="70"></img>
+                      aria-expanded="false">
+                      Logged as: {this.context.user.nickname}
+                    </a>
                     <ul
                       className="dropdown-menu dropdown-menu-dark"
                       aria-labelledby="navbarDarkDropdownMenuLink">

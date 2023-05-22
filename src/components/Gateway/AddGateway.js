@@ -105,7 +105,7 @@ class AddGateway extends React.Component {
         .then((response) => response.json())
         .then((data) => {
           console.log("Success:", data);
-          this.setState({ gateways: data });
+          window.location.href = "/gateways";
         })
         .catch((error) => {
           console.error("Error:", error);

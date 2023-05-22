@@ -58,25 +58,13 @@ class Gateway extends React.Component {
                   <th scope="row">{this.state.gateways[index].visibility}</th>
                   <th scope="row">Not active</th>
                   <th scope="row">
-                    <button
-                      type="button"
-                      class="btn btn-success m-1"
-                      data-bs-toggle="modal"
-                      data-bs-target="#AddGateway">
+                    <button type="button" class="btn btn-success m-1">
                       Show
                     </button>
-                    <button
-                      type="button"
-                      class="btn btn-warning m-1"
-                      data-bs-toggle="modal"
-                      data-bs-target="#EditGateway">
+                    <button type="button" class="btn btn-warning m-1">
                       Edit
                     </button>
-                    <button
-                      type="button"
-                      class="btn btn-danger m-1"
-                      data-bs-toggle="modal"
-                      data-bs-target="#DeleteGateway">
+                    <button type="button" class="btn btn-danger m-1">
                       Delete
                     </button>
                   </th>
