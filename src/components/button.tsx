@@ -16,18 +16,29 @@ const Button: FC<ButtonProps> = ({ title, isLoading }) => {
 }
 
 const StyledButton = styled.button<{ isLoading: boolean }>`
-  margin-top: 40px;
-  text-align: center;
-  color: white;
-  font-weight: 300;
-  font-size: 20px;
-  border-radius: 15px;
   border-color: transparent;
-  background-color: black;
-  height: 54px;
-  width: 402px;
   position: relative;
   overflow: hidden;
+  text-align: center;
+
+  color: white;
+  background-color: black;
+
+  font-weight: 300;
+  font-size: 20px;
+
+  border-radius: 15px;
+  margin-top: 40px;
+  height: 54px;
+  width: 402px;
+
+  @media (max-width: 420px) {
+    width: 300px;
+  }
+  @media (max-width: 280px) {
+    width: 250px;
+  }
+  
 
   &:hover {
     opacity: 0.8;
@@ -40,13 +51,14 @@ const StyledButton = styled.button<{ isLoading: boolean }>`
 `;
 
 const Spinner = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
 
@@ -55,6 +67,7 @@ const Spinner = styled.div`
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    
     border: 2px solid white;
     border-top-color: transparent;
     animation: spin 1s infinite linear;

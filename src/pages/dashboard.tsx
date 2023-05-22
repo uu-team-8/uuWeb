@@ -16,7 +16,7 @@ const Home: FC = () => {
                 </TextContainer>
 
                 :
-                <p>adw</p>
+                null
             }
         </Wrapper>
     )
@@ -32,6 +32,12 @@ const Title = styled("h1")`
     color: ${p => p.theme.UI.white};
     font-weight: 700;
     font-size: 130px;
+    @media (max-width: 420px) {
+        font-size: 55px;
+    }
+    @media (max-width: 280px) {
+        font-size: 40px;
+    }
     line-height: 26px;
     letter-spacing: -0.25px;
     text-align: center;

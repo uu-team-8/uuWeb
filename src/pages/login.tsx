@@ -144,6 +144,12 @@ const LoginFormTitle = styled("h1")`
 const StyledP = styled("p")`
     color: ${p => p.theme.UI.white};
     padding-top: 15px;
+    @media (max-width: 420px) {
+        width: 300px;
+    }
+    @media (max-width: 280px) {
+        width: 250px;
+    }
 `
 
 const UserActions = styled("div")`

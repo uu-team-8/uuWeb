@@ -38,6 +38,13 @@ const Title = styled("h1")`
     text-align: center;
     margin-top: 120px;
     text-shadow: 0px 4px 7px rgba(0, 0, 0, 0.25);
+
+    @media (max-width: 420px) {
+        font-size: 55px;
+    }
+    @media (max-width: 280px) {
+        font-size: 40px;
+    }
 `
 
 const GraphContainer = styled("div")`

@@ -62,6 +62,10 @@ const ModalContainer = styled.div`
     background: #E3E3E3;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08), 0px 4px 20px rgba(0, 0, 0, 0.12);
     border-radius: 14px;
+
+    @media (max-width: 280px) {
+        min-width: 250px;
+    }
 `
   
 const ModalTitle = styled.h1`
