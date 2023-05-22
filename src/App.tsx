@@ -23,7 +23,7 @@ import Profile from "./pages/profile";
 
 const App: FC = () => {
   const [location] = useLocation();
-  const [loggedUser, logout] = useAuthBase();
+  const [loggedUser, login, logout] = useAuthBase();
 
   return (
     <SWRConfig value={{ fetcher: (url) => Fetcher(url, loggedUser?.token || "") }}>
@@ -51,7 +51,9 @@ const App: FC = () => {
                 </LeftPanel>
               }
               <Switch>
-                <Route path="/prihlaseni" component={Login} />
+                <Route path="/prihlaseni">
+                  <Login login={login} />
+                </Route>
                 <Route path="/registrace" component={Register} />
 
                 <Route path="/" component={Dashboard} />

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { SendData, GENERAL_ERROR_MESSAGE } from "./network";
 import { useUserContext } from "./context/user";
 
+import type { LoggedUser } from "./types";
+
 export function emergencyLogout() {
     localStorage.removeItem("auth");
     location.replace("/");
@@ -21,14 +23,9 @@ export function loadUserFromLocalStorage(): LoggedUser | null {
     }
 }
 
-export interface LoggedUser {
-    id: number
-    name: string
-    token: string
-}
-
 export function useAuthBase(): [
     LoggedUser | null,
+    (newUser: LoggedUser) => void,
     () => void
 ] {
     const [loggedUser, setLoggedUser] = useState<LoggedUser | null>(
@@ -36,13 +33,14 @@ export function useAuthBase(): [
     );
 
     function login(user: LoggedUser) {
-        localStorage.setItem("auth", JSON.stringify(user));
+        console.log(user);
+        localStorage.setItem("auth", JSON.stringify(user.token));
         setLoggedUser(user);
     }
 
     async function logout() {
         try {
-            await SendData("/auth/logout", {}, loggedUser?.token, "POST");
+            await SendData("/logout", {}, loggedUser?.token, "POST");
             location.replace("/");
             localStorage.removeItem("auth");
             localStorage.removeItem("className");
@@ -52,7 +50,7 @@ export function useAuthBase(): [
         }
     }
 
-    return [loggedUser, logout];
+    return [loggedUser, login, logout];
 }
 
 export function useAuth(): [LoggedUser, () => void] {

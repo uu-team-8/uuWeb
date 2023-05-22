@@ -1,4 +1,6 @@
 import type { FC } from "react";
+import type { Response } from "../types";
+
 import styled from "@emotion/styled";
 import { useState, FormEvent } from "react";
 import { useLocation, Link } from "wouter";
@@ -7,10 +9,7 @@ import Input from "../components/input";
 import Button from "../components/button";
 import { useToast, ToastState } from "../components/toast";
 
-interface Response {
-    success: boolean,
-    message: string
-}
+import { SendData, GENERAL_ERROR_MESSAGE } from "../network";
 
 const Register: FC = () => {
     const [userName, setUserName] = useState("");
@@ -44,24 +43,18 @@ const Register: FC = () => {
         const passwordRegex = /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
         const passwordStrenght = passwordRegex.test(userPassword);
         console.log(userPassword, passwordStrenght);
-        
+
         if (!passwordStrenght) {
             setErrorMess("Heslo musí obsahovat nejméně 8 znaků, jedno velké písmeno, jedno malé písmeno, jedno číslo a jeden speciální znak!")
             return
         };
 
         try {
-            const response = await fetch("http://localhost:3000/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ name: userName, surname: userSurName, email: userEmail, password: userPassword })
-            });
+            const response = await SendData("/register", { name: userName + userSurName, email: userEmail, password: userPassword });
 
             const res: Response = await response.json();
             if (!res.success) {
-                setErrorMess(res.message);
+                setErrorMess(res.message ?? GENERAL_ERROR_MESSAGE);
                 return;
             }
 

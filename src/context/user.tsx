@@ -1,7 +1,6 @@
 import type { FC } from "react";
+import type { LoggedUser } from "../types";
 import createGenericContext from "./create-generic-context";
-
-import { LoggedUser } from "../auth";
 
 interface UserContextProps {
     user: LoggedUser | null
