@@ -40,14 +40,13 @@ class Device extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        var graph_data = {
-          labels: [],
-          datasets: [],
-        };
+        var graph_data = [];
         data.forEach((element) => {
           if (element._field === "temperature") {
-            graph_data.datasets.push(element._value);
-            graph_data.labels.push(element._time);
+            graph_data.push({
+              name: element._time,
+              [element._field]: element._value,
+            });
           }
         });
         console.log("data");
