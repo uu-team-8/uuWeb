@@ -21,6 +21,7 @@ import Dashboard from "./pages/dashboard";
 import Temperature from "./pages/temperature";
 import Humidity from "./pages/humidity";
 import Profile from "./pages/profile";
+import CreateGateway from "./pages/create-gateway";
 
 const App: FC = () => {
   const [location] = useLocation();
@@ -62,6 +63,7 @@ const App: FC = () => {
                 <Route path="/teplota" component={Temperature} />
                 <Route path="/vlhkost" component={Humidity} />
                 <Route path="/profil/:id" component={Profile} />
+                <Route path="/create-gateway" component={CreateGateway} />
               </Switch>
             </AppWrapper >
           </ToastProvider>

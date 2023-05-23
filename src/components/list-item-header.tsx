@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import plus from "../assets/icons/plus.png"
 import {useState} from "react";
 import {CreateModal} from './create-modal'
+import {Link} from "wouter";
 
 interface ListItemHeaderProps {
     title: string
@@ -10,17 +11,16 @@ interface ListItemHeaderProps {
 }
 
 const ListItemHeader: FC<ListItemHeaderProps> = ({title, onClick}) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const toggleModal = () => setIsModalOpen(!isModalOpen)
     return (
         <Wrapper>
             <div>
                 <h3>{title}</h3>
             </div>
-            <AddButton onClick={toggleModal}>
-                <Icon src={plus}/>
-            </AddButton>
-            <CreateModal title="Vytvoření gateway" text='Zadejte potřebné informace pro vytvoření gateway' buttonText="Odeslat" isOpen={isModalOpen} OnClose={toggleModal} OnClick={toggleModal} ></CreateModal>
+            <Link href="/create-gateway">
+                <AddButton>
+                    <Icon src={plus}/>
+                </AddButton>
+            </Link>
         </Wrapper>
     )
 }
@@ -34,6 +34,7 @@ const Wrapper = styled("div")`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 `
 
 const AddButton = styled("div")`
