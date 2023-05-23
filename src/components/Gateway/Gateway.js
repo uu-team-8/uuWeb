@@ -32,6 +32,11 @@ class Gateway extends React.Component {
       });
   };
 
+  showGateway = (id) => {
+    console.log(id);
+    window.location.href = `/gateway/${id}`;
+  };
+
   showGateways = () => {
     return (
       <table class="table text-white">
@@ -58,7 +63,12 @@ class Gateway extends React.Component {
                   <th scope="row">{this.state.gateways[index].visibility}</th>
                   <th scope="row">Not active</th>
                   <th scope="row">
-                    <button type="button" class="btn btn-success m-1">
+                    <button
+                      type="button"
+                      class="btn btn-success m-1"
+                      onClick={() =>
+                        this.showGateway(this.state.gateways[index]._id)
+                      }>
                       Show
                     </button>
                     <button type="button" class="btn btn-warning m-1">

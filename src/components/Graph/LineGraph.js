@@ -21,7 +21,7 @@ class LineGraph extends React.Component {
   render() {
     return (
       <>
-        <ResponsiveContainer width="100%" height="20%">
+        <ResponsiveContainer width="100%" height="90%">
           <LineChart
             width={500}
             height={300}
@@ -37,7 +37,12 @@ class LineGraph extends React.Component {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="temperature" stroke="#82ca9d" />
+            <Line
+              type="monotone"
+              dataKey={this.props.name}
+              connectNulls
+              stroke="#82ca9d"
+            />
           </LineChart>
         </ResponsiveContainer>
       </>

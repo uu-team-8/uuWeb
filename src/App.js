@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useParams,
+} from "react-router-dom";
 
 import Home from "./sites/Home";
 import NotFound from "./sites/NotFound";
@@ -9,6 +14,11 @@ import RegisterPage from "./sites/Register";
 import Account from "./sites/Account";
 import Documentation from "./sites/Docs";
 import Device from "./sites/Device";
+
+function Gateway() {
+  let { id } = useParams();
+  return <Device id={id} />;
+}
 
 function App() {
   return (
@@ -21,7 +31,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/account" element={<Account />} />
         <Route path="/docs" element={<Documentation />} />
-        <Route path="/device" element={<Device />} />
+        <Route path="/gateway/:id" element={<Gateway />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
