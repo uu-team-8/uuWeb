@@ -42,7 +42,7 @@ const Title = styled("h1")`
     letter-spacing: -0.25px;
     text-align: center;
     margin-top: 120px;
-    text-shadow: 0px 4px 7px rgba(0, 0, 0, 0.25);
+    text-shadow: 0 4px 7px rgba(0, 0, 0, 0.25);
 `
 
 const CardContainer = styled("div")`
