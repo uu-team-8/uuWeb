@@ -25,6 +25,8 @@ const ListItemHeader: FC<ListItemHeaderProps> = ({title, onClick}) => {
     )
 }
 const Icon = styled.img`
+  	height: 25px;
+    width: 25px;
 `
 
 const Wrapper = styled("div")`
