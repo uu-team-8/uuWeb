@@ -8,15 +8,14 @@ import { AuthContext } from "../context/AuthProvider";
 import "./page.css";
 import { default as LineGraph } from "../components/Graph/LineGraph";
 
-import components from "../components/DateTime/DateTime";
-
 class Device extends Component {
   static contextType = AuthContext;
   constructor(props) {
     super(props);
     this.state = {
       data: {},
-      agregation_time: "1h",
+      agregation_time: "10m",
+      window_time: "1h",
     };
   }
 
@@ -27,6 +26,12 @@ class Device extends Component {
   agregation_time_change = (e) => {
     this.setState({ agregation_time: e.target.value }, () => this.getData());
     console.log(this.state.agregation_time);
+    console.log(e.target.value);
+  };
+
+  window_time_change = (e) => {
+    this.setState({ window_time: e.target.value }, () => this.getData());
+    console.log(this.state.window_time);
     console.log(e.target.value);
   };
 
@@ -41,7 +46,7 @@ class Device extends Component {
     const token = localStorage.getItem("token");
     const query = {
       gtw_id: this.props.id,
-      start: "-7h",
+      start: "-" + this.state.window_time,
       agregation_time: this.state.agregation_time,
     };
     fetch("https://api.uu.vojtechpetrasek.com/v4/gateway/data", {
@@ -113,23 +118,68 @@ class Device extends Component {
           <div className="row">
             <div className="col-12 p-5" style={{ height: "600px" }}>
               <div class="input-group">
-                <input
+                <snap
                   type="text"
                   class="form-control"
                   aria-label="Text input with segmented dropdown button"
-                />
-                {components.BasicDate}
+                  placeholder="TODO">
+                  TODO
+                </snap>
+
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon3">
+                    Last:
+                  </span>
+                </div>
+                <select
+                  style={{ maxWidth: "10%" }}
+                  class="form-select"
+                  id="inputGroupSelect01"
+                  onChange={this.window_time_change}>
+                  <option value="5m">5 min</option>
+                  <option value="10m">10 min</option>
+                  <option value="15m">15 min</option>
+                  <option value="30m">30 min</option>
+                  <option value selected="1h">
+                    1 hour
+                  </option>
+                  <option value="2h">2 hours</option>
+                  <option value="3h">3 hours</option>
+                  <option value="6h">6 hours</option>
+                  <option value="12h">12 hours</option>
+                  <option value="1d">1 day</option>
+                  <option value="2d">2 days</option>
+                  <option value="7d">7 days</option>
+                  <option value="14d">14 days</option>
+                  <option value="30d">30 days</option>
+                </select>
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon3">
+                    Agregation:
+                  </span>
+                </div>
                 <select
                   style={{ maxWidth: "10%" }}
                   class="form-select"
                   id="inputGroupSelect01"
                   onChange={this.agregation_time_change}>
-                  <option value="5m" selected>
-                    5 min
-                  </option>
+                  <option value="5m">1 min</option>
+                  <option value="5m">5 min</option>
                   <option value="10m">10 min</option>
                   <option value="15m">15 min</option>
                   <option value="30m">30 min</option>
+                  <option value selected="1h">
+                    1 hour
+                  </option>
+                  <option value="2h">2 hours</option>
+                  <option value="3h">3 hours</option>
+                  <option value="6h">6 hours</option>
+                  <option value="12h">12 hours</option>
+                  <option value="1d">1 day</option>
+                  <option value="2d">2 days</option>
+                  <option value="7d">7 days</option>
+                  <option value="14d">14 days</option>
+                  <option value="30d">30 days</option>
                 </select>
                 <button
                   type="button"

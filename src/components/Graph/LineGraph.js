@@ -1,7 +1,7 @@
 import React from "react";
 import {
-  LineChart,
-  Line,
+  ComposedChart,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -18,11 +18,24 @@ class LineGraph extends React.Component {
     };
   }
 
+  CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip">
+          <p className="label">{`${label} : ${payload[0].value}`}</p>
+          <p className="desc">{payload[0].payload.time}</p>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
   render() {
     return (
       <>
         <ResponsiveContainer width="100%" height="90%">
-          <LineChart
+          <ComposedChart
             width={500}
             height={300}
             data={this.props.graph_data}
@@ -32,18 +45,29 @@ class LineGraph extends React.Component {
               left: 20,
               bottom: 5,
             }}>
+            <defs>
+              <linearGradient id="humidity" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#195896" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#195896" stopOpacity={0} />
+              </linearGradient>
+              <linearGradient id="temperature" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#c0ca82" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#c0ca82" stopOpacity={0} />
+              </linearGradient>
+            </defs>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis />
-            <Tooltip />
+            <Tooltip content={this.CustomTooltip} />
             <Legend />
-            <Line
+            <Area
               type="monotone"
               dataKey={this.props.name}
               connectNulls
-              stroke="#82ca9d"
+              stroke={this.props.name === "temperature" ? "#c0ca82" : "#195896"}
+              fill={"url(#" + this.props.name + ")"}
             />
-          </LineChart>
+          </ComposedChart>
         </ResponsiveContainer>
       </>
     );
