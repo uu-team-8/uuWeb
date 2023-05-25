@@ -8,12 +8,15 @@ import { AuthContext } from "../context/AuthProvider";
 import "./page.css";
 import { default as LineGraph } from "../components/Graph/LineGraph";
 
+import components from "../components/DateTime/DateTime";
+
 class Device extends Component {
   static contextType = AuthContext;
   constructor(props) {
     super(props);
     this.state = {
       data: {},
+      agregation_time: "1h",
     };
   }
 
@@ -21,13 +24,25 @@ class Device extends Component {
     this.getData();
   }
 
+  agregation_time_change = (e) => {
+    this.setState({ agregation_time: e.target.value }, () => this.getData());
+    console.log(this.state.agregation_time);
+    console.log(e.target.value);
+  };
+
+  refresh = () => {
+    this.getData();
+  };
+
   getData = () => {
     console.log("data");
     console.log("token", this.context.token);
+    console.log("agregation_time", this.state.agregation_time);
     const token = localStorage.getItem("token");
     const query = {
       gtw_id: this.props.id,
-      start: "-4h",
+      start: "-7h",
+      agregation_time: this.state.agregation_time,
     };
     fetch("https://api.uu.vojtechpetrasek.com/v4/gateway/data", {
       method: "POST",
@@ -43,7 +58,7 @@ class Device extends Component {
         data.forEach((element) => {
           if (
             element._field === "temperature" ||
-            element._field === "concentration"
+            element._field === "humidity"
           ) {
             var time = new Date(element._time);
             var hours = time.getHours();
@@ -97,16 +112,39 @@ class Device extends Component {
           </div>
           <div className="row">
             <div className="col-12 p-5" style={{ height: "600px" }}>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  aria-label="Text input with segmented dropdown button"
+                />
+                {components.BasicDate}
+                <select
+                  style={{ maxWidth: "10%" }}
+                  class="form-select"
+                  id="inputGroupSelect01"
+                  onChange={this.agregation_time_change}>
+                  <option value="5m" selected>
+                    5 min
+                  </option>
+                  <option value="10m">10 min</option>
+                  <option value="15m">15 min</option>
+                  <option value="30m">30 min</option>
+                </select>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  onClick={this.refresh}>
+                  Refresh
+                </button>
+              </div>
               <h3> Temperature </h3>
-
               {this.state.data && (
-                <>
-                  <LineGraph graph_data={this.state.data} name="temperature" />
-                  <LineGraph
-                    graph_data={this.state.data}
-                    name="concentration"
-                  />
-                </>
+                <LineGraph graph_data={this.state.data} name="temperature" />
+              )}
+              <h3> Humidity</h3>
+              {this.state.data && (
+                <LineGraph graph_data={this.state.data} name="humidity" />
               )}
               {/*<LineGraph data={this.state.temp} time={this.state.time} />*/}
             </div>
