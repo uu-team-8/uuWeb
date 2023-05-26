@@ -125,7 +125,7 @@ class Device extends Component {
           </div>
           <div className="row">
             <div className="col-12 p-5" style={{ height: "600px" }}>
-              <div class="input-group">
+              <div className="input-group">
                 <div className="col-6" style={{padding: "0 10px"}}>
                   <DateTime/>
                 </div>
