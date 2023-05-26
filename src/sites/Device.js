@@ -33,8 +33,8 @@ class Device extends Component {
 
   date_time_change = (newValue) => {
 
-      const startDate = new Date(newValue[0]).toString(); // Convert start date to ISO string
-      const endDate = new Date(newValue[1]).toString(); // Convert end date to ISO string
+      const startDate = new Date(newValue[0]).toString();
+      const endDate = new Date(newValue[1]).toString();
       console.log(startDate)
       console.log(endDate)
       this.setState({ date_range: { start: startDate, end: endDate } }, () => this.getData());
@@ -54,6 +54,7 @@ class Device extends Component {
     console.log("data");
     console.log("token", this.context.token);
     console.log("agregation_time", this.state.agregation_time);
+      console.log("date_range", this.state.agregation_time);
     const token = localStorage.getItem("token");
     const query = {
       gtw_id: this.props.id,
@@ -91,8 +92,8 @@ class Device extends Component {
         console.log(graph_data);
 
         graph_data.sort((a, b) => {
-          var a_time = new Date(a.time);
-          var b_time = new Date(b.time);
+          var a_time = new Date();
+          var b_time = new Date();
           console.log(a_time);
           console.log(b_time);
           if (a_time < b_time) {
