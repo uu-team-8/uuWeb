@@ -1,8 +1,6 @@
 import type {FC} from "react";
 import styled from "@emotion/styled";
 import plus from "../assets/icons/plus.png"
-import {useState} from "react";
-import {CreateModal} from './create-modal'
 import {Link} from "wouter";
 
 interface ListItemHeaderProps {

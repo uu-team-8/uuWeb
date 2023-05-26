@@ -5,6 +5,9 @@ import styled from "@emotion/styled";
 import ListItemHeader from "../components/list-item-header";
 import ListItem from "../components/list-item";
 
+
+
+
 const Profile: FC = () => {
     return (
         <Wrapper>
