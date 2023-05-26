@@ -31,10 +31,13 @@ class Device extends Component {
     console.log(e.target.value);
   };
 
-  date_time_change = (e) =>{
-      this.setState({date_time: e.target.value}, ()=>this.getData());
-      console.log(this.state.date_time);
-      console.log(e.target.value)
+  date_time_change = (newValue) => {
+
+      const startDate = new Date(newValue[0]).toString(); // Convert start date to ISO string
+      const endDate = new Date(newValue[1]).toString(); // Convert end date to ISO string
+      console.log(startDate)
+      console.log(endDate)
+      this.setState({ date_range: { start: startDate, end: endDate } }, () => this.getData());
   };
 
   window_time_change = (e) => {
@@ -127,7 +130,7 @@ class Device extends Component {
             <div className="col-12 p-5" style={{ height: "600px" }}>
               <div className="input-group">
                 <div className="col-6" style={{padding: "0 10px"}}>
-                  <DateTime/>
+                    <DateTime onChange={this.date_time_change} />
                 </div>
                 <div className="col-6" style={{padding: "8px 10px"}}>
                     <FormControl fullWidth>
@@ -137,6 +140,7 @@ class Device extends Component {
                             id="demo-simple-select"
                             label="Granularity"
                             onChange={this.agregation_time_change}
+                            defaultValue="10m"
                         >
                             <MenuItem value="1m">1 minute</MenuItem>
                             <MenuItem value="5m">5 minutes</MenuItem>
