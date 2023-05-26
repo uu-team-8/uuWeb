@@ -2,11 +2,13 @@ import React, { Component } from "react";
 
 import NavBar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
+import DateTime from "../components/DateTime/DateTime";
 
 import { AuthContext } from "../context/AuthProvider";
 
 import "./page.css";
 import { default as LineGraph } from "../components/Graph/LineGraph";
+import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 
 class Device extends Component {
   static contextType = AuthContext;
@@ -27,6 +29,12 @@ class Device extends Component {
     this.setState({ agregation_time: e.target.value }, () => this.getData());
     console.log(this.state.agregation_time);
     console.log(e.target.value);
+  };
+
+  date_time_change = (e) =>{
+      this.setState({date_time: e.target.value}, ()=>this.getData());
+      console.log(this.state.date_time);
+      console.log(e.target.value)
   };
 
   window_time_change = (e) => {
@@ -118,75 +126,42 @@ class Device extends Component {
           <div className="row">
             <div className="col-12 p-5" style={{ height: "600px" }}>
               <div class="input-group">
-                <snap
-                  type="text"
-                  class="form-control"
-                  aria-label="Text input with segmented dropdown button"
-                  placeholder="TODO">
-                  TODO
-                </snap>
-
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon3">
-                    Last:
-                  </span>
+                <div className="col-6" style={{padding: "0 10px"}}>
+                  <DateTime/>
                 </div>
-                <select
-                  style={{ maxWidth: "10%" }}
-                  class="form-select"
-                  id="inputGroupSelect01"
-                  onChange={this.window_time_change}>
-                  <option value="5m">5 min</option>
-                  <option value="10m">10 min</option>
-                  <option value="15m">15 min</option>
-                  <option value="30m">30 min</option>
-                  <option value selected="1h">
-                    1 hour
-                  </option>
-                  <option value="2h">2 hours</option>
-                  <option value="3h">3 hours</option>
-                  <option value="6h">6 hours</option>
-                  <option value="12h">12 hours</option>
-                  <option value="1d">1 day</option>
-                  <option value="2d">2 days</option>
-                  <option value="7d">7 days</option>
-                  <option value="14d">14 days</option>
-                  <option value="30d">30 days</option>
-                </select>
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon3">
-                    Agregation:
-                  </span>
+                <div className="col-6" style={{padding: "8px 10px"}}>
+                    <FormControl fullWidth>
+                        <InputLabel id="granularity">Granularity</InputLabel>
+                        <Select
+                            labelId="granularity"
+                            id="demo-simple-select"
+                            label="Granularity"
+                            onChange={this.agregation_time_change}
+                        >
+                            <MenuItem value="1m">1 minute</MenuItem>
+                            <MenuItem value="5m">5 minutes</MenuItem>
+                            <MenuItem value="10m">10 minutes</MenuItem>
+                            <MenuItem value="15m">15 minutes</MenuItem>
+                            <MenuItem value="30m">30 minutes</MenuItem>
+                            <MenuItem value="1h">1 hour</MenuItem>
+                            <MenuItem value="2h">2 hours</MenuItem>
+                            <MenuItem value="3h">3 hours</MenuItem>
+                            <MenuItem value="6h">6 hours</MenuItem>
+                            <MenuItem value="12h">12 hours</MenuItem>
+                            <MenuItem value="1d">1 day</MenuItem>
+                            <MenuItem value="2d">2 days</MenuItem>
+                            <MenuItem value="7d">7 days</MenuItem>
+                            <MenuItem value="30d">30 days</MenuItem>
+                        </Select>
+                    </FormControl>
                 </div>
-                <select
-                  style={{ maxWidth: "10%" }}
-                  class="form-select"
-                  id="inputGroupSelect01"
-                  onChange={this.agregation_time_change}>
-                  <option value="5m">1 min</option>
-                  <option value="5m">5 min</option>
-                  <option value="10m">10 min</option>
-                  <option value="15m">15 min</option>
-                  <option value="30m">30 min</option>
-                  <option value selected="1h">
-                    1 hour
-                  </option>
-                  <option value="2h">2 hours</option>
-                  <option value="3h">3 hours</option>
-                  <option value="6h">6 hours</option>
-                  <option value="12h">12 hours</option>
-                  <option value="1d">1 day</option>
-                  <option value="2d">2 days</option>
-                  <option value="7d">7 days</option>
-                  <option value="14d">14 days</option>
-                  <option value="30d">30 days</option>
-                </select>
-                <button
-                  type="button"
-                  class="btn btn-outline-secondary"
-                  onClick={this.refresh}>
-                  Refresh
-                </button>
+                  <button
+                      type="button"
+                      style={{width:"100%", margin:"10px", borderRadius:"5px"}}
+                      className="btn btn-outline-secondary"
+                      onClick={this.refresh}>
+                      Refresh
+                  </button>
               </div>
               <h3> Temperature </h3>
               {this.state.data && (
