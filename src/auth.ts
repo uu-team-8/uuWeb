@@ -3,6 +3,7 @@ import { SendData, GENERAL_ERROR_MESSAGE } from "./network";
 import { useUserContext } from "./context/user";
 
 import type { LoggedUser } from "./types";
+import { useToast, ToastState } from "./components/toast";
 
 export function emergencyLogout() {
     localStorage.removeItem("auth");
@@ -32,10 +33,13 @@ export function useAuthBase(): [
         loadUserFromLocalStorage()
     );
 
+    const toast = useToast();
+
     function login(user: LoggedUser) {
         console.log(user);
         localStorage.setItem("auth", JSON.stringify(user.token));
         setLoggedUser(user);
+        console.log(user);   
     }
 
     async function logout() {
@@ -45,6 +49,7 @@ export function useAuthBase(): [
             localStorage.removeItem("auth");
             localStorage.removeItem("className");
             setLoggedUser(null);
+            toast({ text: "Uživatel byl odhlášen.", buttonText: "OK", state: ToastState.SUCCESS, lifetime: 5 });
         } catch (e) {
             alert(GENERAL_ERROR_MESSAGE);
         }
@@ -53,7 +58,7 @@ export function useAuthBase(): [
     return [loggedUser, login, logout];
 }
 
-export function useAuth(): [LoggedUser, () => void] {
+export function  useAuth(): [LoggedUser, () => void] {
     const auth = useUserContext();
 
     return [auth.user!, auth.logout];

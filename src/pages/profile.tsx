@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import useLocation from "wouter/use-location";
 
 import styled from "@emotion/styled";
 
@@ -7,8 +8,22 @@ import ListItem from "../components/list-item";
 
 
 
-
 const Profile: FC = () => {
+
+    async function GetGateWays(){
+        try{
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    
+    const[location, setLocation] = useLocation()
+    
+    function ChangeRoute(){
+        setLocation("/create-gateway")
+    }
+
     return (
         <Wrapper>
             <Top>
@@ -18,14 +33,14 @@ const Profile: FC = () => {
             </Top>
 
             <ListItemsWrapper>
-                <ListItemHeader title="Gateways" />
+                <ListItemHeader title="Gateways" onClick={ChangeRoute} />
                 <ListItem image="https://thumbs.dreamstime.com/b/positive-business-guy-smiling-crossing-hands-standing-studio-confident-businessman-white-background-isolated-166659589.jpg" label="Arduino, pracovna" />
                 <ListItem image="https://thumbs.dreamstime.com/b/positive-business-guy-smiling-crossing-hands-standing-studio-confident-businessman-white-background-isolated-166659589.jpg" label="Arduino, pracovna" />
                 <ListItem image="https://thumbs.dreamstime.com/b/positive-business-guy-smiling-crossing-hands-standing-studio-confident-businessman-white-background-isolated-166659589.jpg" label="Arduino, pracovna" />
             </ListItemsWrapper>
 
             <ListItemsWrapper>
-                <ListItemHeader title="Zaměstnanci" />
+                <ListItemHeader title="Zaměstnanci"  onClick={ChangeRoute}/>
                 <ListItem image="https://thumbs.dreamstime.com/b/positive-business-guy-smiling-crossing-hands-standing-studio-confident-businessman-white-background-isolated-166659589.jpg" label="Arduino, pracovna" />
                 <ListItem image="https://thumbs.dreamstime.com/b/positive-business-guy-smiling-crossing-hands-standing-studio-confident-businessman-white-background-isolated-166659589.jpg" label="Arduino, pracovna" />
                 <ListItem image="https://thumbs.dreamstime.com/b/positive-business-guy-smiling-crossing-hands-standing-studio-confident-businessman-white-background-isolated-166659589.jpg" label="Arduino, pracovna" />

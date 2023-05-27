@@ -44,7 +44,7 @@ const CreateGateway: FC = () => {
                 :
                 <StyledSection>
                     <GatewayForm onSubmit={sendGTWInfo}>
-                        <GatewayFormTitle>Přidat Gateway</GatewayFormTitle>
+                        <Title>Přidat Gateway</Title>
                         <Input InputPlaceholder="Klíč Gatewaye" InputType="text" InputValue={onIdChange}/>
                         <Input InputPlaceholder="Jmeno Gatewaye" InputType="text" InputValue={onNameChange}/>
 
@@ -65,11 +65,12 @@ const Wrapper = styled("div")`
 const Title = styled("h1")`
   color: ${p => p.theme.UI.white};
   font-weight: 700;
-  font-size: 130px;
+  font-size: 40px;
   line-height: 26px;
   letter-spacing: -0.25px;
   text-align: center;
   margin-top: 120px;
+  margin-bottom: 26px;
   text-shadow: 0px 4px 7px rgba(0, 0, 0, 0.25);
 
   @media (max-width: 420px) {
@@ -98,18 +99,5 @@ const GatewayForm = styled("form")`
   flex-direction: column;
 `
 
-const GatewayFormTitle = styled("h1")`
-  color: ${p => p.theme.UI.white};
-  margin-top: 104px;
-  margin-bottom: 26px;
-  font-weight: 300;
-  font-size: 40px;
-  text-align: center;
-  line-height: 35px;
-`
-const ErrorMess = styled("p")`
-  margin-top: 10px;
-  color: red;
-`
 
 export default CreateGateway;

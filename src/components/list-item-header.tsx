@@ -14,11 +14,10 @@ const ListItemHeader: FC<ListItemHeaderProps> = ({title, onClick}) => {
             <div>
                 <h3>{title}</h3>
             </div>
-            <Link href="/create-gateway">
-                <AddButton>
+            
+                <AddButton onClick={() => onClick()}>
                     <Icon src={plus}/>
                 </AddButton>
-            </Link>
         </Wrapper>
     )
 }
