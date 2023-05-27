@@ -1,7 +1,6 @@
 export interface LoggedUser {
     id: number
     name: string
-    surname: string
     token: string
 }
 
