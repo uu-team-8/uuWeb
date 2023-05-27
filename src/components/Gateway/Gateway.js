@@ -32,6 +32,43 @@ class Gateway extends React.Component {
       });
   };
 
+  editData = (data) => {
+    console.log(data);
+    fetch("https://api.uu.vojtechpetrasek.com/v1/gateway", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        this.setState({ gateways: data });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Něco se pokazilo");
+      });
+  };
+
+  delete = (data) => {
+    console.log(data);
+    fetch("https://api.uu.vojtechpetrasek.com/v1/gateway/delete/" + data, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Něco se pokazilo");
+      });
+  };
+
   showGateway = (id) => {
     console.log(id);
     window.location.href = `/gateway/${id}`;
@@ -74,16 +111,16 @@ class Gateway extends React.Component {
                     <button type="button" class="btn btn-warning m-1">
                       Edit
                     </button>
-                    <button type="button" class="btn btn-danger m-1">
+                    <button type="button" class="btn btn-danger m-1" onClick={() => this.delete(this.state.gateways[index]._id)}>
                       Delete
                     </button>
                   </th>
-                </tr>
+                </tr >
               </>
             );
           })}
         </tbody>
-      </table>
+      </table >
     );
   };
   render() {
