@@ -1,14 +1,69 @@
 import type { FC } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
+
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+
+import LineChart from "../components/line-chart";
 
 import { useAuth } from "../auth";
 
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+);
+
+export const options = {
+    responsive: true,
+    plugins: {
+        legend: {
+            position: 'bottom' as const,
+        },
+    },
+};
+
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+export const data = {
+    labels,
+    datasets: [
+        {
+            label: 'Dataset 1',
+            data: { "January": 1000 },
+            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        },
+        {
+            label: 'Dataset 2',
+            data: { "February": 1000 },
+            borderColor: 'rgb(53, 162, 235)',
+            backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        },
+    ],
+};
+
 const Temperature: FC = () => {
     const [loggedUser] = useAuth();
+    const [chartData, setChartData] = useState();
 
     return (
         <Wrapper>
-            <Title>Teplota</Title>
+            <H1>Teplota</H1>
             {!loggedUser ?
 
                 <TextContainer>
@@ -16,8 +71,9 @@ const Temperature: FC = () => {
                 </TextContainer>
 
                 :
+
                 <GraphContainer>
-                    <iframe src="https://grafana.uu.vojtechpetrasek.com/d-solo/xRpNuj1Vk/uu-team-8?orgId=1&from=1684744655503&to=1684766255503&panelId=18" width="450" height="200" frameborder="0"></iframe>
+                    <Line options={options} data={data} />
                 </GraphContainer>
             }
         </Wrapper>
@@ -29,7 +85,7 @@ const Wrapper = styled("div")`
     height: 100%;
 `
 
-const Title = styled("h1")`
+const H1 = styled("h1")`
     color: ${p => p.theme.UI.white};
     font-weight: 700;
     font-size: 130px;
@@ -50,15 +106,11 @@ const Title = styled("h1")`
 const GraphContainer = styled("div")`
     display: flex;
     flex-direction: column;
-    margin-top: 160px;
-    width: 100%;
-    display: flex;
     align-items: center;
-
-    > iframe {
-        border: 0px;
-    }
+    width: 100%;
+    padding: 80px;
 `
+
 const TextContainer = styled("div")`
     display: flex;
     flex-direction: row;
