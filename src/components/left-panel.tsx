@@ -19,6 +19,7 @@ interface LeftPanelProps {
 const LeftPanel: FC<LeftPanelProps> = ({ children }) => {
     const [expanded, setExpanded] = useState(false);
     const [loggedUser] = useAuth();
+    console.log(loggedUser);
 
     return (
         <LeftPanelWrapper expanded={expanded}>
