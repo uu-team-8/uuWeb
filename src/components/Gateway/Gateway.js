@@ -1,6 +1,7 @@
 import React from "react";
 
 import AddGateway from "./AddGateway";
+import EditGateway from "./EditGateway";
 
 class Gateway extends React.Component {
   constructor(props) {
@@ -108,7 +109,7 @@ class Gateway extends React.Component {
                       }>
                       Show
                     </button>
-                    <button type="button" class="btn btn-warning m-1">
+                    <button type="button" class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#EditGateway">
                       Edit
                     </button>
                     <button type="button" class="btn btn-danger m-1" onClick={() => this.delete(this.state.gateways[index]._id)}>
@@ -135,6 +136,7 @@ class Gateway extends React.Component {
           Add Gateway
         </button>
 
+        <EditGateway />
         <AddGateway />
         {this.showGateways()}
       </>
