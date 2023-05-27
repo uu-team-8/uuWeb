@@ -18,6 +18,7 @@ class Device extends Component {
       data: {},
       agregation_time: "10m",
       window_time: "1h",
+      date_range: { startDate: "", endDate: "" }
     };
   }
 
@@ -32,9 +33,11 @@ class Device extends Component {
   };
 
   date_time_change = (newValue) => {
-
-      const startDate = new Date(newValue[0]).toString();
-      const endDate = new Date(newValue[1]).toString();
+      const now = Date.now();
+      const date_start = Math.floor((new Date(newValue[0]) - now)/1000/60/60/24);
+      const date_end = Math.floor((new Date(newValue[1]) - now)/1000/60/60/24);
+      const startDate = date_start + "d";
+      const endDate = date_end + "d";
       console.log(startDate)
       console.log(endDate)
       this.setState({ date_range: { start: startDate, end: endDate } }, () => this.getData());
@@ -58,7 +61,8 @@ class Device extends Component {
     const token = localStorage.getItem("token");
     const query = {
       gtw_id: this.props.id,
-      start: "-" + this.state.window_time,
+      start: this.state.date_range.startDate,
+      stop: this.state.date_range.endDate,
       agregation_time: this.state.agregation_time,
     };
     fetch("https://api.uu.vojtechpetrasek.com/v4/gateway/data", {
@@ -92,8 +96,8 @@ class Device extends Component {
         console.log(graph_data);
 
         graph_data.sort((a, b) => {
-          var a_time = new Date();
-          var b_time = new Date();
+          var a_time = new Date(a.time);
+          var b_time = new Date(b.time);
           console.log(a_time);
           console.log(b_time);
           if (a_time < b_time) {
