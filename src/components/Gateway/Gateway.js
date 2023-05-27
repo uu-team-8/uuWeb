@@ -53,10 +53,12 @@ class Gateway extends React.Component {
 
   delete = (data) => {
     console.log(data);
-    fetch("https://api.uu.vojtechpetrasek.com/v1/gateway/delete/" + data, {
-      method: "GET",
+    const token = localStorage.getItem("token");
+    fetch("http://0.0.0.0:5001/v4/gateway/delete/" + data, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
       },
     })
       .then((response) => response.json())
@@ -65,7 +67,7 @@ class Gateway extends React.Component {
       })
       .catch((error) => {
         console.error("Error:", error);
-        alert("Něco se pokazilo");
+        //alert("Něco se pokazilo");
       });
   };
 
