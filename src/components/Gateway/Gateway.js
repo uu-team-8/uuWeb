@@ -16,10 +16,12 @@ class Gateway extends React.Component {
 
   getData = (data) => {
     console.log(data);
-    fetch("https://api.uu.vojtechpetrasek.com/v1/gateway", {
+    const token = localStorage.getItem("token");
+    fetch("https://api.uu.vojtechpetrasek.com/v4/gateways", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -35,7 +37,7 @@ class Gateway extends React.Component {
 
   editData = (data) => {
     console.log(data);
-    fetch("https://api.uu.vojtechpetrasek.com/v1/gateway", {
+    fetch("https://api.uu.vojtechpetrasek.com/v4/gateways", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
