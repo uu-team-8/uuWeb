@@ -55,26 +55,75 @@ class Gateway extends React.Component {
   delete = (data) => {
     console.log(data);
     const token = localStorage.getItem("token");
-    fetch("http://0.0.0.0:5001/v4/gateway/delete/" + data, {
+    fetch("https://api.uu.vojtechpetrasek.com/v4/gateway/delete/" + data, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log("delete");
         console.log("Success:", data);
+        this.getData();
       })
       .catch((error) => {
         console.error("Error:", error);
-        //alert("Něco se pokazilo");
+        alert("Něco se pokazilo");
       });
   };
 
   showGateway = (id) => {
     console.log(id);
     window.location.href = `/gateway/${id}`;
+  };
+
+  deleteGatewayModal = (gtw_id) => {
+    console.log(gtw_id);
+    return (
+      <div
+        class="modal fade"
+        id={gtw_id}
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content bg-dark">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Delete Gateway {gtw_id}
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to delete this gateway?
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                aria-label="Close">
+                No
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger m-1"
+                data-bs-dismiss="modal"
+                onClick={() => this.delete(gtw_id)}>
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   showGateways = () => {
@@ -111,19 +160,29 @@ class Gateway extends React.Component {
                       }>
                       Show
                     </button>
-                    <button type="button" class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#EditGateway">
+                    <button
+                      type="button"
+                      class="btn btn-warning m-1"
+                      data-bs-toggle="modal"
+                      data-bs-target="#EditGateway">
                       Edit
                     </button>
-                    <button type="button" class="btn btn-danger m-1" onClick={() => this.delete(this.state.gateways[index]._id)}>
+                    <button
+                      type="button"
+                      class="btn btn-danger mt-3 mb-3"
+                      data-bs-toggle="modal"
+                      data-bs-target={"#" + this.state.gateways[index]._id}>
                       Delete
+                      {/*onClick={() => this.delete(this.state.gateways[index]._id)}>*/}
                     </button>
+                    {this.deleteGatewayModal(this.state.gateways[index]._id)}
                   </th>
-                </tr >
+                </tr>
               </>
             );
           })}
         </tbody>
-      </table >
+      </table>
     );
   };
   render() {
@@ -141,6 +200,7 @@ class Gateway extends React.Component {
         <EditGateway />
         <AddGateway />
         {this.showGateways()}
+        {this.deleteGatewayModal()}
       </>
     );
   }
