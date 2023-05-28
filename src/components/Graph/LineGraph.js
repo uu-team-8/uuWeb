@@ -34,13 +34,13 @@ class LineGraph extends React.Component {
   render() {
     return (
       <>
-        <ResponsiveContainer width="100%" height="90%">
+        <ResponsiveContainer width="100%" height="50%">
           <ComposedChart
             width={500}
-            height={300}
+            height={150}
             data={this.props.graph_data}
             margin={{
-              top: 50,
+              top: 10,
               right: 30,
               left: 20,
               bottom: 5,
