@@ -18,7 +18,9 @@ class Device extends Component {
       data: {},
       agregation_time: "10m",
       window_time: "1h",
-      date_range: { startDate: "", endDate: "" }
+      date_range: { startDate: "", endDate: "" },
+      isDateSelected: false,
+      availability: 0,
     };
   }
 
@@ -34,13 +36,15 @@ class Device extends Component {
 
   date_time_change = (newValue) => {
       const now = Date.now();
-      const date_start = Math.floor((new Date(newValue[0]) - now)/1000/60/60/24);
-      const date_end = Math.floor((new Date(newValue[1]) - now)/1000/60/60/24);
+      const date_start = Math.floor((new Date(newValue[0]) - now)/1000/60/60/24)+1;
+      const date_end = Math.floor((new Date(newValue[1]) - now)/1000/60/60/24)+1;
+      const range = date_end - date_start;
       const startDate = date_start + "d";
       const endDate = date_end + "d";
       console.log(startDate)
       console.log(endDate)
-      this.setState({ date_range: { start: startDate, end: endDate } }, () => this.getData());
+      console.log("RANGE:", range)
+      this.setState({ date_range: { start: startDate, end: endDate }, isDateSelected: true, availability: range}, () => this.getData());
   };
 
   window_time_change = (e) => {
@@ -57,7 +61,7 @@ class Device extends Component {
     console.log("data");
     console.log("token", this.context.token);
     console.log("agregation_time", this.state.agregation_time);
-      console.log("date_range", this.state.agregation_time);
+    console.log("date_range", this.state.agregation_time);
     const token = localStorage.getItem("token");
     const query = {
       gtw_id: this.props.id,
@@ -122,6 +126,58 @@ class Device extends Component {
   };
 
   render() {
+    const { isDateSelected, availability } = this.state;
+
+    let granularityOptions = [
+      { value: "1m", label: "1 minute", days: [1]},
+      { value: "5m", label: "5 minutes", days: [1]},
+      { value: "10m", label: "10 minutes", days: [1,2] },
+      { value: "15m", label: "15 minutes", days: [1,2,3] },
+      { value: "30m", label: "30 minutes", days: [1,2,3,4,5] },
+
+      { value: "1h", label: "1 hour", days: [1,2,3,4,5,6,7,8,9,10] },
+      { value: "2h", label: "2 hours", days: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20] },
+      { value: "3h", label: "3 hours", days: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20] },
+      { value: "6h", label: "6 hours", days: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31] },
+      { value: "12h", label: "12 hours", days: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31] },
+      { value: "1d", label: "1 day", days: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32] },
+
+      { value: "7d", label: "7 days", days: [32] },
+      { value: "30d", label: "30 days", days: [32,33] },
+    ];
+
+    if(availability<32){
+      granularityOptions = granularityOptions.filter(
+          (option) => option.days.includes(availability)
+      );
+    } else if(availability>=32){
+        granularityOptions = granularityOptions.filter(
+            (option) => option.days.includes(32)
+        );
+    } else if(availability>=365){
+        granularityOptions = granularityOptions.filter(
+            (option) => option.days.includes(33)
+        );
+    }
+
+    // if(availability < 7) {
+    //     granularityOptions = granularityOptions.filter(
+    //         (option) => option.days === 1
+    //     );
+    // } else if(availability <= 7) {
+    //     granularityOptions = granularityOptions.filter(
+    //         (option) => option.days === 7
+    //     );
+    // } else if(availability <= 8) {
+    //     granularityOptions = granularityOptions.filter(
+    //         (option) => option.days === 8
+    //     );
+    // } else if(availability > 8) {
+    //     granularityOptions = granularityOptions.filter(
+    //         (option) => option.days === 30
+    //     );
+    // }
+
     return (
       <div className="" style={{ height: "100%", weight: "100vw" }}>
         <NavBar />
@@ -146,21 +202,11 @@ class Device extends Component {
                             label="Granularity"
                             onChange={this.agregation_time_change}
                             defaultValue="10m"
+                            disabled={!isDateSelected}
                         >
-                            <MenuItem value="1m">1 minute</MenuItem>
-                            <MenuItem value="5m">5 minutes</MenuItem>
-                            <MenuItem value="10m">10 minutes</MenuItem>
-                            <MenuItem value="15m">15 minutes</MenuItem>
-                            <MenuItem value="30m">30 minutes</MenuItem>
-                            <MenuItem value="1h">1 hour</MenuItem>
-                            <MenuItem value="2h">2 hours</MenuItem>
-                            <MenuItem value="3h">3 hours</MenuItem>
-                            <MenuItem value="6h">6 hours</MenuItem>
-                            <MenuItem value="12h">12 hours</MenuItem>
-                            <MenuItem value="1d">1 day</MenuItem>
-                            <MenuItem value="2d">2 days</MenuItem>
-                            <MenuItem value="7d">7 days</MenuItem>
-                            <MenuItem value="30d">30 days</MenuItem>
+                            {granularityOptions.map((option) =>(
+                                <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
                 </div>

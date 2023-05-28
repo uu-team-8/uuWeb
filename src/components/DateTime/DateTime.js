@@ -8,8 +8,8 @@ import {DateRangePicker} from '@mui/x-date-pickers-pro/DateRangePicker';
 
 function DateTime({onChange}) {
     const [date, setDate] = React.useState([
-        dayjs('2023-04-17'),
-        dayjs('2023-04-21'),
+        dayjs(Date.now()),
+        dayjs(Date.now()),
     ]);
 
     return (
