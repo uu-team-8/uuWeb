@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import NavBar from "../components/Navbar/Navbar";
-import Footer from "../components/Footer/Footer";
 import DateTime from "../components/DateTime/DateTime";
 
 import { AuthContext } from "../context/AuthProvider";
@@ -230,7 +229,6 @@ class Device extends Component {
             </div>
           </div>
         </div>
-        {/*<Footer />*/}
       </div>
     );
   }
