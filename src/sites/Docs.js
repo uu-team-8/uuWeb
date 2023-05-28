@@ -18,7 +18,7 @@ class Documentation extends Component {
         <NavBar />
         <iframe
           title="Swagger UI"
-          src="https://api.uu.vojtechpetrasek.com/v3/docs"
+          src="https://api.uu.vojtechpetrasek.com/v4/docs"
           height="100%"
           width="100%"
         />
