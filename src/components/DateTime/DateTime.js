@@ -6,10 +6,10 @@ import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 
 import {DateRangePicker} from '@mui/x-date-pickers-pro/DateRangePicker';
 
-function DateTime() {
+function DateTime({onChange}) {
     const [date, setDate] = React.useState([
-        dayjs('2022-04-17'),
-        dayjs('2022-04-21'),
+        dayjs(Date.now()),
+        dayjs(Date.now()),
     ]);
 
     return (
@@ -18,7 +18,10 @@ function DateTime() {
                 <DemoItem component="DateRangePicker">
                     <DateRangePicker
                         value={date}
-                        onChange={(newValue) => setDate(newValue)}
+                        onChange={(newValue) => {
+                            setDate(newValue);
+                            onChange(newValue); // Invoke the onChange prop with the new date range
+                        }}
                     />
                 </DemoItem>
             </DemoContainer>
