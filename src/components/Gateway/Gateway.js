@@ -138,7 +138,6 @@ class Gateway extends React.Component {
             <th scope="col">Owner</th>
             <th scope="col">Location</th>
             <th scope="col">Apikey</th>
-            <th scope="col">Status</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -152,7 +151,6 @@ class Gateway extends React.Component {
                   <th scope="row">{this.state.gateways[index].owner}</th>
                   <th scope="row">{this.state.gateways[index].location}</th>
                   <th scope="row">{this.state.gateways[index].apikey}</th>
-                  <th scope="row">Not active</th>
                   <th scope="row">
                     <button
                       type="button"

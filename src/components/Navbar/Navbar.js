@@ -71,37 +71,10 @@ class NavBar extends React.Component {
                   </a>
                 </li>
                 {this.token && (
-                  <li className="nav-item dropdown">
-                    <a
-                      className="nav-link dropdown-toggle"
-                      href="/"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false">
-                      Devices
+                  <li className="nav-item">
+                    <a className="nav-link" href="/gateways">
+                      Gateways
                     </a>
-                    <ul className="dropdown-menu">
-                      <li>
-                        <a className="dropdown-item" href="/gateways">
-                          Gateways
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="/">
-                          Sensors
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="/">
-                          LoRa
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="/device">
-                          Test device
-                        </a>
-                      </li>
-                    </ul>
                   </li>
                 )}
               </ul>
