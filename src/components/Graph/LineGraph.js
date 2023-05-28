@@ -22,8 +22,8 @@ class LineGraph extends React.Component {
     if (active && payload && payload.length) {
       return (
         <div className="custom-tooltip">
-          <p className="label">{`${label} : ${payload[0].value}`}</p>
-          <p className="desc">{payload[0].payload.time}</p>
+          <p className="label">{`value : ${payload[0].value}`}</p>
+          <p className="desc">{`date: ${payload[0].payload.time}`}</p>
         </div>
       );
     }
