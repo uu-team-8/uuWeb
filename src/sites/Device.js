@@ -46,7 +46,8 @@ class Device extends Component {
     const token = localStorage.getItem("token");
     const query = {
       gtw_id: this.props.id,
-      start: "-" + this.state.window_time,
+      start:
+        this.state.window_time === true ? "-1h" : "-" + this.state.window_time,
       agregation_time: this.state.agregation_time,
     };
     fetch("https://api.uu.vojtechpetrasek.com/v4/gateway/data", {
