@@ -230,7 +230,7 @@ class Device extends Component {
             </div>
           </div>
         </div>
-        <Footer />
+        {/*<Footer />*/}
       </div>
     );
   }
